@@ -378,8 +378,13 @@ def reset(archive: bool = True) -> dict[str, Any]:
     saved = None
     if archive and Path(src).exists():
         stamp = time.strftime("%Y%m%d_%H%M%S")
-        saved = str(Path("data") / f"account_{stamp}.db")
-        Path("data").mkdir(exist_ok=True)
+        # Ścieżka z DATA_DIR, nie względna do katalogu roboczego. Względna
+        # oznaczała, że archiwum lądowało w CWD procesu — przy starcie
+        # z innego katalogu zgubilibyśmy kopię, a testy zaścigały produkcyjne
+        # data/ własnymi archiwami.
+        archive_dir = Path(config.DATA_DIR)
+        archive_dir.mkdir(parents=True, exist_ok=True)
+        saved = str(archive_dir / f"account_{stamp}.db")
         shutil.copy2(src, saved)
     with db.tx() as c:
         c.execute("DELETE FROM lots")
