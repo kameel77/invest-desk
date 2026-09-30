@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Desk</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">◧</span>
+    <div>
+      <h1>Trading Desk</h1>
+      <p class="sub">GPW + US · sygnały i paper trading</p>
+    </div>
+  </div>
+  <div class="account-strip" id="accountStrip"></div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-view="dashboard">Pulpit</button>
+  <button class="tab" data-view="signals">Sygnały</button>
+  <button class="tab" data-view="positions">Pozycje</button>
+  <button class="tab" data-view="decisions">Dziennik</button>
+  <button class="tab" data-view="market">Rynek</button>
+  <button class="tab" data-view="scanner">Skaner</button>
+  <button class="tab" data-view="backtest">Backtest</button>
+</nav>
+
+<main>
+  <!-- DASHBOARD -->
+  <section class="view active" id="view-dashboard">
+    <div class="card">
+      <h2>Przegląd rynku</h2>
+      <div class="stat-row" id="mktStats"></div>
+    </div>
+    <div class="grid">
+      <div class="card span2">
+        <h2>Equity curve</h2>
+        <canvas id="equityChart" height="220"></canvas>
+        <p class="hint" id="equityHint">—</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Portfel</h2>
+          <button class="btn ghost sm" onclick="resetAccount()">Reset</button>
+        </div>
+        <div class="stat-row" id="accountStats"></div>
+      </div>
+      <div class="card">
+        <h2>Statystyki sygnałów <span class="muted" id="sigWindowMeta"></span></h2>
+        <div class="stat-row" id="sigStats"></div>
+        <div id="scoreBuckets" style="margin-top:14px"></div>
+      </div>
+      <div class="card">
+        <h2>Najlepsze</h2>
+        <table id="topTable"></table>
+      </div>
+      <div class="card">
+        <h2>Najgorsze</h2>
+        <table id="bottomTable"></table>
+      </div>
+      <div class="card">
+        <h2>Ruchy sesji</h2>
+        <div class="split">
+          <div>
+            <h3 class="mini-h">Zyskujące</h3>
+            <table id="gainersTable"></table>
+          </div>
+          <div>
+            <h3 class="mini-h">Tracące</h3>
+            <table id="losersTable"></table>
+          </div>
+        </div>
+      </div>
+      <div class="card span2">
+        <h2>Ostatnie sygnały <span class="muted" id="topSignalsMeta"></span></h2>
+        <table id="topSignals"></table>
+      </div>
+      <div class="card">
+        <h2>Sygnały wg instrumentu</h2>
+        <table id="symSignalsTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNALS -->
+  <section class="view" id="view-signals">
+    <div class="card">
+      <h2>Podsumowanie</h2>
+      <div class="stat-row" id="sigStats2"></div>
+      <div class="split" style="margin-top:14px">
+        <div>
+          <h3 class="mini-h">Sygnały wg dnia</h3>
+          <div id="sigByDay" class="sparkbars"></div>
+        </div>
+        <div>
+          <h3 class="mini-h">Najczęstsze uzasadnienia</h3>
+          <table id="reasonsTable"></table>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h2>Historia sygnałów</h2>
+        <div class="row">
+          <select id="sigSideFilter" class="mini-select">
+            <option value="">Wszystkie</option>
+            <option value="BUY">Tylko BUY</option>
+            <option value="SELL">Tylko SELL</option>
+          </select>
+          <button class="btn" id="btnScanNow">Uruchom skan</button>
+        </div>
+      </div>
+      <table id="signalsTable"></table>
+    </div>
+  </section>
+
+  <!-- POSITIONS -->
+  <section class="view" id="view-positions">
+    <div class="grid">
+      <div class="card span3">
+        <h2>Transze <span class="hint" id="lotsHint">wynik liczony osobno dla kazdego wejscia</span></h2>
+        <table id="lotsTable"></table>
+      </div>
+      <div class="card span3">
+        <h2>Otwarte pozycje</h2>
+        <table id="positionsTable"></table>
+      </div>
+      <div class="card span3">
+        <h2>Zlecenia</h2>
+        <table id="ordersTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section class="view" id="view-decisions">
+    <div class="grid">
+      <div class="card span3">
+        <h2>Dziennik decyzji <span class="hint" id="decisionsHint"></span></h2>
+        <table id="decisionsTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="view" id="view-market">
+    <div class="card">
+      <div class="card-head">
+        <h2>Watchlist</h2>
+        <div class="row">
+          <input id="newSymbol" placeholder="np. CDR.WA" autocomplete="off">
+          <button class="btn" id="btnAddSymbol">Dodaj</button>
+          <button class="btn ghost" id="btnRefreshQuotes">Odśwież kursy</button>
+        </div>
+      </div>
+      <table id="quotesTable"></table>
+    </div>
+  </section>
+
+  <!-- SCANNER -->
+  <section class="view" id="view-scanner">
+    <div class="card">
+      <div class="card-head">
+        <h2>Ranking analizy</h2>
+        <div class="row">
+          <label class="chk"><input type="checkbox" id="autoExecute"> Auto-wykonuj sygnały</label>
+          <button class="btn" id="btnRunFullScan">Pełny skan</button>
+        </div>
+      </div>
+      <table id="analysisTable"></table>
+    </div>
+  </section>
+
+  <!-- BACKTEST -->
+  <section class="view" id="view-backtest">
+    <div class="card">
+      <div class="card-head">
+        <h2>Testy strategii</h2>
+        <div class="row">
+          <button class="btn" id="btnBacktest">Uruchom backtest</button>
+          <button class="btn ghost" id="btnSweep">Pełny sweep</button>
+          <button class="btn ghost" id="btnWalkforward">Walk-forward</button>
+        </div>
+      </div>
+      <p class="hint">Symulacja krok po kroku na zapisanych świecach. Wejścia po
+        otwarciu następnego dnia, te same prowizje i slippage co w paper tradingu.
+        <b>Bez look-ahead</b> — sygnał na barze <i>i</i> używa tylko barów 0..<i>i</i>.</p>
+    </div>
+    <div class="card">
+      <h2>Walk-forward <span class="muted" id="wfMeta"></span></h2>
+      <p class="hint">Konfiguracja jest wybierana na danych treningowych, a oceniana
+        wyłącznie na późniejszych, niewidzianych słupkach. To jedyna metryka, która
+        mówi, czy strategia działa — sweep na tych samych danych nie dowodzi niczego.</p>
+      <div class="stat-row" id="wfStats"></div>
+      <div id="wfFolds" style="margin-top:14px"></div>
+    </div>
+    <div class="card">
+      <h2>Wynik portfela</h2>
+      <div class="stat-row" id="btStats"></div>
+    </div>
+    <div class="card">
+      <h2>Wynik per instrument</h2>
+      <table id="btSymbols"></table>
+    </div>
+    <div class="card">
+      <h2>Ranking konfiguracji <span class="muted" id="sweepMeta"></span></h2>
+      <table id="btSweep"></table>
+    </div>
+  </section>
+</main>
+
+<div id="toast"></div>
+
+<!-- Fullscreen chart modal: click any row to open it -->
+<div class="modal" id="chartModal" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal-head">
+      <div>
+        <h2 id="modalTitle">Wykres</h2>
+        <p class="muted" id="modalSub">—</p>
+      </div>
+      <div class="row">
+        <div class="seg" id="rangeSeg">
+          <button data-range="60" class="seg-btn">3M</button>
+          <button data-range="120" class="seg-btn">6M</button>
+          <button data-range="200" class="seg-btn active">1R</button>
+          <button data-range="500" class="seg-btn">2R</button>
+        </div>
+        <div class="seg" id="colorSeg" title="Konwencja kolorów świec">
+          <button data-color="intl" class="seg-btn active" title="Zielony = wzrost, czerwony = spadek (TradingView, US)">Intl</button>
+          <button data-color="pl" class="seg-btn" title="Zielony = spadek, czerwony = wzrost (GPW, Europa)">PL</button>
+        </div>
+        <button class="btn ghost" id="modalFundBtn">Dane spółki</button>
+        <button class="btn ghost" id="modalClose" data-close-modal>Zamknij ✕</button>
+      </div>
+    </header>
+
+    <div class="modal-tabs" id="modalTabs">
+      <button class="mtab active" data-mtab="price">Wykres</button>
+      <button class="mtab" data-mtab="analysis">Analiza</button>
+      <button class="mtab" data-mtab="fund">Dane spółki</button>
+    </div>
+
+    <div class="modal-body">
+      <section class="mtab-pane active" id="mpane-price">
+        <div id="chartReadout" class="readout">
+          <span class="rd-date" id="rdDate">—</span>
+          <span>O <b id="rdO">—</b></span>
+          <span>H <b id="rdH">—</b></span>
+          <span>L <b id="rdL">—</b></span>
+          <span>C <b id="rdC">—</b></span>
+          <span class="rd-chg" id="rdChg">—</span>
+          <span class="muted">vs zamk. poprzedniego dnia <b id="rdChgPrev">—</b></span>
+          <span>Wol. <b id="rdV">—</b></span>
+          <span class="muted">zmiana sesyjna (C−O) <b id="rdChgPct">—</b></span>
+        </div>
+        <canvas id="priceChart" width="1600" height="560"></canvas>
+        <p class="hint">Najedź na wykres, aby zobaczyć wartości OHLC i wolumen w danym dniu. Esc zamyka.</p>
+      </section>
+
+      <section class="mtab-pane" id="mpane-analysis">
+        <div id="analysisBody" class="muted">Ładowanie…</div>
+      </section>
+
+      <section class="mtab-pane" id="mpane-fund">
+        <div id="fundamentalsBody" class="fund-grid"><p class="muted">Wybierz instrument, aby zobaczyć dane.</p></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ?v= is bumped per deploy: the browser cached a stale app.js and kept
+     rendering the previous candle colours after a fix. -->
+<script src="/static/app.js?v=20260929-1"></script>
+<script src="/static/fundamentals.js?v=20260929-1"></script>
+<script src="/static/analytics.js?v=20260929-1"></script>
+<script src="/static/backtest.js?v=20260929-1"></script>
+</body>
+</html>

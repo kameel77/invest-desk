@@ -1,0 +1,33 @@
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- dane rynkowe i konto (lokalne, nie w repo) ---
+# SQLite z historią transz i dziennikiem decyzji. Kopie i archiwa
+# resetu też zostają lokalnie — data/ bywa 50+ MB.
+data/
+*.db
+*.db-shm
+*.db-wal
+*.bak
+
+# --- runtime ---
+logs/
+*.log
+nohup.out
+*.err
+*.out
+.DS_Store
+
+# --- sekrety ---
+# Wszystko idzie przez os.getenv; ten plik ma nie trafić do gita nawet jeśli
+# ktoś go utworzy lokalnie.
+.env
+.env.*
+*.pem
+*.key
