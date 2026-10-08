@@ -168,6 +168,9 @@ def tx():
 def init_db() -> None:
     conn = get_conn()
     conn.executescript(SCHEMA)
+    # Ensure legacy lots/decisions with NULL hypothesis are migrated to 'trend'
+    conn.execute("UPDATE lots SET hypothesis = 'trend' WHERE hypothesis IS NULL")
+    conn.execute("UPDATE decisions SET hypothesis = 'trend' WHERE hypothesis IS NULL")
     conn.commit()
 
 
@@ -336,7 +339,10 @@ def open_lots(symbol: Optional[str] = None,
         sql += " AND symbol=?"
         args.append(symbol.upper())
     if hypothesis:
-        sql += " AND hypothesis=?"
+        if hypothesis == "trend":
+            sql += " AND (hypothesis=? OR hypothesis IS NULL)"
+        else:
+            sql += " AND hypothesis=?"
         args.append(hypothesis)
     sql += " ORDER BY opened_ts ASC, id ASC"
     return list(get_conn().execute(sql, args))

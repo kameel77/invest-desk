@@ -9,11 +9,20 @@ Run:  .venv/bin/python -m tools.run_hypotheses
 """
 from __future__ import annotations
 
+import argparse
+from pathlib import Path
+import sys
 import time
 from typing import Any, Callable
 
+import numpy as np
+
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from app import backtest as bt
-from app import db, hypotheses as H
+from app import config, db, hypotheses as H
 
 DAY = 86400
 
@@ -74,8 +83,8 @@ FAMILIES: dict[str, Callable] = {
 }
 
 
-def run_family(family: str, symbols: list[str], folds: int = 4,
-               train_years: float = 2.0, test_months: float = 8.0,
+def run_family(family: str, symbols: list[str], folds: int = 8,
+               train_years: float = 2.0, test_months: float = 5.0,
                drivers: dict | None = None) -> dict[str, Any]:
     fn = FAMILIES[family]
     grid = _grid(family)
@@ -85,6 +94,8 @@ def run_family(family: str, symbols: list[str], folds: int = 4,
 
     results = []
     picks: dict[str, int] = {}
+    all_oos_returns: list[float] = []
+
     for f in range(folds):
         test_end = now - f * test_span
         test_start = test_end - test_span
@@ -94,15 +105,13 @@ def run_family(family: str, symbols: list[str], folds: int = 4,
 
         best = None
         for params in grid:
-            # The driver family needs the macro series threaded through; it is
-            # not a tunable, so it goes in with the call rather than the grid.
             rets = H.evaluate(family, lambda d, **kw: fn(d, **kw), symbols, params,
                               train_start, train_end, extra={"drivers": drivers}
                               if family == "driver" else None)
             if len(rets) < 6:
                 continue
             m = H._perf(rets, len(rets), f"train{params}")
-            score = m["sharpe"] * 1.0 + (m["profit_factor"] or 0) * 0.0
+            score = m.get("sharpe_per_trade", m.get("sharpe", 0.0))
             if best is None or score > best[0]:
                 best = (score, params, m, rets)
         if best is None:
@@ -115,6 +124,8 @@ def run_family(family: str, symbols: list[str], folds: int = 4,
                                test_start, test_end, extra={"drivers": drivers}
                                if family == "driver" else None)
         test_m = H._perf(test_rets, len(test_rets), f"test{params}")
+        if test_rets:
+            all_oos_returns.extend(test_rets)
         results.append({
             "fold": f + 1, "params": params,
             "train": train_m, "test": test_m,
@@ -123,9 +134,15 @@ def run_family(family: str, symbols: list[str], folds: int = 4,
     oos = [r["test"] for r in results if r["test"].get("trades")]
     oos_trades = sum(m.get("trades", 0) for m in oos)
     oos_ret = [m["total_return_pct"] for m in oos if "total_return_pct" in m]
-    oos_sh = [m["sharpe"] for m in oos if "sharpe" in m]
+    oos_sh = [m.get("sharpe_per_trade", m.get("sharpe", 0.0)) for m in oos]
     in_sample = [r["train"] for r in results if r["train"].get("trades")]
     is_ret = [m["total_return_pct"] for m in in_sample if "total_return_pct" in m]
+
+    fold_exps = [m["expectancy_per_trade"] for m in oos if "expectancy_per_trade" in m]
+    trade_weighted = round(float(np.mean(all_oos_returns)), 3) if all_oos_returns else None
+    fold_mean = round(float(np.mean(fold_exps)), 3) if fold_exps else None
+    fold_median = round(float(np.median(fold_exps)), 3) if fold_exps else None
+    profitable_folds = sum(1 for exp in fold_exps if exp > 0)
 
     return {
         "family": family,
@@ -137,15 +154,26 @@ def run_family(family: str, symbols: list[str], folds: int = 4,
         "in_sample_avg": round(sum(is_ret) / len(is_ret), 2) if is_ret else None,
         "oos": {
             "trades": oos_trades,
+            "expectancy_trade_weighted": trade_weighted,
+            "expectancy_fold_mean": fold_mean,
+            "expectancy_fold_median": fold_median,
+            "profitable_folds": profitable_folds,
+            "folds_with_data": len(fold_exps),
             "avg_return_pct": round(sum(oos_ret) / len(oos_ret), 2) if oos_ret else None,
-            "profitable_folds": sum(1 for r in oos_ret if r > 0),
-            "folds_with_data": len(oos_ret),
             "avg_sharpe": round(sum(oos_sh) / len(oos_sh), 2) if oos_sh else None,
         },
     }
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Walk-forward analysis of strategy families.")
+    parser.add_argument("--folds", type=int, default=8, help="Number of walk-forward folds (default: 8)")
+    parser.add_argument("--train-years", type=float, default=2.0, help="Years in train window (default: 2.0)")
+    parser.add_argument("--test-months", type=float, default=5.0, help="Months in test window (default: 5.0)")
+    parser.add_argument("--families", nargs="*", default=["ma", "driver", "reversion", "momentum_short"],
+                        help="Families to test (default: all)")
+    args = parser.parse_args()
+
     db.init_db()
     started = time.time()
     symbols = db.get_watchlist()
@@ -158,32 +186,51 @@ def main() -> None:
         print(f"   {s:9} ADV {adv:>14,.0f}  20d {mv:+.1f}%")
 
     out = []
-    for fam in ("ma", "driver", "reversion", "momentum_short"):
+    for fam in args.families:
+        if fam not in FAMILIES:
+            print(f"Nieznana rodzina: {fam}, pomijam.")
+            continue
         print(f"\n=== {fam} ===")
-        r = run_family(fam, symbols, drivers=drivers)
+        r = run_family(fam, symbols, folds=args.folds, train_years=args.train_years,
+                       test_months=args.test_months, drivers=drivers)
         out.append(r)
         oos = r["oos"]
-        exps = [f["test"].get("expectancy_per_trade") for f in r["results"]
-                if f["test"].get("trades")]
-        exps100 = [f["test"].get("compounded_100trades_pct") for f in r["results"]
-                   if f["test"].get("trades")]
-        print(f"  OOS transakcje: {oos['trades']}  zyskowne faldy: "
+        print(f"  OOS transakcje: {oos['trades']}  zyskowne fałdy: "
               f"{oos['profitable_folds']}/{oos['folds_with_data']}  "
               f"Sharpe {oos['avg_sharpe']}")
-        print(f"  expectancy na transakcje: "
-              f"{round(sum(exps)/len(exps), 3) if exps else None}%  "
-              f"(| skumulowane na 100 transakcjach: "
-              f"{round(sum(exps100)/len(exps100), 1) if exps100 else None}%)")
+        print(f"  expectancy trade-weighted: {oos['expectancy_trade_weighted']}%  "
+              f"średnia fałdów: {oos['expectancy_fold_mean']}%  "
+              f"mediana: {oos['expectancy_fold_median']}%")
         for fold in r["results"][:3]:
             t, te = fold["train"], fold["test"]
             print(f"    F{fold['fold']} train exp={t.get('expectancy_per_trade')}% "
-                  f"sh={t.get('sharpe')} | test exp={te.get('expectancy_per_trade')}% "
-                  f"sh={te.get('sharpe')} n={te.get('trades')}")
+                  f"sh={t.get('sharpe_per_trade', t.get('sharpe'))} | "
+                  f"test exp={te.get('expectancy_per_trade')}% "
+                  f"sh={te.get('sharpe_per_trade', te.get('sharpe'))} n={te.get('trades')}")
 
     print(f"\nŁączny czas: {round(time.time() - started, 1)}s")
-    import json
-    with open("/tmp/hypotheses.json", "w") as f:
-        json.dump(out, f, default=str)
+
+    report_payload = {
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "params": {
+            "folds": args.folds,
+            "train_years": args.train_years,
+            "test_months": args.test_months,
+            "families": args.families,
+        },
+        "costs": {
+            "commission_pct": config.COMMISSION_PCT,
+            "slippage_pct": config.SLIPPAGE_PCT,
+        },
+        "results": out,
+    }
+
+    reports_dir = config.DATA_DIR.parent / "reports" if hasattr(config, "DATA_DIR") else Path("reports")
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    report_file = reports_dir / f"hypotheses_{time.strftime('%Y%m%d_%H%M')}.json"
+    with open(report_file, "w") as f:
+        json.dump(report_payload, f, default=str, indent=2)
+    print(f"Zapisano raport: {report_file}")
 
 
 if __name__ == "__main__":

@@ -52,7 +52,7 @@ def _generate_signal(analysis: dict[str, Any], holding: bool) -> dict[str, Any] 
             return {"ts": int(time.time()), "symbol": sym, "side": "SELL", "score": score,
                     "price": price, "strategy": "trend-momentum-exit",
                     "reasons": analysis["reasons"] + ["exit: composite score below threshold"],
-                    "meta": {"components": analysis["components"], "holding": True}}
+                    "meta": {"hypothesis": "trend", "components": analysis["components"], "holding": True}}
         return None
 
     if not analysis["liquidity_ok"]:
@@ -64,7 +64,7 @@ def _generate_signal(analysis: dict[str, Any], holding: bool) -> dict[str, Any] 
         return {"ts": int(time.time()), "symbol": sym, "side": "BUY", "score": score,
                 "price": price, "strategy": "trend-momentum-long",
                 "reasons": analysis["reasons"],
-                "meta": {"components": analysis["components"], "sizing": sizing,
+                "meta": {"hypothesis": "trend", "components": analysis["components"], "sizing": sizing,
                          "rsi": analysis["rsi"], "adv": analysis["adv"]}}
     return None
 
@@ -79,9 +79,9 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
     await market.refresh_candles(universe, rng="2y")
     await market.fetch_quotes(universe)
 
-    # Symbols with at least one open lot. The reversion engine treats a symbol
-    # it already holds as "manage the exit", not "look for another entry".
-    held = {r["symbol"] for r in db.open_lots()}
+    # Symbols with at least one open lot tracked per hypothesis.
+    held_trend = {r["symbol"] for r in db.open_lots(hypothesis="trend")}
+    held_reversion = {r["symbol"] for r in db.open_lots(hypothesis=reversion.HYPOTHESIS)}
     results: list[dict[str, Any]] = []
     new_signals: list[dict[str, Any]] = []
 
@@ -96,7 +96,7 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
     # Each symbol is evaluated by BOTH hypotheses. A name can legitimately be a
     # trend long and a reversion short at the same time, so the two are kept
     # separate rather than merged into one verdict.
-    rv = _run_reversions(universe, held)
+    rv = _run_reversions(universe, held_reversion)
 
     def _record(sig: dict[str, Any], analysis: dict[str, Any]) -> None:
         """Persist a candidate signal, honouring the context gate and dedupe."""
@@ -142,7 +142,7 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
 
     for analysis in analyses:
         results.append(analysis)
-        for sig in (_generate_signal(analysis, analysis["symbol"] in held),
+        for sig in (_generate_signal(analysis, analysis["symbol"] in held_trend),
                     rv.get(analysis["symbol"])):
             if sig is None:
                 continue
@@ -235,9 +235,15 @@ def execute_signals(signal_list: list[dict[str, Any]]) -> list[dict[str, Any]]:
     carrying that hypothesis's stop and target. A second BUY on the same symbol
     opens a second lot rather than averaging into the first — the two calls
     stay separately attributable.
+
+    SELLs are executed before BUYs to free up cash.
     """
     out: list[dict[str, Any]] = []
-    for sig in signal_list:
+    sells = [s for s in signal_list if s.get("side") == "SELL"]
+    buys = [s for s in signal_list if s.get("side") != "SELL"]
+    ordered_signals = sells + buys
+
+    for sig in ordered_signals:
         meta = sig.get("meta") or {}
         hyp = meta.get("hypothesis", "trend")
         if sig["side"] == "BUY":
@@ -259,7 +265,7 @@ def execute_signals(signal_list: list[dict[str, Any]]) -> list[dict[str, Any]]:
         else:
             res = execution.sell(sig["symbol"], signal_id=sig.get("id"),
                                  reason=sig.get("strategy", "signal"),
-                                 hypothesis=hyp if hyp != "trend" else None)
+                                 hypothesis=hyp)
         out.append({"symbol": sig["symbol"], "side": sig["side"], **res})
     return out
 

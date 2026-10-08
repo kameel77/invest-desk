@@ -19,7 +19,10 @@ from typing import Any, Optional
 import numpy as np
 import pandas as pd
 
+from dataclasses import dataclass
+
 from . import config, db, signals
+from .costs import net_return_pct
 
 # --- walk-forward-selected parameters ------------------------------------
 LOOKBACK = 20
@@ -29,6 +32,140 @@ STOP_ATR = 2.5
 TARGET_ATR = 3.0
 
 HYPOTHESIS = "reversion"
+
+
+@dataclass(frozen=True)
+class Trade:
+    entry_bar: int
+    exit_bar: int
+    entry_px: float
+    exit_px: float
+    reason: str
+    ret_pct: float
+
+
+def round_trip_net_pct(entry_px: float, exit_px: float) -> float:
+    """Backwards-compatible alias for net_return_pct."""
+    return net_return_pct(entry_px, exit_px)
+
+
+def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTRY,
+             hold: int = HOLD_DAYS, stop_atr: float = STOP_ATR,
+             target_atr: float = TARGET_ATR, min_stretch_atr: float = 1.0,
+             as_trades: bool = False) -> list[Any]:
+    """Pure simulation of the reversion strategy on historical bars.
+
+    Returns net percentage returns per trade in chronological order (or Trade objects if as_trades=True).
+    Matches live execution rules:
+      - indicators computed if missing (True Range ATR, z-score, ATR stretch)
+      - entry signal at bar i: z <= -z_entry and stretch <= -min_stretch_atr
+      - warmup guard: no entry if ATR is NaN or non-positive
+      - entry fill at open[i+1] * (1 + SLIPPAGE_PCT)
+      - risk levels anchored to entry fill:
+          stop = max(entry - stop_atr * atr_i, entry * 0.90)
+          target = entry + target_atr * atr_i
+      - bar evaluation k in [i+1, min(n-1, i+hold)]:
+          1. Priority 1 (Stop): if low[k] <= stop -> exit at min(stop, open[k])
+          2. Priority 2 (Target): if high[k] >= target -> exit at max(target, open[k])
+          3. Priority 3 (Mean): if z[k] >= 0 -> exit at close[k]
+      - Time stop / EOD: exit at close
+      - Net return accounts for commissions and slippage via costs.net_return_pct.
+      - Next entry earliest at exit_bar + 1.
+    """
+    if df is None or len(df) < lookback + 2:
+        return []
+
+    if "atr" not in df.columns:
+        df = signals.compute_indicators(df)
+    close = df["close"].astype(float)
+    ma = close.rolling(lookback).mean()
+    sd = close.rolling(lookback).std()
+    z = (close - ma) / sd.replace(0, np.nan)
+    atr = df["atr"].astype(float) if "atr" in df.columns else (df["high"] - df["low"]).rolling(14).mean()
+    stretch = (close - ma) / atr.replace(0, np.nan)
+
+    trades: list[Trade] = []
+    n = len(df)
+    i = lookback
+    while i < n - 1:
+        zi = z.iloc[i]
+        if pd.isna(zi) or zi > -z_entry:
+            i += 1
+            continue
+
+        atr_val = atr.iloc[i]
+        if pd.isna(atr_val) or float(atr_val) <= 0:
+            i += 1
+            continue
+
+        si = stretch.iloc[i]
+        if not pd.isna(si) and si > -min_stretch_atr:
+            i += 1
+            continue
+
+        if i + 1 >= n:
+            break
+
+        entry_open = float(df["open"].iloc[i + 1])
+        if pd.isna(entry_open) or entry_open <= 0:
+            i += 1
+            continue
+
+        entry_fill = entry_open * (1.0 + config.SLIPPAGE_PCT)
+        atr_i = float(atr_val)
+        stop = max(entry_fill - stop_atr * atr_i, entry_fill * 0.90)
+        target = entry_fill + target_atr * atr_i
+
+        exit_raw: Optional[float] = None
+        exit_bar: int = min(n - 1, i + hold)
+        reason: str = "time-stop"
+
+        for k in range(i + 1, min(n, i + hold + 1)):
+            low_k = float(df["low"].iloc[k])
+            high_k = float(df["high"].iloc[k])
+            open_k = float(df["open"].iloc[k])
+            close_k = float(df["close"].iloc[k])
+            zk = z.iloc[k]
+
+            if low_k <= stop:
+                exit_raw = min(stop, open_k)
+                exit_bar = k
+                reason = "stop-loss"
+                break
+            if high_k >= target:
+                exit_raw = max(target, open_k)
+                exit_bar = k
+                reason = "take-profit"
+                break
+            if not pd.isna(zk) and zk >= 0:
+                exit_raw = close_k
+                exit_bar = k
+                reason = "mean-reversion"
+                break
+
+        if exit_raw is None:
+            if i + hold < n:
+                exit_bar = i + hold
+                exit_raw = float(df["close"].iloc[exit_bar])
+                reason = "time-stop"
+            else:
+                exit_bar = n - 1
+                exit_raw = float(df["close"].iloc[exit_bar])
+                reason = "eod"
+
+        ret = net_return_pct(entry_open, exit_raw)
+        trades.append(Trade(
+            entry_bar=i + 1,
+            exit_bar=exit_bar,
+            entry_px=entry_open,
+            exit_px=exit_raw,
+            reason=reason,
+            ret_pct=round(ret, 4),
+        ))
+        i = exit_bar + 1
+
+    return trades if as_trades else [t.ret_pct for t in trades]
+
 
 
 def compute(df: pd.DataFrame) -> pd.DataFrame:
@@ -44,6 +181,7 @@ def compute(df: pd.DataFrame) -> pd.DataFrame:
     # not just a low-volatility artefact.
     df["rv_stretch_atr"] = (close - ma) / df["atr"].replace(0, np.nan)
     return df
+
 
 
 def evaluate(symbol: str) -> Optional[dict[str, Any]]:

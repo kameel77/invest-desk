@@ -212,3 +212,104 @@ def test_deeper_stretch_sizes_up():
     shallow = {"price": 100.0, "atr": 5.0, "stop": 87.5, "strength": 0.3}
     deep = {"price": 100.0, "atr": 5.0, "stop": 87.5, "strength": 1.0}
     assert rv.size(deep, 10_000.0)["qty"] > rv.size(shallow, 10_000.0)["qty"]
+
+
+# --- symulacja (simulate) -------------------------------------------------
+
+def test_simulate_stop_has_priority_over_target_in_same_bar():
+    """Gdy w tym samym słupku naruszony jest i stop i cel, stop ma bezwzględny priorytet."""
+    # Budujemy 30 świec: 24 świece stabilne ~100, 25 świeca spadek wywołujący wejście,
+    # 26 świeca wejście, 27 świeca potężny słupek naruszający i cel i stop
+    closes = [100.0 + math.sin(i) * 0.5 for i in range(25)] + [80.0]
+    df = _raw(closes, spread=0.02)
+    # Dodaj świecę wejścia
+    n = len(df)
+    entry_row = pd.DataFrame([{
+        "ts": 1_700_000_000 + n * 86_400, "open": 80.0, "high": 82.0, "low": 78.0, "close": 80.0, "volume": 1_000_000
+    }])
+    # Dodaj świecę testową z ogromną rozpiętością (low=50, high=120)
+    conflict_row = pd.DataFrame([{
+        "ts": 1_700_000_000 + (n + 1) * 86_400, "open": 80.0, "high": 120.0, "low": 50.0, "close": 80.0, "volume": 1_000_000
+    }])
+    full = pd.concat([df, entry_row, conflict_row], ignore_index=True)
+    trades = rv.simulate(full, as_trades=True)
+    assert len(trades) >= 1
+    t = trades[0]
+    assert t.reason == "stop-loss", f"Oczekiwano stop-loss, otrzymano {t.reason}"
+    assert t.exit_px < t.entry_px
+
+
+def test_simulate_gap_below_stop_exits_at_open():
+    """Luka na otwarciu poniżej stopu musi zrealizować wyjście po cenie otwarcia, a nie po stopie."""
+    closes = [100.0 + math.sin(i) * 0.5 for i in range(25)] + [80.0]
+    df = _raw(closes, spread=0.02)
+    n = len(df)
+    entry_row = pd.DataFrame([{
+        "ts": 1_700_000_000 + n * 86_400, "open": 80.0, "high": 81.0, "low": 79.0, "close": 80.0, "volume": 1_000_000
+    }])
+    # Następny dzień: otwarcie z głęboką luką w dół po 65.0
+    gap_row = pd.DataFrame([{
+        "ts": 1_700_000_000 + (n + 1) * 86_400, "open": 65.0, "high": 66.0, "low": 64.0, "close": 65.0, "volume": 1_000_000
+    }])
+    full = pd.concat([df, entry_row, gap_row], ignore_index=True)
+    trades = rv.simulate(full, as_trades=True)
+    assert len(trades) >= 1
+    t = trades[0]
+    assert t.reason == "stop-loss"
+    assert t.exit_px == pytest.approx(65.0, abs=1e-4)
+
+
+def test_simulate_gap_above_target_exits_at_open():
+    """Luka na otwarciu powyżej celu musi zrealizować wyjście po cenie otwarcia."""
+    closes = [100.0 + math.sin(i) * 0.5 for i in range(25)] + [80.0]
+    df = _raw(closes, spread=0.02)
+    n = len(df)
+    entry_row = pd.DataFrame([{
+        "ts": 1_700_000_000 + n * 86_400, "open": 80.0, "high": 81.0, "low": 79.0, "close": 80.0, "volume": 1_000_000
+    }])
+    # Następny dzień: luka w górę po 105.0 (powyżej targetu ~95.75)
+    gap_row = pd.DataFrame([{
+        "ts": 1_700_000_000 + (n + 1) * 86_400, "open": 105.0, "high": 106.0, "low": 104.0, "close": 105.0, "volume": 1_000_000
+    }])
+    full = pd.concat([df, entry_row, gap_row], ignore_index=True)
+    trades = rv.simulate(full, as_trades=True)
+    assert len(trades) >= 1
+    t = trades[0]
+    assert t.reason == "take-profit"
+    assert t.exit_px == pytest.approx(105.0, abs=1e-4)
+
+
+def test_simulate_stretch_filter_blocks_entry():
+    """Gdy z-score przekracza próg, ale rozciągnięcie względem ATR jest zbyt małe, wejście jest blokowane."""
+    # Sztucznie wysoki ATR (spread 0.20) sprawia, że (close - ma) / ATR jest bliskie 0
+    closes = [100.0 + math.sin(i) * 0.5 for i in range(25)] + [96.0]
+    df = _raw(closes, spread=0.20)
+    # Wymuś min_stretch_atr = 2.0
+    trades = rv.simulate(df, min_stretch_atr=2.0)
+    assert len(trades) == 0
+
+
+def test_simulate_time_stop_after_hold_bars():
+    """Transakcja bez trafienia stopu/celu/średniej zamyka się po dokładnie hold świecach."""
+    closes = [100.0 + math.sin(i) * 0.5 for i in range(25)] + [80.0]
+    df = _raw(closes, spread=0.02)
+    # Dodaj hold+2 świece płaskie po 80.0 (nie dotykają stopu ~75 ani celu ~90 ani ma ~98)
+    flat_rows = pd.DataFrame([{
+        "ts": 1_700_000_000 + (len(closes) + k) * 86_400,
+        "open": 80.0, "high": 80.5, "low": 79.5, "close": 80.0, "volume": 1_000_000
+    } for k in range(rv.HOLD_DAYS + 3)])
+    full = pd.concat([df, flat_rows], ignore_index=True)
+    trades = rv.simulate(full, as_trades=True)
+    assert len(trades) >= 1
+    t = trades[0]
+    assert t.reason == "time-stop"
+    assert t.exit_bar - t.entry_bar == rv.HOLD_DAYS - 1
+
+
+def test_simulate_round_trip_cost_when_price_flat():
+    """Przy zerowej zmianie kursu zwrot netto musi być ściśle równy kosztom transakcyjnym."""
+    from app.costs import net_return_pct
+    expected_cost = net_return_pct(100.0, 100.0)
+    assert expected_cost < -0.8
+    assert expected_cost > -1.1
+

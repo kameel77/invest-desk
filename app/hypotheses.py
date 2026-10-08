@@ -25,9 +25,15 @@ import numpy as np
 import pandas as pd
 
 from . import backtest as bt
-from . import db, signals
+from . import db, reversion, signals
+from .costs import net_return_pct
 
 DAY = 86400
+
+
+def _net_return_pct(entry_px: float, exit_px: float) -> float:
+    """Zwrot netto: poślizg z obu stron + prowizja COMMISSION_PCT przy kupnie i sprzedaży."""
+    return net_return_pct(entry_px, exit_px)
 
 
 # --- metrics --------------------------------------------------------------
@@ -40,7 +46,8 @@ def _perf(returns_pct: list[float], trades: int, label: str) -> dict[str, Any]:
     curve = 10_000.0 * np.cumprod(1 + rets / 100.0)
     peak = np.maximum.accumulate(np.concatenate([[10_000.0], curve]))
     dd = np.concatenate([[10_000.0], curve]) - peak
-    sharpe = (rets.mean() / rets.std() * math.sqrt(252)) if rets.std() > 1e-9 else 0.0
+    std = float(np.std(rets, ddof=1)) if len(rets) > 1 else float(np.std(rets))
+    sharpe = float(rets.mean() / std) if std > 1e-9 else 0.0
     gross_win = float(rets[rets > 0].sum())
     gross_loss = abs(float(rets[rets < 0].sum()))
     # Compounded return scales with trade count, so a strategy firing 2000
@@ -58,6 +65,7 @@ def _perf(returns_pct: list[float], trades: int, label: str) -> dict[str, Any]:
         "expectancy_per_trade": round(expectancy, 3),
         "compounded_100trades_pct": round(compounded_100, 1),
         "sharpe": round(float(sharpe), 2),
+        "sharpe_per_trade": round(float(sharpe), 2),
         "profit_factor": round(gross_win / gross_loss, 2) if gross_loss > 1e-9 else None,
         "max_drawdown_pct": round(float(dd.min() / max(peak.max(), 1e-9) * 100), 2),
         "expectancy_pct": round(float(rets.mean()), 3),
@@ -96,7 +104,7 @@ def _ma_crossover(df: pd.DataFrame, fast: int, slow: int, hold: int,
         if pd.isna(v) or v <= 0:
             i += 1
             continue
-        entry = float(df["open"].iloc[i + 1]) * 1.001
+        entry = float(df["open"].iloc[i + 1])
         a = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else entry * 0.02
         sl, tp = entry - stop * a, entry + target * a
         exit_px, held = None, 0
@@ -113,8 +121,7 @@ def _ma_crossover(df: pd.DataFrame, fast: int, slow: int, hold: int,
                 i += 1
                 continue
             exit_px, held = float(df["close"].iloc[j]), j - i
-        cost = 0.35 + 0.05 * 2  # GPW commission + slippage, roughly, in %
-        out.append((exit_px / entry - 1) * 100 - cost)
+        out.append(_net_return_pct(entry, exit_px))
         i = j + 1
     return out
 
@@ -167,7 +174,7 @@ def _driver_sensitivity(df: pd.DataFrame, drivers: dict[str, pd.Series],
         if pd.isna(c) or abs(c) < min_corr or pd.isna(r) or abs(r) < 0.01:
             i += 1
             continue
-        entry = float(df["open"].iloc[i + 1]) * 1.001
+        entry = float(df["open"].iloc[i + 1])
         a = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else entry * 0.02
         sl, tp = entry - 2.5 * a, entry + 3.0 * a
         exit_px, held = None, 0
@@ -184,7 +191,7 @@ def _driver_sensitivity(df: pd.DataFrame, drivers: dict[str, pd.Series],
                 i += 1
                 continue
             exit_px, held = float(df["close"].iloc[j]), j - i
-        out.append((exit_px / entry - 1) * 100 - 0.4)
+        out.append(_net_return_pct(entry, exit_px))
         i = j + 1
     return out
 
@@ -193,39 +200,10 @@ def _driver_sensitivity(df: pd.DataFrame, drivers: dict[str, pd.Series],
 
 def _mean_reversion(df: pd.DataFrame, lookback: int, z_entry: float,
                     hold: int) -> list[float]:
-    """Buy oversold (close far below its own moving average), exit on the mean
-    or a time limit. The mirror of the trend system that just failed."""
-    if len(df) < lookback + hold + 10:
-        return []
-    close = df["close"].astype(float)
-    ma = close.rolling(lookback).mean()
-    sd = close.rolling(lookback).std()
-    z = (close - ma) / sd.replace(0, np.nan)
-    out: list[float] = []
-    n = len(df)
-    i = lookback
-    while i < n - 1:
-        zi = z.iloc[i]
-        if pd.isna(zi) or zi > -z_entry:
-            i += 1
-            continue
-        entry = float(df["open"].iloc[i + 1]) * 1.001
-        exit_px, j = None, min(n - 1, i + hold)
-        for k in range(i + 1, min(n, i + 1 + hold + 1)):
-            # Exit when price actually returns to the mean (z >= 0). The
-            # previous `or not pd.isna(...)` made the condition true on the
-            # very next bar, so every trade lasted one bar.
-            if not pd.isna(z.iloc[k]) and z.iloc[k] >= 0:
-                exit_px, j = float(df["close"].iloc[k]), k
-                break
-        if exit_px is None:
-            exit_px, j = float(df["close"].iloc[j]), j
-        if j <= i:
-            i += 1
-            continue
-        out.append((exit_px / entry - 1) * 100 - 0.4)
-        i = j + 1
-    return out
+    """Buy oversold (close far below its own moving average), exit on the mean,
+    stop, target or time limit. Delegated to reversion.simulate for full parity
+    with live production execution."""
+    return reversion.simulate(df, lookback=lookback, z_entry=z_entry, hold=hold)
 
 
 # --- D. short-horizon momentum on liquid movers ---------------------------
@@ -246,7 +224,7 @@ def _momentum_short(df: pd.DataFrame, lookback: int, hold: int,
         if pd.isna(m) or abs(m) < min_move:
             i += 1
             continue
-        entry = float(df["open"].iloc[i + 1]) * 1.001
+        entry = float(df["open"].iloc[i + 1])
         a = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else entry * 0.02
         sl = entry - 2.0 * a
         exit_px, j = None, min(n - 1, i + hold)
@@ -262,7 +240,7 @@ def _momentum_short(df: pd.DataFrame, lookback: int, hold: int,
         if j <= i:
             i += 1
             continue
-        out.append((exit_px / entry - 1) * 100 - 0.4)
+        out.append(_net_return_pct(entry, exit_px))
         i = j + 1
     return out
 
