@@ -313,3 +313,60 @@ def test_simulate_round_trip_cost_when_price_flat():
     assert expected_cost < -0.8
     assert expected_cost > -1.1
 
+
+def test_evaluate_entry_signal():
+    """Test czystej funkcji warunku wejścia."""
+    # Spełnia: z=-2.5 <= -2.0, stretch=-1.5 <= -1.0, atr=2.0 > 0
+    assert rv.evaluate_entry_signal(z_val=-2.5, stretch_val=-1.5, atr_val=2.0) is True
+    # Zbyt wysoki z-score
+    assert rv.evaluate_entry_signal(z_val=-1.8, stretch_val=-1.5, atr_val=2.0) is False
+    # Zbyt mały stretch ATR
+    assert rv.evaluate_entry_signal(z_val=-2.5, stretch_val=-0.5, atr_val=2.0) is False
+    # Zerowy lub NaN ATR
+    assert rv.evaluate_entry_signal(z_val=-2.5, stretch_val=-1.5, atr_val=0.0) is False
+    assert rv.evaluate_entry_signal(z_val=-2.5, stretch_val=-1.5, atr_val=float("nan")) is False
+
+
+def test_check_bar_exit_priorities_and_gap_down():
+    """Weryfikacja priorytetów wyjścia oraz luki cenowej poniżej stopu."""
+    # Priorytet 1: Stop-loss z luką poniżej stopu (open=85, stop=90, low=84) -> egzekucja po Open 85.0
+    px, reason = rv.check_bar_exit(
+        low_k=84.0, high_k=86.0, open_k=85.0, close_k=85.5, zk=-1.0,
+        stop_px=90.0, target_px=110.0, bars_held=2, max_hold=10
+    )
+    assert reason == "stop-loss"
+    assert px == 85.0
+
+    # Stop-loss bez luki (open=92, stop=90, low=89) -> egzekucja po stop_px 90.0
+    px, reason = rv.check_bar_exit(
+        low_k=89.0, high_k=93.0, open_k=92.0, close_k=91.0, zk=-1.0,
+        stop_px=90.0, target_px=110.0, bars_held=2, max_hold=10
+    )
+    assert reason == "stop-loss"
+    assert px == 90.0
+
+    # Priorytet 2: Take-profit z luką powyżej targetu (open=115, target=110, high=116) -> egzekucja po Open 115.0
+    px, reason = rv.check_bar_exit(
+        low_k=112.0, high_k=116.0, open_k=115.0, close_k=114.0, zk=1.5,
+        stop_px=90.0, target_px=110.0, bars_held=2, max_hold=10
+    )
+    assert reason == "take-profit"
+    assert px == 115.0
+
+    # Priorytet 3: Mean reversion (z >= 0) bez dotknięcia stopa ani celu -> wyjście po Close
+    px, reason = rv.check_bar_exit(
+        low_k=98.0, high_k=104.0, open_k=99.0, close_k=102.5, zk=0.2,
+        stop_px=90.0, target_px=110.0, bars_held=3, max_hold=10
+    )
+    assert reason == "mean-reversion"
+    assert px == 102.5
+
+    # Priorytet 4: Time stop przy bars_held == max_hold
+    px, reason = rv.check_bar_exit(
+        low_k=95.0, high_k=99.0, open_k=96.0, close_k=97.0, zk=-0.5,
+        stop_px=90.0, target_px=110.0, bars_held=10, max_hold=10
+    )
+    assert reason == "time-stop"
+    assert px == 97.0
+
+

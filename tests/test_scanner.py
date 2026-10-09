@@ -298,3 +298,57 @@ def test_reversion_enabled_on_us_fills_buy(monkeypatch):
     assert len(open_lots) == 1
 
 
+def test_reversion_us_slot_limit_enforced(monkeypatch):
+    """Gdy liczba otwartych pozycji US reversion osiągnie US_MAX_SLOTS, kolejne wejścia są pomijane."""
+    from app import config, market
+    monkeypatch.setattr(config, "US_MAX_SLOTS", 2)
+    monkeypatch.setattr(config, "REVERSION_GPW_ENABLED", False)
+    monkeypatch.setattr(market, "cached_price", lambda s: 100.0)
+
+    # Otwórz 2 pozycje US reversion
+    sig1 = {
+        "ts": int(time.time()), "symbol": "AAPL", "side": "BUY", "score": 70.0, "price": 100.0,
+        "strategy": "reversion-long", "meta": {"hypothesis": "reversion", "sizing": {"qty": 1.0, "stop": 90.0}, "z": -2.5}
+    }
+    sig2 = {
+        "ts": int(time.time()), "symbol": "MSFT", "side": "BUY", "score": 65.0, "price": 100.0,
+        "strategy": "reversion-long", "meta": {"hypothesis": "reversion", "sizing": {"qty": 1.0, "stop": 90.0}, "z": -2.2}
+    }
+    sig3 = {
+        "ts": int(time.time()), "symbol": "GOOGL", "side": "BUY", "score": 60.0, "price": 100.0,
+        "strategy": "reversion-long", "meta": {"hypothesis": "reversion", "sizing": {"qty": 1.0, "stop": 90.0}, "z": -2.0}
+    }
+
+    res = scanner.execute_signals([sig1, sig2, sig3])
+    assert len(res) == 3
+    # Pierwsze dwa wypełnione, trzeci pominięty z powodu limitu slotów
+    assert res[0]["status"] == "FILLED" and res[0]["symbol"] == "AAPL"
+    assert res[1]["status"] == "FILLED" and res[1]["symbol"] == "MSFT"
+    assert res[2]["status"] == "SKIPPED" and res[2]["symbol"] == "GOOGL"
+    assert "max US slots" in res[2]["reason"]
+
+
+def test_execute_signals_buys_sorted_by_z_score(monkeypatch):
+    """Kandydaci BUY dla rewersji są sortowani po najniższym z-score (najbardziej wyprzedane pierwsze)."""
+    from app import config, market
+    monkeypatch.setattr(config, "US_MAX_SLOTS", 1)
+    monkeypatch.setattr(market, "cached_price", lambda s: 100.0)
+
+    # Dwa sygnały: MSFT ma z = -2.1, AAPL ma z = -3.2 (bardziej wyprzedany)
+    sig_msft = {
+        "ts": int(time.time()), "symbol": "MSFT", "side": "BUY", "score": 60.0, "price": 100.0,
+        "strategy": "reversion-long", "meta": {"hypothesis": "reversion", "sizing": {"qty": 1.0, "stop": 90.0}, "z": -2.1}
+    }
+    sig_aapl = {
+        "ts": int(time.time()), "symbol": "AAPL", "side": "BUY", "score": 80.0, "price": 100.0,
+        "strategy": "reversion-long", "meta": {"hypothesis": "reversion", "sizing": {"qty": 1.0, "stop": 90.0}, "z": -3.2}
+    }
+
+    # Przekazujemy w kolejności [MSFT, AAPL]
+    res = scanner.execute_signals([sig_msft, sig_aapl])
+    assert len(res) == 2
+    # AAPL musi wejść pierwszy jako bardziej wyprzedany, a MSFT zostać pominięty przez limit slotów 1
+    assert res[0]["status"] == "FILLED" and res[0]["symbol"] == "AAPL"
+    assert res[1]["status"] == "SKIPPED" and res[1]["symbol"] == "MSFT"
+
+

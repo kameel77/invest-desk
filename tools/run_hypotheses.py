@@ -24,7 +24,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app import backtest as bt
-from app import config, db, hypotheses as H, market
+from app import config, costs, db, hypotheses as H, market, reversion
 
 DAY = 86400
 
@@ -249,6 +249,188 @@ def run_fixed_sweep(symbols: list[str], folds: int = 8,
     return sweep_results
 
 
+def run_us_reversion_gate(symbols: list[str], folds: int = 8,
+                          test_months: float = 5.0,
+                          target_profile: str = "IBKR_TIERED_USD",
+                          n_bootstrap: int = 2000) -> dict[str, Any]:
+    """Faza 0: Rygorystyczna bramka walidacyjna OOS dla US Reversion z block bootstrapem."""
+    now = _anchor()
+    test_span = int(test_months * 30.4 * DAY)
+    us_symbols = [s for s in symbols if not s.endswith(".WA")]
+
+    print("\n" + "=" * 85)
+    print("=== FAZA 0: BRAMKA WALIDACYJNA DLA US REVERSION (WALK-FORWARD OOS) ===")
+    print("=" * 85)
+    print(f"Uniwersum US: {len(us_symbols)} instrumentów | Fałdy: {folds} | Okno OOS: {test_months} mies.")
+    print(f"Docelowy profil brokera: {target_profile}")
+    print("Parametry bazy: lookback=20, z_entry=2.0, hold=10, stop_atr=2.5, target_atr=3.0, min_stretch_atr=1.0")
+    print("-" * 85)
+
+    raw_trades = []
+    fold_trade_counts = {f: 0 for f in range(1, folds + 1)}
+
+    for f in range(folds):
+        fold_idx = f + 1
+        test_end = now - f * test_span
+        test_start = test_end - test_span
+        if test_start <= 0:
+            break
+
+        for sym in us_symbols:
+            df = bt._cached_frame(sym)
+            if df is None or len(df) < 60:
+                continue
+            # Utnij historię na test_end, aby nie było lookahead biasu
+            df_slice = df[df["ts"] <= test_end].reset_index(drop=True)
+            if len(df_slice) < 40:
+                continue
+            trades = reversion.simulate(
+                df_slice,
+                lookback=20,
+                z_entry=2.0,
+                hold=10,
+                stop_atr=2.5,
+                target_atr=3.0,
+                min_stretch_atr=1.0,
+                as_trades=True,
+            )
+            for t in trades:
+                if test_start <= t.entry_ts < test_end:
+                    raw_trades.append({
+                        "symbol": sym,
+                        "entry_ts": t.entry_ts,
+                        "exit_ts": t.exit_ts,
+                        "entry_px": t.entry_px,
+                        "exit_px": t.exit_px,
+                        "reason": t.reason,
+                        "fold": fold_idx,
+                    })
+                    fold_trade_counts[fold_idx] += 1
+
+    print(f"Łącznie zebrano transakcji OOS na US: {len(raw_trades)}")
+    for f in range(1, folds + 1):
+        print(f"  Fałd {f}: {fold_trade_counts[f]} transakcji")
+
+    profiles_to_test = [target_profile, "XTB_PLN", "CONSERVATIVE_US"]
+    seen = set()
+    test_profiles = []
+    for p in profiles_to_test:
+        if p not in seen:
+            seen.add(p)
+            test_profiles.append(p)
+
+    profile_results = {}
+
+    for prof_name in test_profiles:
+        prof = costs.get_profile(prof_name)
+        trade_returns = []
+        weeks_map: dict[int, list[float]] = {}
+        fold_returns: dict[int, list[float]] = {f: [] for f in range(1, folds + 1)}
+
+        for rt in raw_trades:
+            ret = costs.net_return_pct(
+                rt["entry_px"],
+                rt["exit_px"],
+                profile=prof,
+                symbol=rt["symbol"],
+            )
+            trade_returns.append(ret)
+            w = rt["entry_ts"] // (7 * DAY)
+            weeks_map.setdefault(w, []).append(ret)
+            fold_returns[rt["fold"]].append(ret)
+
+        unique_weeks = list(weeks_map.keys())
+        boot_means = []
+        if unique_weeks and trade_returns:
+            np.random.seed(42)
+            for _ in range(n_bootstrap):
+                sampled_weeks = np.random.choice(unique_weeks, size=len(unique_weeks), replace=True)
+                sample_rets = []
+                for sw in sampled_weeks:
+                    sample_rets.extend(weeks_map[sw])
+                if sample_rets:
+                    boot_means.append(float(np.mean(sample_rets)))
+
+        ci_lower = round(float(np.percentile(boot_means, 5.0)), 3) if boot_means else 0.0
+        ci_upper = round(float(np.percentile(boot_means, 95.0)), 3) if boot_means else 0.0
+        boot_std = round(float(np.std(boot_means)), 3) if boot_means else 0.0
+        pt_mean = round(float(np.mean(trade_returns)), 3) if trade_returns else 0.0
+        pt_median = round(float(np.median(trade_returns)), 3) if trade_returns else 0.0
+
+        profitable_folds = 0
+        fold_details = []
+        for f in range(1, folds + 1):
+            f_rets = fold_returns[f]
+            n_t = len(f_rets)
+            f_exp = round(float(np.mean(f_rets)), 3) if f_rets else 0.0
+            is_prof = (n_t >= 25) and (f_exp > 0.0)
+            if is_prof:
+                profitable_folds += 1
+            fold_details.append({
+                "fold": f,
+                "trades": n_t,
+                "expectancy": f_exp,
+                "profitable": is_prof,
+            })
+
+        profile_results[prof_name] = {
+            "profile": prof_name,
+            "trades": len(trade_returns),
+            "expectancy": pt_mean,
+            "median_return": pt_median,
+            "ci_90": [ci_lower, ci_upper],
+            "bootstrap_se": boot_std,
+            "profitable_folds": profitable_folds,
+            "total_folds": folds,
+            "fold_details": fold_details,
+        }
+
+    target_res = profile_results[target_profile]
+    conserv_res = profile_results.get("CONSERVATIVE_US", target_res)
+
+    crit_ci = target_res["ci_90"][0] > 0.10
+    crit_folds = target_res["profitable_folds"] >= 5
+    crit_conserv = conserv_res["expectancy"] >= 0.0
+
+    gate_pass = crit_ci and crit_folds and crit_conserv
+    gate_decision = "GO" if gate_pass else "NO-GO"
+
+    print("\n" + "=" * 85)
+    print(f"{'Profil Brokera':<22} | {'Trans':>5} | {'Exp OOS':>8} | {'90% CI (Block)':>22} | {'Fałdy (N≥25 & >0)':>18}")
+    print("-" * 85)
+    for p_name, r in profile_results.items():
+        ci_str = f"[{r['ci_90'][0]:+.3f}%, {r['ci_90'][1]:+.3f}%]"
+        print(f"{p_name:<22} | {r['trades']:>5} | {r['expectancy']:>7.3f}% | {ci_str:>22} | {r['profitable_folds']:>7}/{r['total_folds']}")
+
+    print("\n=== KRYTERIA BRAMKI WALIDACYJNEJ ===")
+    print(f"1. 90% CI Dolna granica > +0.10%:   {target_res['ci_90'][0]:+.3f}%  -> {'PASSED' if crit_ci else 'FAILED'}")
+    print(f"2. Zyskowne fałdy (N≥25) >= 5/8:    {target_res['profitable_folds']}/{target_res['total_folds']}       -> {'PASSED' if crit_folds else 'FAILED'}")
+    print(f"3. Stress test (CONSERVATIVE_US) >= 0.0%: {conserv_res['expectancy']:+.3f}% -> {'PASSED' if crit_conserv else 'FAILED'}")
+    print(f"\n>>> WERDYKT BRAMKI: {gate_decision} <<<")
+    print("=" * 85)
+
+    report = {
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "target_profile": target_profile,
+        "gate_decision": gate_decision,
+        "criteria": {
+            "ci_lower_above_010": {"value": target_res["ci_90"][0], "passed": crit_ci},
+            "profitable_folds_min_5": {"value": target_res["profitable_folds"], "passed": crit_folds},
+            "conservative_exp_above_0": {"value": conserv_res["expectancy"], "passed": crit_conserv},
+        },
+        "profiles": profile_results,
+    }
+
+    reports_dir = config.DATA_DIR.parent / "reports" if hasattr(config, "DATA_DIR") else Path("reports")
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    report_file = reports_dir / f"gate_us_reversion_{time.strftime('%Y%m%d_%H%M')}.json"
+    with open(report_file, "w") as f:
+        json.dump(report, f, default=str, indent=2)
+    print(f"Zapisano raport bramki: {report_file}\n")
+
+    return report
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Walk-forward analysis of strategy families.")
     parser.add_argument("--folds", type=int, default=8, help="Number of walk-forward folds (default: 8)")
@@ -259,7 +441,11 @@ def main() -> None:
     parser.add_argument("--fetch", action="store_true", help="Pobierz świece z Yahoo Finance przed analizą")
     parser.add_argument("--range", default="10y", help="Zakres danych do pobrania (np. 5y, 10y)")
     parser.add_argument("--fixed-sweep", action="store_true", help="Uruchom badanie wrażliwości (Etap B) na sąsiadach bazy")
+    parser.add_argument("--gate", action="store_true", help="Uruchom bramkę walidacyjną Fazy 0 dla US Reversion")
+    parser.add_argument("--profile", default=config.DEFAULT_BROKER_PROFILE_US,
+                        help=f"Docelowy profil brokera dla bramki (domyślnie: {config.DEFAULT_BROKER_PROFILE_US})")
     args = parser.parse_args()
+
 
     db.init_db()
     started = time.time()
@@ -278,6 +464,11 @@ def main() -> None:
     print(f"Liquid + istotny ruch (ADV≥progi, |20d ROC|≥3%): {len(movers)}")
     for s, adv, mv in movers[:8]:
         print(f"   {s:9} ADV {adv:>14,.0f}  20d {mv:+.1f}%")
+
+    if args.gate:
+        run_us_reversion_gate(symbols, folds=args.folds, test_months=args.test_months,
+                              target_profile=args.profile)
+        return
 
     out = []
     for fam in args.families:

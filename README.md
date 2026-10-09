@@ -139,6 +139,55 @@ przeprowadzono rzetelny walk-forward (8 fałdów, 2 lata treningu + 5 mies. test
    - `REVERSION_GPW_ENABLED = False`: sygnały rewersji na GPW są wyłącznie informacyjne (dla tradera manualnego);
      automatyczne zlecenia paper tradingu są dopuszczone wyłącznie dla rynku US.
 
+### Wyniki Bramki Walidacyjnej Fazy 0 dla US Reversion (2026-10-09)
+
+Zgodnie z wymogami ilościowymi (konsultacja Claude Opus 5.5), przed wdrożeniem silnika portfelowego
+przeprowadzono badanie wrażliwości strategii na profile kosztowe brokerów oraz test istotności statystycznej
+z **block bootstrapem** (bloki tygodniowe, 2000 iteracji) na 352 transakcjach OOS:
+
+```bash
+python3 tools/run_hypotheses.py --gate --profile IBKR_TIERED_USD
+```
+
+| Profil Brokera | Transakcje | Expectancy OOS | 90% CI (Block Bootstrap) | Fałdy (N≥25 & >0) | Werdykt Bramki |
+|---|---|---|---|---|---|
+| **IBKR_TIERED_USD** (konto USD) | 352 | **+1,356%** | **[+0,603%, +2,115%]** | **7 / 8** | **GO (Zaliczona)** |
+| **XTB_PLN** (narzut FX 1.0% round-trip) | 352 | +0,355% | [-0,391%, +1,106%] | 4 / 8 | FAILED (ujemne CI) |
+| **CONSERVATIVE_US** (stress test) | 352 | +0,054% | [-0,690%, +0,803%] | 4 / 8 | PASSED (exp ≥ 0) |
+
+**Kluczowe odkrycie Fazy 0:**
+Narzut przewalutowania (0,5% w każdą stronę = 1,0% round-trip) na koncie w PLN całkowicie degraduje
+statystyczną jakość edge'u (dolna granica CI spada poniżej zera). **Krótkoterminowa rewersja na US musi
+być handlowana na rachunku w USD (IBKR Tiered lub subkonto walutowe USD w XTB)**, gdzie wymiana waluty
+następuje jednorazowo przy wpłacie kapitału, a nie przy każdej transakcji.
+
+### Wyniki Symulacji Portfelowej Fazy 1 (`tools/run_portfolio_sim.py`)
+
+Po przejściu bramki Fazy 0 zbudowano symulator portfela (`app/portfolio_sim.py`) z pętlą zdarzeń bar-by-bar,
+zarządzaniem wolnymi slotami i deterministycznym kolejkowaniem (najgłębszy z-score pierwszy, tie-breaker po symbolu):
+
+```bash
+python3 tools/run_portfolio_sim.py --slots 8 --profile IBKR_TIERED_USD
+```
+
+| Parametr / Wynik | 5 slotów (IBKR Tiered) | 8 slotów (IBKR Tiered) | 8 slotów (XTB PLN z FX) | Benchmark SPY B&H |
+|---|---|---|---|---|
+| **Łączny zwrot portfela** | +21,31% | **+35,07%** | -20,73% | +78,04% |
+| **CAGR (roczna stopa zwrotu)** | +3,96% | **+6,23%** | -4,56% | +12,29% |
+| **Max Drawdown (MDD)** | -26,24% | **-18,92%** | -28,11% | -25,36% |
+| **Sharpe Ratio (rf=0%)** | 0,332 | **0,560** | -0,330 | — |
+| **Sortino Ratio** | 0,420 | **0,708** | -0,408 | — |
+| **Liczba transakcji** | 401 | 511 | 508 | — |
+| **Win Rate** | 55,1% | **57,1%** | 53,0% | — |
+| **Odrzucone sygnały (brak slotu)** | 416 | **196** | 194 | — |
+
+**Wnioski portfelowe:**
+1. **Dywersyfikacja na 8 slotów (12,5% kapitału)** znacząco redukuje Max Drawdown z -26,24% do **-18,92%**
+   (znacznie poniżej rynku SPY -25,36%) i podnosi Sharpe powyżej 0,50 (0,560), redukując liczbę
+   odrzuconych sygnałów podczas rynkowych wyprzedaży o ponad 50%.
+2. **Konto w PLN z narzutem FX przynosi stratę portfela -20,73%**: 500 transakcji obciążonych 1% FX round-trip
+   niszczy krzywą kapitału. Rachunek musi być prowadzony w USD.
+
 ## Uruchomienie
 
 ```bash
@@ -160,16 +209,21 @@ export ALPACA_SECRET_KEY=...
 | Zmienna | Domyślnie | Znaczenie |
 |---|---|---|
 | `TD_PORT` | `8770` | Port serwera |
-| `TD_STARTING_CASH` | `10000` | Kapitał startowy ( PLN) |
+| `TD_STARTING_CASH` | `10000` | Kapitał startowy (PLN / USD) |
 | `TD_COMMISSION_PCT` | `0.0035` | Prowizja % (GPW retail) |
 | `TD_COMMISSION_MIN` | `1.00` | Prowizja minimalna |
-| `TD_SLIPPAGE_PCT` | `0.001` | Slippage |
+| `TD_SLIPPAGE_PCT` | `0.001` | Slippage bazowy |
 | `TD_MIN_TICKET` | `50` | Minimalny nominal zlecenia |
 | `TD_SCAN_INTERVAL` | `300` | Interwał automatycznego skanu (s) |
 | `TD_TREND_ENABLED` | `0` | Zezwalaj na nowe wejścia trendu (1/0) |
 | `TD_REVERSION_HOLD_DAYS` | `10` | Limit świec trzymania transzy rewersji |
 | `TD_REVERSION_GPW_ENABLED` | `0` | Zezwalaj na transakcje rewersji na GPW (1/0) |
+| `TD_BROKER_PROFILE_US` | `IBKR_TIERED_USD` | Profil brokera dla rynku US |
+| `TD_BROKER_PROFILE_GPW` | `GPW_RETAIL` | Profil brokera dla GPW |
+| `TD_US_MAX_SLOTS` | `5` | Maksymalna liczba równoczesnych pozycji US |
+| `TD_US_SLOT_PCT` | `0.20` | Docelowa alokacja kapitału na slot US |
 | `ALPACA_API_KEY` / `ALPACA_SECRET_KEY` | — | Włącza real-time US |
+
 
 ## Strategia (domyślna)
 

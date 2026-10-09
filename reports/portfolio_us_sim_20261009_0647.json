@@ -1,0 +1,8766 @@
+{
+  "initial_cash": 10000.0,
+  "final_equity": 7927.25,
+  "total_return_pct": -20.727,
+  "cagr": -4.56,
+  "max_drawdown_pct": -28.11,
+  "max_drawdown_duration_bars": 1188,
+  "sharpe_rf0": -0.33,
+  "sharpe_rf4": -0.664,
+  "sortino": -0.408,
+  "calmar": -0.16,
+  "days": 1254,
+  "total_trades": 508,
+  "win_rate": 53.0,
+  "profit_factor": 0.83,
+  "expectancy_per_trade": -0.375,
+  "median_trade_ret": 0.39,
+  "avg_slots_used": 2.46,
+  "pct_days_slots_above_80": 10.3,
+  "rejected_signals": {
+    "total": 200,
+    "slot_full": 194,
+    "cash_exhausted": 0
+  },
+  "closed_trades": [
+    {
+      "symbol": "JPM",
+      "entry_ts": 1637159400,
+      "exit_ts": 1637677800,
+      "entry_px": 165.2100067138672,
+      "exit_px": 168.27999877929688,
+      "shares": 7,
+      "net_ret": 0.7439,
+      "net_pnl": 8.65,
+      "reason": "mean-reversion",
+      "bars_held": 5
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1637677800,
+      "exit_ts": 1637937000,
+      "entry_px": 67.61000061035156,
+      "exit_px": 66.05999755859375,
+      "shares": 18,
+      "net_ret": -3.3615,
+      "net_pnl": -41.13,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1637677800,
+      "exit_ts": 1637937000,
+      "entry_px": 79.69999694824219,
+      "exit_px": 77.7300033569336,
+      "shares": 15,
+      "net_ret": -3.5387,
+      "net_pnl": -42.54,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "IWM",
+      "entry_ts": 1638196200,
+      "exit_ts": 1638282600,
+      "entry_px": 226.22000122070312,
+      "exit_px": 216.45988996015274,
+      "shares": 5,
+      "net_ret": -5.3612,
+      "net_pnl": -60.97,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "SPY",
+      "entry_ts": 1638369000,
+      "exit_ts": 1638541800,
+      "entry_px": 461.6400146484375,
+      "exit_px": 449.58690455845425,
+      "shares": 2,
+      "net_ret": -3.6764,
+      "net_pnl": -34.13,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "XOM",
+      "entry_ts": 1637591400,
+      "exit_ts": 1638801000,
+      "entry_px": 60.31999969482422,
+      "exit_px": 61.58000183105469,
+      "shares": 20,
+      "net_ret": 0.972,
+      "net_pnl": 11.79,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "UNH",
+      "entry_ts": 1637591400,
+      "exit_ts": 1638801000,
+      "entry_px": 442.82000732421875,
+      "exit_px": 460.1099853515625,
+      "shares": 2,
+      "net_ret": 2.7678,
+      "net_pnl": 24.65,
+      "reason": "mean-reversion",
+      "bars_held": 10
+    },
+    {
+      "symbol": "V",
+      "entry_ts": 1637677800,
+      "exit_ts": 1638887400,
+      "entry_px": 196.97000122070312,
+      "exit_px": 207.3699951171875,
+      "shares": 6,
+      "net_ret": 4.1282,
+      "net_pnl": 49.06,
+      "reason": "mean-reversion",
+      "bars_held": 10
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1638196200,
+      "exit_ts": 1638887400,
+      "entry_px": 77.73999786376953,
+      "exit_px": 79.41000366210938,
+      "shares": 15,
+      "net_ret": 1.0307,
+      "net_pnl": 12.09,
+      "reason": "mean-reversion",
+      "bars_held": 7
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_ts": 1638196200,
+      "exit_ts": 1638887400,
+      "entry_px": 144.0,
+      "exit_px": 147.26950073242188,
+      "shares": 8,
+      "net_ret": 1.1517,
+      "net_pnl": 13.34,
+      "reason": "mean-reversion",
+      "bars_held": 7
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1638801000,
+      "exit_ts": 1638887400,
+      "entry_px": 323.95001220703125,
+      "exit_px": 334.9200134277344,
+      "shares": 3,
+      "net_ret": 2.2553,
+      "net_pnl": 22.04,
+      "reason": "mean-reversion",
+      "bars_held": 2
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1638196200,
+      "exit_ts": 1638973800,
+      "entry_px": 66.19000244140625,
+      "exit_px": 67.73999786376953,
+      "shares": 18,
+      "net_ret": 1.2221,
+      "net_pnl": 14.64,
+      "reason": "mean-reversion",
+      "bars_held": 8
+    },
+    {
+      "symbol": "EEM",
+      "entry_ts": 1638196200,
+      "exit_ts": 1639146600,
+      "entry_px": 49.209999084472656,
+      "exit_px": 50.08000183105469,
+      "shares": 25,
+      "net_ret": 0.6546,
+      "net_pnl": 8.1,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "NVDA",
+      "entry_ts": 1639492200,
+      "exit_ts": 1640615400,
+      "entry_px": 27.698999404907227,
+      "exit_px": 30.94499969482422,
+      "shares": 45,
+      "net_ret": 10.4967,
+      "net_pnl": 131.56,
+      "reason": "mean-reversion",
+      "bars_held": 9
+    },
+    {
+      "symbol": "XOM",
+      "entry_ts": 1640097000,
+      "exit_ts": 1640615400,
+      "entry_px": 59.75,
+      "exit_px": 61.88999938964844,
+      "shares": 20,
+      "net_ret": 2.4484,
+      "net_pnl": 29.42,
+      "reason": "mean-reversion",
+      "bars_held": 4
+    },
+    {
+      "symbol": "NFLX",
+      "entry_ts": 1641479400,
+      "exit_ts": 1642084200,
+      "entry_px": 55.433998107910156,
+      "exit_px": 52.01850055422101,
+      "shares": 22,
+      "net_ret": -7.188,
+      "net_pnl": -88.14,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "COST",
+      "entry_ts": 1641825000,
+      "exit_ts": 1642170600,
+      "entry_px": 529.2899780273438,
+      "exit_px": 503.10998626273016,
+      "shares": 2,
+      "net_ret": -5.9861,
+      "net_pnl": -63.72,
+      "reason": "stop-loss",
+      "bars_held": 5
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_ts": 1641479400,
+      "exit_ts": 1642689000,
+      "entry_px": 136.99850463867188,
+      "exit_px": 133.3074951171875,
+      "shares": 9,
+      "net_ret": -3.7587,
+      "net_pnl": -46.6,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1641479400,
+      "exit_ts": 1642689000,
+      "entry_px": 313.1499938964844,
+      "exit_px": 301.6000061035156,
+      "shares": 4,
+      "net_ret": -4.742,
+      "net_pnl": -59.72,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "AMZN",
+      "entry_ts": 1641479400,
+      "exit_ts": 1642689000,
+      "entry_px": 163.45050048828125,
+      "exit_px": 153.98847443062917,
+      "shares": 7,
+      "net_ret": -6.8196,
+      "net_pnl": -78.46,
+      "reason": "stop-loss",
+      "bars_held": 10
+    },
+    {
+      "symbol": "AVGO",
+      "entry_ts": 1642170600,
+      "exit_ts": 1642689000,
+      "entry_px": 59.577999114990234,
+      "exit_px": 55.72100601332528,
+      "shares": 20,
+      "net_ret": -7.497,
+      "net_pnl": -89.82,
+      "reason": "stop-loss",
+      "bars_held": 4
+    },
+    {
+      "symbol": "IWM",
+      "entry_ts": 1642602600,
+      "exit_ts": 1642775400,
+      "entry_px": 208.80999755859375,
+      "exit_px": 197.78940201241628,
+      "shares": 5,
+      "net_ret": -6.3141,
+      "net_pnl": -66.28,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "UNH",
+      "entry_ts": 1641825000,
+      "exit_ts": 1643034600,
+      "entry_px": 456.0,
+      "exit_px": 462.2699890136719,
+      "shares": 2,
+      "net_ret": 0.266,
+      "net_pnl": 2.44,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "LLY",
+      "entry_ts": 1642170600,
+      "exit_ts": 1643034600,
+      "entry_px": 250.14999389648438,
+      "exit_px": 234.96971872602188,
+      "shares": 4,
+      "net_ret": -7.0961,
+      "net_pnl": -71.39,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "AMZN",
+      "entry_ts": 1642775400,
+      "exit_ts": 1643034600,
+      "entry_px": 149.9499969482422,
+      "exit_px": 139.0,
+      "shares": 8,
+      "net_ret": -8.3165,
+      "net_pnl": -100.31,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "SPY",
+      "entry_ts": 1642775400,
+      "exit_ts": 1643034600,
+      "entry_px": 445.55999755859375,
+      "exit_px": 428.2452681841169,
+      "shares": 2,
+      "net_ret": -4.9375,
+      "net_pnl": -44.24,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "NVDA",
+      "entry_ts": 1642775400,
+      "exit_ts": 1643034600,
+      "entry_px": 23.506999969482422,
+      "exit_px": 21.166878122520444,
+      "shares": 51,
+      "net_ret": -10.9401,
+      "net_pnl": -131.88,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "AAPL",
+      "entry_ts": 1642775400,
+      "exit_ts": 1643380200,
+      "entry_px": 164.4199981689453,
+      "exit_px": 170.3300018310547,
+      "shares": 7,
+      "net_ret": 2.4611,
+      "net_pnl": 28.48,
+      "reason": "mean-reversion",
+      "bars_held": 6
+    },
+    {
+      "symbol": "V",
+      "entry_ts": 1643034600,
+      "exit_ts": 1643380200,
+      "entry_px": 202.17999267578125,
+      "exit_px": 220.63999938964844,
+      "shares": 5,
+      "net_ret": 7.9366,
+      "net_pnl": 80.67,
+      "reason": "take-profit",
+      "bars_held": 5
+    },
+    {
+      "symbol": "COST",
+      "entry_ts": 1642516200,
+      "exit_ts": 1643639400,
+      "entry_px": 494.4599914550781,
+      "exit_px": 505.1300048828125,
+      "shares": 2,
+      "net_ret": 1.0403,
+      "net_pnl": 10.34,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1643121000,
+      "exit_ts": 1643812200,
+      "entry_px": 64.19999694824219,
+      "exit_px": 66.98999786376953,
+      "shares": 18,
+      "net_ret": 3.2043,
+      "net_pnl": 37.23,
+      "reason": "mean-reversion",
+      "bars_held": 7
+    },
+    {
+      "symbol": "SPY",
+      "entry_ts": 1643121000,
+      "exit_ts": 1643812200,
+      "entry_px": 433.05999755859375,
+      "exit_px": 457.3500061035156,
+      "shares": 2,
+      "net_ret": 4.4536,
+      "net_pnl": 38.79,
+      "reason": "mean-reversion",
+      "bars_held": 7
+    },
+    {
+      "symbol": "AMZN",
+      "entry_ts": 1643121000,
+      "exit_ts": 1643985000,
+      "entry_px": 142.24249267578125,
+      "exit_px": 157.2155740225656,
+      "shares": 8,
+      "net_ret": 9.3173,
+      "net_pnl": 106.61,
+      "reason": "take-profit",
+      "bars_held": 9
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1643121000,
+      "exit_ts": 1644244200,
+      "entry_px": 74.68000030517578,
+      "exit_px": 76.19999694824219,
+      "shares": 15,
+      "net_ret": 0.9191,
+      "net_pnl": 10.35,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "NFLX",
+      "entry_ts": 1643121000,
+      "exit_ts": 1644244200,
+      "entry_px": 37.91400146484375,
+      "exit_px": 40.209999084472656,
+      "shares": 30,
+      "net_ret": 4.8956,
+      "net_pnl": 55.99,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "META",
+      "entry_ts": 1643985000,
+      "exit_ts": 1645108200,
+      "entry_px": 234.97000122070312,
+      "exit_px": 211.57873759918212,
+      "shares": 5,
+      "net_ret": -10.9401,
+      "net_pnl": -129.24,
+      "reason": "stop-loss",
+      "bars_held": 10
+    },
+    {
+      "symbol": "TSLA",
+      "entry_ts": 1645626600,
+      "exit_ts": 1645713000,
+      "entry_px": 276.80999755859375,
+      "exit_px": 233.4633331298828,
+      "shares": 4,
+      "net_ret": -16.582,
+      "net_pnl": -184.61,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "SPY",
+      "entry_ts": 1645713000,
+      "exit_ts": 1645799400,
+      "entry_px": 411.0199890136719,
+      "exit_px": 437.1026439579555,
+      "shares": 2,
+      "net_ret": 5.1824,
+      "net_pnl": 42.84,
+      "reason": "take-profit",
+      "bars_held": 2
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1645713000,
+      "exit_ts": 1645799400,
+      "entry_px": 60.25,
+      "exit_px": 63.507266516549244,
+      "shares": 19,
+      "net_ret": 4.2531,
+      "net_pnl": 48.96,
+      "reason": "take-profit",
+      "bars_held": 2
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1645713000,
+      "exit_ts": 1646058600,
+      "entry_px": 272.510009765625,
+      "exit_px": 297.91482599748883,
+      "shares": 4,
+      "net_ret": 8.1266,
+      "net_pnl": 89.07,
+      "reason": "take-profit",
+      "bars_held": 3
+    },
+    {
+      "symbol": "QQQ",
+      "entry_ts": 1645713000,
+      "exit_ts": 1646058600,
+      "entry_px": 318.8399963378906,
+      "exit_px": 348.15727504839214,
+      "shares": 3,
+      "net_ret": 8.0004,
+      "net_pnl": 76.95,
+      "reason": "take-profit",
+      "bars_held": 3
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1645799400,
+      "exit_ts": 1646404200,
+      "entry_px": 73.45999908447266,
+      "exit_px": 69.11000061035156,
+      "shares": 16,
+      "net_ret": -6.9508,
+      "net_pnl": -82.15,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "EEM",
+      "entry_ts": 1645799400,
+      "exit_ts": 1646404200,
+      "entry_px": 46.689998626708984,
+      "exit_px": 44.52762767818996,
+      "shares": 25,
+      "net_ret": -5.6747,
+      "net_pnl": -66.6,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1646231400,
+      "exit_ts": 1646404200,
+      "entry_px": 61.20000076293945,
+      "exit_px": 57.49667426272801,
+      "shares": 19,
+      "net_ret": -7.079,
+      "net_pnl": -82.77,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "V",
+      "entry_ts": 1646231400,
+      "exit_ts": 1646663400,
+      "entry_px": 206.89999389648438,
+      "exit_px": 191.0355870775495,
+      "shares": 5,
+      "net_ret": -8.6778,
+      "net_pnl": -90.27,
+      "reason": "stop-loss",
+      "bars_held": 4
+    },
+    {
+      "symbol": "JPM",
+      "entry_ts": 1646145000,
+      "exit_ts": 1646749800,
+      "entry_px": 140.0399932861328,
+      "exit_px": 128.9421627883911,
+      "shares": 8,
+      "net_ret": -8.932,
+      "net_pnl": -100.62,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "EEM",
+      "entry_ts": 1646663400,
+      "exit_ts": 1647264600,
+      "entry_px": 43.86000061035156,
+      "exit_px": 41.43728663635254,
+      "shares": 26,
+      "net_ret": -6.5573,
+      "net_pnl": -75.19,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1646663400,
+      "exit_ts": 1647437400,
+      "entry_px": 57.16999816894531,
+      "exit_px": 61.880001068115234,
+      "shares": 20,
+      "net_ret": 7.0545,
+      "net_pnl": 81.1,
+      "reason": "mean-reversion",
+      "bars_held": 8
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1646663400,
+      "exit_ts": 1647437400,
+      "entry_px": 68.58999633789062,
+      "exit_px": 72.44999694824219,
+      "shares": 16,
+      "net_ret": 4.4721,
+      "net_pnl": 49.35,
+      "reason": "mean-reversion",
+      "bars_held": 8
+    },
+    {
+      "symbol": "AMZN",
+      "entry_ts": 1646749800,
+      "exit_ts": 1647437400,
+      "entry_px": 136.68350219726562,
+      "exit_px": 153.10400390625,
+      "shares": 8,
+      "net_ret": 10.7881,
+      "net_pnl": 118.61,
+      "reason": "mean-reversion",
+      "bars_held": 7
+    },
+    {
+      "symbol": "V",
+      "entry_ts": 1646749800,
+      "exit_ts": 1647437400,
+      "entry_px": 190.00999450683594,
+      "exit_px": 211.12642284393309,
+      "shares": 5,
+      "net_ret": 9.8978,
+      "net_pnl": 94.55,
+      "reason": "take-profit",
+      "bars_held": 7
+    },
+    {
+      "symbol": "META",
+      "entry_ts": 1646749800,
+      "exit_ts": 1647437400,
+      "entry_px": 187.85000610351562,
+      "exit_px": 203.6300048828125,
+      "shares": 6,
+      "net_ret": 7.2144,
+      "net_pnl": 81.76,
+      "reason": "mean-reversion",
+      "bars_held": 7
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1646836200,
+      "exit_ts": 1647437400,
+      "entry_px": 283.44000244140625,
+      "exit_px": 294.3900146484375,
+      "shares": 3,
+      "net_ret": 2.727,
+      "net_pnl": 23.32,
+      "reason": "mean-reversion",
+      "bars_held": 6
+    },
+    {
+      "symbol": "NFLX",
+      "entry_ts": 1646663400,
+      "exit_ts": 1647523800,
+      "entry_px": 36.04100036621094,
+      "exit_px": 37.13999938964844,
+      "shares": 32,
+      "net_ret": 1.922,
+      "net_pnl": 22.29,
+      "reason": "mean-reversion",
+      "bars_held": 9
+    },
+    {
+      "symbol": "AAPL",
+      "entry_ts": 1647351000,
+      "exit_ts": 1647610200,
+      "entry_px": 150.89999389648438,
+      "exit_px": 163.97999572753906,
+      "shares": 7,
+      "net_ret": 7.4792,
+      "net_pnl": 79.44,
+      "reason": "mean-reversion",
+      "bars_held": 4
+    },
+    {
+      "symbol": "NFLX",
+      "entry_ts": 1649856600,
+      "exit_ts": 1650461400,
+      "entry_px": 34.391998291015625,
+      "exit_px": 24.520000457763672,
+      "shares": 34,
+      "net_ret": -29.4843,
+      "net_pnl": -346.66,
+      "reason": "stop-loss",
+      "bars_held": 5
+    },
+    {
+      "symbol": "NVDA",
+      "entry_ts": 1649770200,
+      "exit_ts": 1650547800,
+      "entry_px": 22.53700065612793,
+      "exit_px": 20.293442240810393,
+      "shares": 53,
+      "net_ret": -10.9401,
+      "net_pnl": -131.39,
+      "reason": "stop-loss",
+      "bars_held": 7
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_ts": 1649770200,
+      "exit_ts": 1650634200,
+      "entry_px": 131.60000610351562,
+      "exit_px": 124.37687603105816,
+      "shares": 9,
+      "net_ret": -6.5226,
+      "net_pnl": -77.68,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1649770200,
+      "exit_ts": 1650893400,
+      "entry_px": 289.239990234375,
+      "exit_px": 271.9113948538644,
+      "shares": 4,
+      "net_ret": -7.0195,
+      "net_pnl": -81.66,
+      "reason": "stop-loss",
+      "bars_held": 9
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1649856600,
+      "exit_ts": 1650893400,
+      "entry_px": 71.56999969482422,
+      "exit_px": 69.28078256934029,
+      "shares": 16,
+      "net_ret": -4.2576,
+      "net_pnl": -49.02,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "META",
+      "entry_ts": 1650547800,
+      "exit_ts": 1650893400,
+      "entry_px": 201.60000610351562,
+      "exit_px": 182.38651973833356,
+      "shares": 5,
+      "net_ret": -10.5202,
+      "net_pnl": -106.63,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "EWZ",
+      "entry_ts": 1650634200,
+      "exit_ts": 1650893400,
+      "entry_px": 36.029998779296875,
+      "exit_px": 33.944441205705914,
+      "shares": 31,
+      "net_ret": -6.8191,
+      "net_pnl": -76.58,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "EEM",
+      "entry_ts": 1650634200,
+      "exit_ts": 1650979800,
+      "entry_px": 42.84000015258789,
+      "exit_px": 41.177491526739935,
+      "shares": 26,
+      "net_ret": -4.9323,
+      "net_pnl": -55.24,
+      "reason": "stop-loss",
+      "bars_held": 3
+    },
+    {
+      "symbol": "NFLX",
+      "entry_ts": 1650547800,
+      "exit_ts": 1651066200,
+      "entry_px": 22.0,
+      "exit_px": 19.400999069213867,
+      "shares": 52,
+      "net_ret": -12.7784,
+      "net_pnl": -146.99,
+      "reason": "stop-loss",
+      "bars_held": 5
+    },
+    {
+      "symbol": "JPM",
+      "entry_ts": 1649943000,
+      "exit_ts": 1651152600,
+      "entry_px": 126.5,
+      "exit_px": 123.33999633789062,
+      "shares": 9,
+      "net_ret": -3.5647,
+      "net_pnl": -40.81,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "V",
+      "entry_ts": 1651066200,
+      "exit_ts": 1651152600,
+      "entry_px": 217.3699951171875,
+      "exit_px": 220.66000366210938,
+      "shares": 4,
+      "net_ret": 0.403,
+      "net_pnl": 3.52,
+      "reason": "mean-reversion",
+      "bars_held": 2
+    },
+    {
+      "symbol": "SPY",
+      "entry_ts": 1650893400,
+      "exit_ts": 1651498200,
+      "entry_px": 423.6700134277344,
+      "exit_px": 405.20863829040525,
+      "shares": 2,
+      "net_ret": -5.4038,
+      "net_pnl": -46.04,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "EWZ",
+      "entry_ts": 1650979800,
+      "exit_ts": 1651757400,
+      "entry_px": 33.40999984741211,
+      "exit_px": 31.060632737568444,
+      "shares": 32,
+      "net_ret": -8.049,
+      "net_pnl": -86.53,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1650979800,
+      "exit_ts": 1651757400,
+      "entry_px": 59.529998779296875,
+      "exit_px": 57.384763042994905,
+      "shares": 18,
+      "net_ret": -4.6582,
+      "net_pnl": -50.19,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "TSLA",
+      "entry_ts": 1651066200,
+      "exit_ts": 1652103000,
+      "entry_px": 299.52667236328125,
+      "exit_px": 269.7087921295166,
+      "shares": 3,
+      "net_ret": -10.9401,
+      "net_pnl": -98.85,
+      "reason": "stop-loss",
+      "bars_held": 9
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1651066200,
+      "exit_ts": 1652103000,
+      "entry_px": 68.43000030517578,
+      "exit_px": 65.85171579578945,
+      "shares": 15,
+      "net_ret": -4.8205,
+      "net_pnl": -49.75,
+      "reason": "stop-loss",
+      "bars_held": 9
+    },
+    {
+      "symbol": "IWM",
+      "entry_ts": 1651152600,
+      "exit_ts": 1652103000,
+      "entry_px": 189.1699981689453,
+      "exit_px": 178.29315416063582,
+      "shares": 5,
+      "net_ret": -6.7809,
+      "net_pnl": -64.49,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "AMZN",
+      "entry_ts": 1651498200,
+      "exit_ts": 1652103000,
+      "entry_px": 122.4010009765625,
+      "exit_px": 110.2159813293457,
+      "shares": 8,
+      "net_ret": -10.9401,
+      "net_pnl": -107.72,
+      "reason": "stop-loss",
+      "bars_held": 6
+    },
+    {
+      "symbol": "COST",
+      "entry_ts": 1651498200,
+      "exit_ts": 1652275800,
+      "entry_px": 532.22998046875,
+      "exit_px": 492.67464508928566,
+      "shares": 1,
+      "net_ret": -8.4447,
+      "net_pnl": -45.19,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "TSLA",
+      "entry_ts": 1652189400,
+      "exit_ts": 1652275800,
+      "entry_px": 273.10333251953125,
+      "exit_px": 245.91589576721194,
+      "shares": 3,
+      "net_ret": -10.9401,
+      "net_pnl": -90.13,
+      "reason": "stop-loss",
+      "bars_held": 2
+    },
+    {
+      "symbol": "UNH",
+      "entry_ts": 1651584600,
+      "exit_ts": 1652707800,
+      "entry_px": 501.1300048828125,
+      "exit_px": 489.2200012207031,
+      "shares": 2,
+      "net_ret": -3.4446,
+      "net_pnl": -34.71,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1652189400,
+      "exit_ts": 1652794200,
+      "entry_px": 56.11000061035156,
+      "exit_px": 58.16999816894531,
+      "shares": 17,
+      "net_ret": 2.5372,
+      "net_pnl": 24.33,
+      "reason": "mean-reversion",
+      "bars_held": 6
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1652189400,
+      "exit_ts": 1653053400,
+      "entry_px": 66.4000015258789,
+      "exit_px": 67.7699966430664,
+      "shares": 15,
+      "net_ret": 0.9467,
+      "net_pnl": 9.48,
+      "reason": "mean-reversion",
+      "bars_held": 9
+    },
+    {
+      "symbol": "V",
+      "entry_ts": 1652189400,
+      "exit_ts": 1653312600,
+      "entry_px": 196.7100067138672,
+      "exit_px": 207.55999755859375,
+      "shares": 5,
+      "net_ret": 4.3614,
+      "net_pnl": 43.13,
+      "reason": "mean-reversion",
+      "bars_held": 10
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1652189400,
+      "exit_ts": 1653312600,
+      "entry_px": 271.69000244140625,
+      "exit_px": 260.6499938964844,
+      "shares": 3,
+      "net_ret": -5.113,
+      "net_pnl": -41.9,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "IWM",
+      "entry_ts": 1652189400,
+      "exit_ts": 1653312600,
+      "entry_px": 177.57000732421875,
+      "exit_px": 178.2100067138672,
+      "shares": 5,
+      "net_ret": -0.7375,
+      "net_pnl": -6.58,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "TSLA",
+      "entry_ts": 1652362200,
+      "exit_ts": 1653399000,
+      "entry_px": 233.6666717529297,
+      "exit_px": 210.40515457992555,
+      "shares": 4,
+      "net_ret": -10.9401,
+      "net_pnl": -102.82,
+      "reason": "stop-loss",
+      "bars_held": 9
+    },
+    {
+      "symbol": "AAPL",
+      "entry_ts": 1652362200,
+      "exit_ts": 1653485400,
+      "entry_px": 142.77000427246094,
+      "exit_px": 140.52000427246094,
+      "shares": 6,
+      "net_ret": -2.6527,
+      "net_pnl": -22.85,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "AVGO",
+      "entry_ts": 1653399000,
+      "exit_ts": 1653658200,
+      "entry_px": 52.66600036621094,
+      "exit_px": 58.327999114990234,
+      "shares": 18,
+      "net_ret": 9.5392,
+      "net_pnl": 90.93,
+      "reason": "mean-reversion",
+      "bars_held": 4
+    },
+    {
+      "symbol": "GOOGL",
+      "entry_ts": 1653485400,
+      "exit_ts": 1654003800,
+      "entry_px": 104.9854965209961,
+      "exit_px": 113.76200103759766,
+      "shares": 9,
+      "net_ret": 7.1743,
+      "net_pnl": 68.16,
+      "reason": "mean-reversion",
+      "bars_held": 4
+    },
+    {
+      "symbol": "COST",
+      "entry_ts": 1652967000,
+      "exit_ts": 1654176600,
+      "entry_px": 430.3699951171875,
+      "exit_px": 487.6099853515625,
+      "shares": 2,
+      "net_ret": 12.0607,
+      "net_pnl": 104.38,
+      "reason": "mean-reversion",
+      "bars_held": 10
+    },
+    {
+      "symbol": "EWZ",
+      "entry_ts": 1655127000,
+      "exit_ts": 1655991000,
+      "entry_px": 29.40999984741211,
+      "exit_px": 27.01756241253444,
+      "shares": 34,
+      "net_ret": -9.1398,
+      "net_pnl": -91.89,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "MSFT",
+      "entry_ts": 1655213400,
+      "exit_ts": 1656077400,
+      "entry_px": 243.86000061035156,
+      "exit_px": 267.64977402060373,
+      "shares": 4,
+      "net_ret": 8.5548,
+      "net_pnl": 83.91,
+      "reason": "take-profit",
+      "bars_held": 8
+    },
+    {
+      "symbol": "NFLX",
+      "entry_ts": 1655213400,
+      "exit_ts": 1656077400,
+      "entry_px": 16.975000381469727,
+      "exit_px": 19.084999084472656,
+      "shares": 58,
+      "net_ret": 11.2001,
+      "net_pnl": 110.88,
+      "reason": "mean-reversion",
+      "bars_held": 8
+    },
+    {
+      "symbol": "QQQ",
+      "entry_ts": 1655213400,
+      "exit_ts": 1656077400,
+      "entry_px": 277.6600036621094,
+      "exit_px": 294.6099853515625,
+      "shares": 3,
+      "net_ret": 4.9438,
+      "net_pnl": 41.41,
+      "reason": "mean-reversion",
+      "bars_held": 8
+    },
+    {
+      "symbol": "META",
+      "entry_ts": 1655127000,
+      "exit_ts": 1656336600,
+      "entry_px": 170.58999633789062,
+      "exit_px": 169.49000549316406,
+      "shares": 5,
+      "net_ret": -1.7317,
+      "net_pnl": -14.85,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "EFA",
+      "entry_ts": 1655127000,
+      "exit_ts": 1656336600,
+      "entry_px": 63.029998779296875,
+      "exit_px": 63.5,
+      "shares": 15,
+      "net_ret": -0.3565,
+      "net_pnl": -3.39,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1655213400,
+      "exit_ts": 1656423000,
+      "entry_px": 53.88999938964844,
+      "exit_px": 53.439998626708984,
+      "shares": 18,
+      "net_ret": -1.9199,
+      "net_pnl": -18.73,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "SPY",
+      "entry_ts": 1655213400,
+      "exit_ts": 1656423000,
+      "entry_px": 376.8500061035156,
+      "exit_px": 380.6499938964844,
+      "shares": 2,
+      "net_ret": -0.0967,
+      "net_pnl": -0.73,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "XOM",
+      "entry_ts": 1656077400,
+      "exit_ts": 1657287000,
+      "entry_px": 86.94999694824219,
+      "exit_px": 86.08000183105469,
+      "shares": 11,
+      "net_ret": -2.0836,
+      "net_pnl": -20.04,
+      "reason": "time-stop",
+      "bars_held": 10
+    },
+    {
+      "symbol": "JPM",
+      "entry_ts": 1657891800,
+      "exit_ts": 1658237400,
+      "entry_px": 109.16000366210938,
+      "exit_px": 114.55999755859375,
+      "shares": 9,
+      "net_ret": 3.7988,
+      "net_pnl": 37.53,
+      "reason": "mean-reversion",
+      "bars_held": 3
+    },
+    {
+      "symbol": "EEM",
+      "entry_ts": 1657891800,
+      "exit_ts": 1658410200,
+      "entry_px": 38.45000076293945,
+      "exit_px": 39.81999969482422,
+      "shares": 26,
+      "net_ret": 2.4301,
+      "net_pnl": 24.43,
+      "reason": "mean-reversion",
+      "bars_held": 5
+    },
+    {
+      "symbol": "LLY",
+      "entry_ts": 1659619800,
+      "exit_ts": 1660743000,
+      "entry_px": 310.20001220703125,
+      "exit_px": 316.82000732421875,
+      "shares": 3,
+      "net_ret": 1.0168,
+      "net_pnl": 9.51,
+      "reason": "mean-reversion",
+      "bars_held": 10
+    },
+    {
+      "symbol": "VGK",
+      "entry_ts": 1661261400,
+      "exit_ts": 1662039000,
+      "entry_px": 52.93000030517578,
+      "exit_px": 50.40999984741211,
+      "shares": 19,
+      "net_ret": -5.8029,
+      "net_pnl": -58.68,
+      "reason": "stop-loss",
+      "bars_held": 8
+    },
+    {
+      "symbol": "NVDA",
+      "entry_ts": 1661779800,
+      "exit_ts": 1662039000,
+      "entry_px": 16.020000457763672,
+      "exit_px": 14.208999633789062,
+      "shares": 63,
+      "net_ret": -12.2749,
+      "net_pnl": -124.57,
+      "reason": "stop-loss",
+      "bars_held": 4
+    }
+  ],
+  "curve": [
+    {
+      "ts": 1633959000,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634045400,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634131800,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634218200,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634304600,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634563800,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634650200,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634736600,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634823000,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1634909400,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635168600,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635255000,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635341400,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635427800,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635514200,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635773400,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635859800,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1635946200,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636032600,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636119000,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636381800,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636468200,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636554600,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636641000,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636727400,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1636986600,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1637073000,
+      "equity": 10000.0,
+      "cash": 10000.0,
+      "pos_count": 0
+    },
+    {
+      "ts": 1637159400,
+      "equity": 9988.46,
+      "cash": 8837.17,
+      "pos_count": 1
+    },
+    {
+      "ts": 1637245800,
+      "equity": 9978.52,
+      "cash": 8837.17,
+      "pos_count": 1
+    },
+    {
+      "ts": 1637332200,
+      "equity": 9963.61,
+      "cash": 8837.17,
+      "pos_count": 1
+    },
+    {
+      "ts": 1637591400,
+      "equity": 9989.35,
+      "cash": 6733.62,
+      "pos_count": 3
+    },
+    {
+      "ts": 1637677800,
+      "equity": 10053.03,
+      "cash": 4291.04,
+      "pos_count": 5
+    },
+    {
+      "ts": 1637764200,
+      "equity": 10078.96,
+      "cash": 4291.04,
+      "pos_count": 5
+    },
+    {
+      "ts": 1637937000,
+      "equity": 9923.83,
+      "cash": 6633.11,
+      "pos_count": 3
+    },
+    {
+      "ts": 1638196200,
+      "equity": 9894.7,
+      "cash": 729.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1638282600,
+      "equity": 9742.66,
+      "cash": 1806.3,
+      "pos_count": 7
+    },
+    {
+      "ts": 1638369000,
+      "equity": 9677.17,
+      "cash": 877.94,
+      "pos_count": 8
+    },
+    {
+      "ts": 1638455400,
+      "equity": 9830.98,
+      "cash": 877.94,
+      "pos_count": 8
+    },
+    {
+      "ts": 1638541800,
+      "equity": 9758.37,
+      "cash": 1772.17,
+      "pos_count": 7
+    },
+    {
+      "ts": 1638801000,
+      "equity": 9864.96,
+      "cash": 2934.96,
+      "pos_count": 6
+    },
+    {
+      "ts": 1638887400,
+      "equity": 9995.03,
+      "cash": 7527.85,
+      "pos_count": 2
+    },
+    {
+      "ts": 1638973800,
+      "equity": 9997.46,
+      "cash": 8740.46,
+      "pos_count": 1
+    },
+    {
+      "ts": 1639060200,
+      "equity": 9991.46,
+      "cash": 8740.46,
+      "pos_count": 1
+    },
+    {
+      "ts": 1639146600,
+      "equity": 9985.57,
+      "cash": 9985.57,
+      "pos_count": 0
+    },
+    {
+      "ts": 1639405800,
+      "equity": 9985.57,
+      "cash": 9985.57,
+      "pos_count": 0
+    },
+    {
+      "ts": 1639492200,
+      "equity": 10007.43,
+      "cash": 8732.26,
+      "pos_count": 1
+    },
+    {
+      "ts": 1639578600,
+      "equity": 10102.92,
+      "cash": 8732.26,
+      "pos_count": 1
+    },
+    {
+      "ts": 1639665000,
+      "equity": 10009.68,
+      "cash": 8732.26,
+      "pos_count": 1
+    },
+    {
+      "ts": 1639751400,
+      "equity": 9983.31,
+      "cash": 8732.26,
+      "pos_count": 1
+    },
+    {
+      "ts": 1640010600,
+      "equity": 9979.62,
+      "cash": 8732.26,
+      "pos_count": 1
+    },
+    {
+      "ts": 1640097000,
+      "equity": 10049.07,
+      "cash": 7530.69,
+      "pos_count": 2
+    },
+    {
+      "ts": 1640183400,
+      "equity": 10073.49,
+      "cash": 7530.69,
+      "pos_count": 2
+    },
+    {
+      "ts": 1640269800,
+      "equity": 10084.89,
+      "cash": 7530.69,
+      "pos_count": 2
+    },
+    {
+      "ts": 1640615400,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1640701800,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1640788200,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1640874600,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1640961000,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1641220200,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1641306600,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1641393000,
+      "equity": 10146.55,
+      "cash": 10146.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1641479400,
+      "equity": 10125.85,
+      "cash": 5270.59,
+      "pos_count": 4
+    },
+    {
+      "ts": 1641565800,
+      "equity": 10088.11,
+      "cash": 5270.59,
+      "pos_count": 4
+    },
+    {
+      "ts": 1641825000,
+      "equity": 10079.95,
+      "cash": 3289.17,
+      "pos_count": 6
+    },
+    {
+      "ts": 1641911400,
+      "equity": 10136.16,
+      "cash": 3289.17,
+      "pos_count": 6
+    },
+    {
+      "ts": 1641997800,
+      "equity": 10172.5,
+      "cash": 3289.17,
+      "pos_count": 6
+    },
+    {
+      "ts": 1642084200,
+      "equity": 9990.89,
+      "cash": 4427.28,
+      "pos_count": 5
+    },
+    {
+      "ts": 1642170600,
+      "equity": 9961.44,
+      "cash": 3223.75,
+      "pos_count": 6
+    },
+    {
+      "ts": 1642516200,
+      "equity": 9818.38,
+      "cash": 2229.39,
+      "pos_count": 7
+    },
+    {
+      "ts": 1642602600,
+      "equity": 9738.81,
+      "cash": 1179.6,
+      "pos_count": 8
+    },
+    {
+      "ts": 1642689000,
+      "equity": 9620.73,
+      "cash": 5752.82,
+      "pos_count": 4
+    },
+    {
+      "ts": 1642775400,
+      "equity": 9475.23,
+      "cash": 2271.38,
+      "pos_count": 7
+    },
+    {
+      "ts": 1643034600,
+      "equity": 9258.72,
+      "cash": 6140.33,
+      "pos_count": 3
+    },
+    {
+      "ts": 1643121000,
+      "equity": 9152.96,
+      "cash": 693.25,
+      "pos_count": 8
+    },
+    {
+      "ts": 1643207400,
+      "equity": 9151.08,
+      "cash": 693.25,
+      "pos_count": 8
+    },
+    {
+      "ts": 1643293800,
+      "equity": 9223.08,
+      "cash": 693.25,
+      "pos_count": 8
+    },
+    {
+      "ts": 1643380200,
+      "equity": 9436.79,
+      "cash": 2976.14,
+      "pos_count": 6
+    },
+    {
+      "ts": 1643639400,
+      "equity": 9680.37,
+      "cash": 3980.84,
+      "pos_count": 5
+    },
+    {
+      "ts": 1643725800,
+      "equity": 9814.58,
+      "cash": 3980.84,
+      "pos_count": 5
+    },
+    {
+      "ts": 1643812200,
+      "equity": 9739.69,
+      "cash": 6089.7,
+      "pos_count": 3
+    },
+    {
+      "ts": 1643898600,
+      "equity": 9555.61,
+      "cash": 6089.7,
+      "pos_count": 3
+    },
+    {
+      "ts": 1643985000,
+      "equity": 9716.2,
+      "cash": 6159.19,
+      "pos_count": 3
+    },
+    {
+      "ts": 1644244200,
+      "equity": 9620.12,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1644330600,
+      "equity": 9596.47,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1644417000,
+      "equity": 9655.57,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1644503400,
+      "equity": 9635.92,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1644589800,
+      "equity": 9593.32,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1644849000,
+      "equity": 9584.07,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1644935400,
+      "equity": 9600.57,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1645021800,
+      "equity": 9578.27,
+      "cash": 8495.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1645108200,
+      "equity": 9547.65,
+      "cash": 9547.65,
+      "pos_count": 0
+    },
+    {
+      "ts": 1645194600,
+      "equity": 9547.65,
+      "cash": 9547.65,
+      "pos_count": 0
+    },
+    {
+      "ts": 1645540200,
+      "equity": 9547.65,
+      "cash": 9547.65,
+      "pos_count": 0
+    },
+    {
+      "ts": 1645626600,
+      "equity": 9453.04,
+      "cash": 8434.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1645713000,
+      "equity": 9561.47,
+      "cash": 5327.61,
+      "pos_count": 4
+    },
+    {
+      "ts": 1645799400,
+      "equity": 9646.06,
+      "cash": 5041.52,
+      "pos_count": 4
+    },
+    {
+      "ts": 1646058600,
+      "equity": 9605.12,
+      "cash": 7265.35,
+      "pos_count": 2
+    },
+    {
+      "ts": 1646145000,
+      "equity": 9529.14,
+      "cash": 6138.87,
+      "pos_count": 3
+    },
+    {
+      "ts": 1646231400,
+      "equity": 9571.78,
+      "cash": 3929.48,
+      "pos_count": 5
+    },
+    {
+      "ts": 1646317800,
+      "equity": 9484.85,
+      "cash": 3929.48,
+      "pos_count": 5
+    },
+    {
+      "ts": 1646404200,
+      "equity": 9299.31,
+      "cash": 7222.66,
+      "pos_count": 2
+    },
+    {
+      "ts": 1646663400,
+      "equity": 9062.18,
+      "cash": 3613.13,
+      "pos_count": 5
+    },
+    {
+      "ts": 1646749800,
+      "equity": 9066.63,
+      "cash": 1450.94,
+      "pos_count": 7
+    },
+    {
+      "ts": 1646836200,
+      "equity": 9384.7,
+      "cash": 595.94,
+      "pos_count": 8
+    },
+    {
+      "ts": 1646922600,
+      "equity": 9339.5,
+      "cash": 595.94,
+      "pos_count": 8
+    },
+    {
+      "ts": 1647009000,
+      "equity": 9165.2,
+      "cash": 595.94,
+      "pos_count": 8
+    },
+    {
+      "ts": 1647264600,
+      "equity": 9102.67,
+      "cash": 1667.38,
+      "pos_count": 7
+    },
+    {
+      "ts": 1647351000,
+      "equity": 9324.01,
+      "cash": 605.27,
+      "pos_count": 8
+    },
+    {
+      "ts": 1647437400,
+      "equity": 9611.41,
+      "cash": 7350.19,
+      "pos_count": 2
+    },
+    {
+      "ts": 1647523800,
+      "equity": 9656.47,
+      "cash": 8532.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1647610200,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1647869400,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1647955800,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648042200,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648128600,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648215000,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648474200,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648560600,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648647000,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648733400,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1648819800,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649079000,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649165400,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649251800,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649338200,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649424600,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649683800,
+      "equity": 9673.68,
+      "cash": 9673.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1649770200,
+      "equity": 9535.79,
+      "cash": 6118.41,
+      "pos_count": 3
+    },
+    {
+      "ts": 1649856600,
+      "equity": 9636.58,
+      "cash": 3791.23,
+      "pos_count": 5
+    },
+    {
+      "ts": 1649943000,
+      "equity": 9480.27,
+      "cash": 2646.47,
+      "pos_count": 6
+    },
+    {
+      "ts": 1650288600,
+      "equity": 9522.6,
+      "cash": 2646.47,
+      "pos_count": 6
+    },
+    {
+      "ts": 1650375000,
+      "equity": 9650.64,
+      "cash": 2646.47,
+      "pos_count": 6
+    },
+    {
+      "ts": 1650461400,
+      "equity": 9254.85,
+      "cash": 3475.56,
+      "pos_count": 5
+    },
+    {
+      "ts": 1650547800,
+      "equity": 9024.31,
+      "cash": 2381.36,
+      "pos_count": 6
+    },
+    {
+      "ts": 1650634200,
+      "equity": 8836.87,
+      "cash": 1251.56,
+      "pos_count": 7
+    },
+    {
+      "ts": 1650893400,
+      "equity": 8720.33,
+      "cash": 4537.03,
+      "pos_count": 4
+    },
+    {
+      "ts": 1650979800,
+      "equity": 8508.74,
+      "cash": 3449.32,
+      "pos_count": 5
+    },
+    {
+      "ts": 1651066200,
+      "equity": 8442.19,
+      "cash": 1642.74,
+      "pos_count": 7
+    },
+    {
+      "ts": 1651152600,
+      "equity": 8534.8,
+      "cash": 2673.43,
+      "pos_count": 6
+    },
+    {
+      "ts": 1651239000,
+      "equity": 8422.2,
+      "cash": 2673.43,
+      "pos_count": 6
+    },
+    {
+      "ts": 1651498200,
+      "equity": 8408.25,
+      "cash": 1959.64,
+      "pos_count": 7
+    },
+    {
+      "ts": 1651584600,
+      "equity": 8444.57,
+      "cash": 951.87,
+      "pos_count": 8
+    },
+    {
+      "ts": 1651671000,
+      "equity": 8622.99,
+      "cash": 951.87,
+      "pos_count": 8
+    },
+    {
+      "ts": 1651757400,
+      "equity": 8226.18,
+      "cash": 2967.58,
+      "pos_count": 6
+    },
+    {
+      "ts": 1651843800,
+      "equity": 8175.96,
+      "cash": 2967.58,
+      "pos_count": 6
+    },
+    {
+      "ts": 1652103000,
+      "equity": 7989.72,
+      "cash": 6518.05,
+      "pos_count": 2
+    },
+    {
+      "ts": 1652189400,
+      "equity": 7891.87,
+      "cash": 1032.39,
+      "pos_count": 8
+    },
+    {
+      "ts": 1652275800,
+      "equity": 7766.28,
+      "cash": 2256.04,
+      "pos_count": 6
+    },
+    {
+      "ts": 1652362200,
+      "equity": 7750.13,
+      "cash": 454.91,
+      "pos_count": 8
+    },
+    {
+      "ts": 1652448600,
+      "equity": 7971.4,
+      "cash": 454.91,
+      "pos_count": 8
+    },
+    {
+      "ts": 1652707800,
+      "equity": 7898.2,
+      "cash": 1427.96,
+      "pos_count": 7
+    },
+    {
+      "ts": 1652794200,
+      "equity": 8080.49,
+      "cash": 2411.41,
+      "pos_count": 6
+    },
+    {
+      "ts": 1652880600,
+      "equity": 7846.19,
+      "cash": 2411.41,
+      "pos_count": 6
+    },
+    {
+      "ts": 1652967000,
+      "equity": 7800.36,
+      "cash": 1545.94,
+      "pos_count": 7
+    },
+    {
+      "ts": 1653053400,
+      "equity": 7733.73,
+      "cash": 2556.9,
+      "pos_count": 6
+    },
+    {
+      "ts": 1653312600,
+      "equity": 7870.28,
+      "cash": 5252.79,
+      "pos_count": 3
+    },
+    {
+      "ts": 1653399000,
+      "equity": 7797.72,
+      "cash": 5136.58,
+      "pos_count": 3
+    },
+    {
+      "ts": 1653485400,
+      "equity": 7814.4,
+      "cash": 5025.0,
+      "pos_count": 3
+    },
+    {
+      "ts": 1653571800,
+      "equity": 7916.3,
+      "cash": 5025.0,
+      "pos_count": 3
+    },
+    {
+      "ts": 1653658200,
+      "equity": 8021.49,
+      "cash": 6069.13,
+      "pos_count": 2
+    },
+    {
+      "ts": 1654003800,
+      "equity": 8019.79,
+      "cash": 7087.35,
+      "pos_count": 1
+    },
+    {
+      "ts": 1654090200,
+      "equity": 8001.33,
+      "cash": 7087.35,
+      "pos_count": 1
+    },
+    {
+      "ts": 1654176600,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1654263000,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1654522200,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1654608600,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1654695000,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1654781400,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1654867800,
+      "equity": 8057.21,
+      "cash": 8057.21,
+      "pos_count": 0
+    },
+    {
+      "ts": 1655127000,
+      "equity": 7989.71,
+      "cash": 5243.48,
+      "pos_count": 3
+    },
+    {
+      "ts": 1655213400,
+      "equity": 7914.12,
+      "cash": 701.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1655299800,
+      "equity": 8142.85,
+      "cash": 701.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1655386200,
+      "equity": 7883.99,
+      "cash": 701.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1655472600,
+      "equity": 7914.43,
+      "cash": 701.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1655818200,
+      "equity": 7925.76,
+      "cash": 701.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1655904600,
+      "equity": 7943.32,
+      "cash": 701.95,
+      "pos_count": 8
+    },
+    {
+      "ts": 1655991000,
+      "equity": 7980.55,
+      "cash": 1615.49,
+      "pos_count": 7
+    },
+    {
+      "ts": 1656077400,
+      "equity": 8215.69,
+      "cash": 3698.3,
+      "pos_count": 5
+    },
+    {
+      "ts": 1656336600,
+      "equity": 8216.32,
+      "cash": 5488.35,
+      "pos_count": 3
+    },
+    {
+      "ts": 1656423000,
+      "equity": 8208.6,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1656509400,
+      "equity": 8171.42,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1656595800,
+      "equity": 8144.14,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1656682200,
+      "equity": 8165.15,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1657027800,
+      "equity": 8135.01,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1657114200,
+      "equity": 8118.18,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1657200600,
+      "equity": 8147.44,
+      "cash": 7202.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1657287000,
+      "equity": 8143.77,
+      "cash": 8143.77,
+      "pos_count": 0
+    },
+    {
+      "ts": 1657546200,
+      "equity": 8143.77,
+      "cash": 8143.77,
+      "pos_count": 0
+    },
+    {
+      "ts": 1657632600,
+      "equity": 8143.77,
+      "cash": 8143.77,
+      "pos_count": 0
+    },
+    {
+      "ts": 1657719000,
+      "equity": 8143.77,
+      "cash": 8143.77,
+      "pos_count": 0
+    },
+    {
+      "ts": 1657805400,
+      "equity": 8143.77,
+      "cash": 8143.77,
+      "pos_count": 0
+    },
+    {
+      "ts": 1657891800,
+      "equity": 8171.66,
+      "cash": 6150.73,
+      "pos_count": 2
+    },
+    {
+      "ts": 1658151000,
+      "equity": 8168.24,
+      "cash": 6150.73,
+      "pos_count": 2
+    },
+    {
+      "ts": 1658237400,
+      "equity": 8204.13,
+      "cash": 7176.09,
+      "pos_count": 1
+    },
+    {
+      "ts": 1658323800,
+      "equity": 8199.71,
+      "cash": 7176.09,
+      "pos_count": 1
+    },
+    {
+      "ts": 1658410200,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1658496600,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1658755800,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1658842200,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1658928600,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1659015000,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1659101400,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1659360600,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1659447000,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1659533400,
+      "equity": 8205.72,
+      "cash": 8205.72,
+      "pos_count": 0
+    },
+    {
+      "ts": 1659619800,
+      "equity": 8187.37,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1659706200,
+      "equity": 8173.96,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1659965400,
+      "equity": 8177.5,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660051800,
+      "equity": 8179.06,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660138200,
+      "equity": 8183.83,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660224600,
+      "equity": 8173.51,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660311000,
+      "equity": 8194.24,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660570200,
+      "equity": 8211.82,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660656600,
+      "equity": 8200.93,
+      "cash": 7270.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1660743000,
+      "equity": 8215.23,
+      "cash": 8215.23,
+      "pos_count": 0
+    },
+    {
+      "ts": 1660829400,
+      "equity": 8215.23,
+      "cash": 8215.23,
+      "pos_count": 0
+    },
+    {
+      "ts": 1660915800,
+      "equity": 8215.23,
+      "cash": 8215.23,
+      "pos_count": 0
+    },
+    {
+      "ts": 1661175000,
+      "equity": 8215.23,
+      "cash": 8215.23,
+      "pos_count": 0
+    },
+    {
+      "ts": 1661261400,
+      "equity": 8211.98,
+      "cash": 7204.03,
+      "pos_count": 1
+    },
+    {
+      "ts": 1661347800,
+      "equity": 8214.07,
+      "cash": 7204.03,
+      "pos_count": 1
+    },
+    {
+      "ts": 1661434200,
+      "equity": 8223.76,
+      "cash": 7204.03,
+      "pos_count": 1
+    },
+    {
+      "ts": 1661520600,
+      "equity": 8193.36,
+      "cash": 7204.03,
+      "pos_count": 1
+    },
+    {
+      "ts": 1661779800,
+      "equity": 8149.29,
+      "cash": 1456.89,
+      "pos_count": 7
+    },
+    {
+      "ts": 1661866200,
+      "equity": 8063.0,
+      "cash": 469.49,
+      "pos_count": 8
+    },
+    {
+      "ts": 1661952600,
+      "equity": 7980.75,
+      "cash": 469.49,
+      "pos_count": 8
+    },
+    {
+      "ts": 1662039000,
+      "equity": 7873.95,
+      "cash": 3271.42,
+      "pos_count": 5
+    },
+    {
+      "ts": 1662125400,
+      "equity": 7778.24,
+      "cash": 1305.52,
+      "pos_count": 7
+    },
+    {
+      "ts": 1662471000,
+      "equity": 7729.49,
+      "cash": 1537.39,
+      "pos_count": 7
+    },
+    {
+      "ts": 1662557400,
+      "equity": 7830.5,
+      "cash": 579.14,
+      "pos_count": 8
+    },
+    {
+      "ts": 1662643800,
+      "equity": 7860.15,
+      "cash": 579.14,
+      "pos_count": 8
+    },
+    {
+      "ts": 1662730200,
+      "equity": 8005.91,
+      "cash": 579.14,
+      "pos_count": 8
+    },
+    {
+      "ts": 1662989400,
+      "equity": 8054.63,
+      "cash": 5533.03,
+      "pos_count": 3
+    },
+    {
+      "ts": 1663075800,
+      "equity": 7912.03,
+      "cash": 5533.03,
+      "pos_count": 3
+    },
+    {
+      "ts": 1663162200,
+      "equity": 7912.38,
+      "cash": 5533.03,
+      "pos_count": 3
+    },
+    {
+      "ts": 1663248600,
+      "equity": 7901.54,
+      "cash": 5533.03,
+      "pos_count": 3
+    },
+    {
+      "ts": 1663335000,
+      "equity": 7870.03,
+      "cash": 6404.26,
+      "pos_count": 2
+    },
+    {
+      "ts": 1663594200,
+      "equity": 7884.57,
+      "cash": 6048.7,
+      "pos_count": 2
+    },
+    {
+      "ts": 1663680600,
+      "equity": 7862.55,
+      "cash": 6986.01,
+      "pos_count": 1
+    },
+    {
+      "ts": 1663767000,
+      "equity": 7838.73,
+      "cash": 6986.01,
+      "pos_count": 1
+    },
+    {
+      "ts": 1663853400,
+      "equity": 7819.13,
+      "cash": 4125.98,
+      "pos_count": 4
+    },
+    {
+      "ts": 1663939800,
+      "equity": 7715.58,
+      "cash": 3276.33,
+      "pos_count": 5
+    },
+    {
+      "ts": 1664199000,
+      "equity": 7653.29,
+      "cash": 1355.05,
+      "pos_count": 7
+    },
+    {
+      "ts": 1664285400,
+      "equity": 7615.97,
+      "cash": 427.17,
+      "pos_count": 8
+    },
+    {
+      "ts": 1664371800,
+      "equity": 7796.6,
+      "cash": 1296.76,
+      "pos_count": 7
+    },
+    {
+      "ts": 1664458200,
+      "equity": 7675.08,
+      "cash": 1296.76,
+      "pos_count": 7
+    },
+    {
+      "ts": 1664544600,
+      "equity": 7591.94,
+      "cash": 1254.02,
+      "pos_count": 7
+    },
+    {
+      "ts": 1664803800,
+      "equity": 7763.83,
+      "cash": 1254.02,
+      "pos_count": 7
+    },
+    {
+      "ts": 1664890200,
+      "equity": 7947.26,
+      "cash": 4381.36,
+      "pos_count": 4
+    },
+    {
+      "ts": 1664976600,
+      "equity": 7905.11,
+      "cash": 5343.64,
+      "pos_count": 3
+    },
+    {
+      "ts": 1665063000,
+      "equity": 7895.59,
+      "cash": 5343.64,
+      "pos_count": 3
+    },
+    {
+      "ts": 1665149400,
+      "equity": 7788.35,
+      "cash": 6947.81,
+      "pos_count": 1
+    },
+    {
+      "ts": 1665408600,
+      "equity": 7781.52,
+      "cash": 6047.16,
+      "pos_count": 2
+    },
+    {
+      "ts": 1665495000,
+      "equity": 7743.91,
+      "cash": 4571.0,
+      "pos_count": 4
+    },
+    {
+      "ts": 1665581400,
+      "equity": 7756.66,
+      "cash": 2694.78,
+      "pos_count": 6
+    },
+    {
+      "ts": 1665667800,
+      "equity": 7932.69,
+      "cash": 3548.0,
+      "pos_count": 5
+    },
+    {
+      "ts": 1665754200,
+      "equity": 7770.58,
+      "cash": 4058.31,
+      "pos_count": 4
+    },
+    {
+      "ts": 1666013400,
+      "equity": 8000.68,
+      "cash": 5214.37,
+      "pos_count": 3
+    },
+    {
+      "ts": 1666099800,
+      "equity": 8026.11,
+      "cash": 6140.13,
+      "pos_count": 2
+    },
+    {
+      "ts": 1666186200,
+      "equity": 8040.57,
+      "cash": 6140.13,
+      "pos_count": 2
+    },
+    {
+      "ts": 1666272600,
+      "equity": 7993.54,
+      "cash": 6140.13,
+      "pos_count": 2
+    },
+    {
+      "ts": 1666359000,
+      "equity": 8034.55,
+      "cash": 8034.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1666618200,
+      "equity": 8034.55,
+      "cash": 8034.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1666704600,
+      "equity": 8034.55,
+      "cash": 8034.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1666791000,
+      "equity": 8034.55,
+      "cash": 8034.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1666877400,
+      "equity": 8034.55,
+      "cash": 8034.55,
+      "pos_count": 0
+    },
+    {
+      "ts": 1666963800,
+      "equity": 8060.4,
+      "cash": 6105.5,
+      "pos_count": 2
+    },
+    {
+      "ts": 1667223000,
+      "equity": 7966.99,
+      "cash": 5168.33,
+      "pos_count": 3
+    },
+    {
+      "ts": 1667309400,
+      "equity": 7896.14,
+      "cash": 5168.33,
+      "pos_count": 3
+    },
+    {
+      "ts": 1667395800,
+      "equity": 7778.07,
+      "cash": 6002.97,
+      "pos_count": 2
+    },
+    {
+      "ts": 1667482200,
+      "equity": 7692.22,
+      "cash": 5964.92,
+      "pos_count": 2
+    },
+    {
+      "ts": 1667568600,
+      "equity": 7751.1,
+      "cash": 5089.94,
+      "pos_count": 3
+    },
+    {
+      "ts": 1667831400,
+      "equity": 7791.62,
+      "cash": 5089.94,
+      "pos_count": 3
+    },
+    {
+      "ts": 1667917800,
+      "equity": 7775.28,
+      "cash": 4114.5,
+      "pos_count": 4
+    },
+    {
+      "ts": 1668004200,
+      "equity": 7635.09,
+      "cash": 4114.5,
+      "pos_count": 4
+    },
+    {
+      "ts": 1668090600,
+      "equity": 7935.21,
+      "cash": 6015.31,
+      "pos_count": 2
+    },
+    {
+      "ts": 1668177000,
+      "equity": 8014.4,
+      "cash": 5046.17,
+      "pos_count": 3
+    },
+    {
+      "ts": 1668436200,
+      "equity": 7971.74,
+      "cash": 5046.17,
+      "pos_count": 3
+    },
+    {
+      "ts": 1668522600,
+      "equity": 7984.49,
+      "cash": 4530.54,
+      "pos_count": 4
+    },
+    {
+      "ts": 1668609000,
+      "equity": 7893.88,
+      "cash": 5496.4,
+      "pos_count": 3
+    },
+    {
+      "ts": 1668695400,
+      "equity": 7870.92,
+      "cash": 5496.4,
+      "pos_count": 3
+    },
+    {
+      "ts": 1668781800,
+      "equity": 7870.39,
+      "cash": 5496.4,
+      "pos_count": 3
+    },
+    {
+      "ts": 1669041000,
+      "equity": 7846.15,
+      "cash": 6365.12,
+      "pos_count": 2
+    },
+    {
+      "ts": 1669127400,
+      "equity": 7831.25,
+      "cash": 6365.12,
+      "pos_count": 2
+    },
+    {
+      "ts": 1669213800,
+      "equity": 7842.03,
+      "cash": 6365.12,
+      "pos_count": 2
+    },
+    {
+      "ts": 1669386600,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1669645800,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1669732200,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1669818600,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1669905000,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1669991400,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1670250600,
+      "equity": 7841.14,
+      "cash": 7841.14,
+      "pos_count": 0
+    },
+    {
+      "ts": 1670337000,
+      "equity": 7817.71,
+      "cash": 6882.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1670423400,
+      "equity": 7815.64,
+      "cash": 6882.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1670509800,
+      "equity": 7822.57,
+      "cash": 6882.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1670596200,
+      "equity": 7814.65,
+      "cash": 6882.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1670855400,
+      "equity": 7837.6,
+      "cash": 6882.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1670941800,
+      "equity": 7848.04,
+      "cash": 6882.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1671028200,
+      "equity": 7830.85,
+      "cash": 4952.52,
+      "pos_count": 3
+    },
+    {
+      "ts": 1671114600,
+      "equity": 7822.82,
+      "cash": 4952.52,
+      "pos_count": 3
+    },
+    {
+      "ts": 1671201000,
+      "equity": 7733.52,
+      "cash": 2204.05,
+      "pos_count": 6
+    },
+    {
+      "ts": 1671460200,
+      "equity": 7678.5,
+      "cash": 1548.09,
+      "pos_count": 7
+    },
+    {
+      "ts": 1671546600,
+      "equity": 7676.23,
+      "cash": 1459.94,
+      "pos_count": 7
+    },
+    {
+      "ts": 1671633000,
+      "equity": 7751.83,
+      "cash": 619.31,
+      "pos_count": 8
+    },
+    {
+      "ts": 1671719400,
+      "equity": 7566.37,
+      "cash": 1367.98,
+      "pos_count": 7
+    },
+    {
+      "ts": 1671805800,
+      "equity": 7600.68,
+      "cash": 1545.71,
+      "pos_count": 7
+    },
+    {
+      "ts": 1672151400,
+      "equity": 7455.04,
+      "cash": 2337.85,
+      "pos_count": 6
+    },
+    {
+      "ts": 1672237800,
+      "equity": 7382.79,
+      "cash": 525.96,
+      "pos_count": 8
+    },
+    {
+      "ts": 1672324200,
+      "equity": 7622.52,
+      "cash": 525.96,
+      "pos_count": 8
+    },
+    {
+      "ts": 1672410600,
+      "equity": 7612.59,
+      "cash": 3174.92,
+      "pos_count": 5
+    },
+    {
+      "ts": 1672756200,
+      "equity": 7475.06,
+      "cash": 4721.45,
+      "pos_count": 3
+    },
+    {
+      "ts": 1672842600,
+      "equity": 7535.39,
+      "cash": 5652.84,
+      "pos_count": 2
+    },
+    {
+      "ts": 1672929000,
+      "equity": 7438.68,
+      "cash": 4235.27,
+      "pos_count": 4
+    },
+    {
+      "ts": 1673015400,
+      "equity": 7510.17,
+      "cash": 4235.27,
+      "pos_count": 4
+    },
+    {
+      "ts": 1673274600,
+      "equity": 7623.42,
+      "cash": 4235.27,
+      "pos_count": 4
+    },
+    {
+      "ts": 1673361000,
+      "equity": 7635.35,
+      "cash": 4577.65,
+      "pos_count": 4
+    },
+    {
+      "ts": 1673447400,
+      "equity": 7715.29,
+      "cash": 5557.99,
+      "pos_count": 3
+    },
+    {
+      "ts": 1673533800,
+      "equity": 7720.7,
+      "cash": 6506.79,
+      "pos_count": 2
+    },
+    {
+      "ts": 1673620200,
+      "equity": 7719.6,
+      "cash": 6506.79,
+      "pos_count": 2
+    },
+    {
+      "ts": 1673965800,
+      "equity": 7707.35,
+      "cash": 6506.79,
+      "pos_count": 2
+    },
+    {
+      "ts": 1674052200,
+      "equity": 7684.58,
+      "cash": 6980.56,
+      "pos_count": 1
+    },
+    {
+      "ts": 1674138600,
+      "equity": 7682.72,
+      "cash": 6980.56,
+      "pos_count": 1
+    },
+    {
+      "ts": 1674225000,
+      "equity": 7672.7,
+      "cash": 6980.56,
+      "pos_count": 1
+    },
+    {
+      "ts": 1674484200,
+      "equity": 7664.98,
+      "cash": 6980.56,
+      "pos_count": 1
+    },
+    {
+      "ts": 1674570600,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1674657000,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1674743400,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1674829800,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1675089000,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1675175400,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1675261800,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1675348200,
+      "equity": 7669.53,
+      "cash": 7669.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1675434600,
+      "equity": 7666.48,
+      "cash": 6044.28,
+      "pos_count": 2
+    },
+    {
+      "ts": 1675693800,
+      "equity": 7670.08,
+      "cash": 6044.28,
+      "pos_count": 2
+    },
+    {
+      "ts": 1675780200,
+      "equity": 7677.4,
+      "cash": 6044.28,
+      "pos_count": 2
+    },
+    {
+      "ts": 1675866600,
+      "equity": 7695.62,
+      "cash": 5105.57,
+      "pos_count": 3
+    },
+    {
+      "ts": 1675953000,
+      "equity": 7673.0,
+      "cash": 6071.69,
+      "pos_count": 2
+    },
+    {
+      "ts": 1676039400,
+      "equity": 7685.43,
+      "cash": 6758.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1676298600,
+      "equity": 7700.28,
+      "cash": 6758.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1676385000,
+      "equity": 7692.36,
+      "cash": 6758.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1676471400,
+      "equity": 7699.62,
+      "cash": 6758.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1676557800,
+      "equity": 7703.25,
+      "cash": 6758.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1676644200,
+      "equity": 7711.85,
+      "cash": 6108.28,
+      "pos_count": 2
+    },
+    {
+      "ts": 1676989800,
+      "equity": 7694.23,
+      "cash": 6108.28,
+      "pos_count": 2
+    },
+    {
+      "ts": 1677076200,
+      "equity": 7664.43,
+      "cash": 4280.5,
+      "pos_count": 4
+    },
+    {
+      "ts": 1677162600,
+      "equity": 7630.74,
+      "cash": 3338.15,
+      "pos_count": 5
+    },
+    {
+      "ts": 1677249000,
+      "equity": 7569.57,
+      "cash": 3338.15,
+      "pos_count": 5
+    },
+    {
+      "ts": 1677508200,
+      "equity": 7584.52,
+      "cash": 1004.96,
+      "pos_count": 8
+    },
+    {
+      "ts": 1677594600,
+      "equity": 7558.74,
+      "cash": 1004.96,
+      "pos_count": 8
+    },
+    {
+      "ts": 1677681000,
+      "equity": 7557.63,
+      "cash": 1004.96,
+      "pos_count": 8
+    },
+    {
+      "ts": 1677767400,
+      "equity": 7573.37,
+      "cash": 1957.54,
+      "pos_count": 7
+    },
+    {
+      "ts": 1677853800,
+      "equity": 7609.95,
+      "cash": 4883.41,
+      "pos_count": 3
+    },
+    {
+      "ts": 1678113000,
+      "equity": 7604.7,
+      "cash": 5785.42,
+      "pos_count": 2
+    },
+    {
+      "ts": 1678199400,
+      "equity": 7572.74,
+      "cash": 6642.98,
+      "pos_count": 1
+    },
+    {
+      "ts": 1678285800,
+      "equity": 7576.58,
+      "cash": 6642.98,
+      "pos_count": 1
+    },
+    {
+      "ts": 1678372200,
+      "equity": 7468.51,
+      "cash": 5690.95,
+      "pos_count": 2
+    },
+    {
+      "ts": 1678458600,
+      "equity": 7453.2,
+      "cash": 3848.89,
+      "pos_count": 4
+    },
+    {
+      "ts": 1678714200,
+      "equity": 7426.87,
+      "cash": 3005.64,
+      "pos_count": 5
+    },
+    {
+      "ts": 1678800600,
+      "equity": 7508.54,
+      "cash": 1207.23,
+      "pos_count": 7
+    },
+    {
+      "ts": 1678887000,
+      "equity": 7358.35,
+      "cash": 2067.37,
+      "pos_count": 6
+    },
+    {
+      "ts": 1678973400,
+      "equity": 7472.18,
+      "cash": 299.78,
+      "pos_count": 8
+    },
+    {
+      "ts": 1679059800,
+      "equity": 7341.41,
+      "cash": 299.78,
+      "pos_count": 8
+    },
+    {
+      "ts": 1679319000,
+      "equity": 7446.13,
+      "cash": 1248.45,
+      "pos_count": 7
+    },
+    {
+      "ts": 1679405400,
+      "equity": 7625.68,
+      "cash": 3919.78,
+      "pos_count": 4
+    },
+    {
+      "ts": 1679491800,
+      "equity": 7549.55,
+      "cash": 3919.78,
+      "pos_count": 4
+    },
+    {
+      "ts": 1679578200,
+      "equity": 7517.07,
+      "cash": 5646.22,
+      "pos_count": 2
+    },
+    {
+      "ts": 1679664600,
+      "equity": 7516.8,
+      "cash": 5635.24,
+      "pos_count": 2
+    },
+    {
+      "ts": 1679923800,
+      "equity": 7552.4,
+      "cash": 5635.24,
+      "pos_count": 2
+    },
+    {
+      "ts": 1680010200,
+      "equity": 7581.18,
+      "cash": 6594.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1680096600,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1680183000,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1680269400,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1680528600,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1680615000,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1680701400,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1680787800,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681133400,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681219800,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681306200,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681392600,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681479000,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681738200,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681824600,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681911000,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1681997400,
+      "equity": 7587.89,
+      "cash": 7587.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1682083800,
+      "equity": 7584.76,
+      "cash": 6759.36,
+      "pos_count": 1
+    },
+    {
+      "ts": 1682343000,
+      "equity": 7572.11,
+      "cash": 6759.36,
+      "pos_count": 1
+    },
+    {
+      "ts": 1682429400,
+      "equity": 7562.71,
+      "cash": 6759.36,
+      "pos_count": 1
+    },
+    {
+      "ts": 1682515800,
+      "equity": 7503.25,
+      "cash": 5812.66,
+      "pos_count": 2
+    },
+    {
+      "ts": 1682602200,
+      "equity": 7551.45,
+      "cash": 4947.78,
+      "pos_count": 3
+    },
+    {
+      "ts": 1682688600,
+      "equity": 7584.45,
+      "cash": 4947.78,
+      "pos_count": 3
+    },
+    {
+      "ts": 1682947800,
+      "equity": 7569.43,
+      "cash": 4947.78,
+      "pos_count": 3
+    },
+    {
+      "ts": 1683034200,
+      "equity": 7534.71,
+      "cash": 4947.78,
+      "pos_count": 3
+    },
+    {
+      "ts": 1683120600,
+      "equity": 7523.92,
+      "cash": 4070.34,
+      "pos_count": 4
+    },
+    {
+      "ts": 1683207000,
+      "equity": 7505.1,
+      "cash": 4871.9,
+      "pos_count": 3
+    },
+    {
+      "ts": 1683293400,
+      "equity": 7553.76,
+      "cash": 5812.07,
+      "pos_count": 2
+    },
+    {
+      "ts": 1683552600,
+      "equity": 7555.2,
+      "cash": 5812.07,
+      "pos_count": 2
+    },
+    {
+      "ts": 1683639000,
+      "equity": 7552.84,
+      "cash": 5812.07,
+      "pos_count": 2
+    },
+    {
+      "ts": 1683725400,
+      "equity": 7541.24,
+      "cash": 6679.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1683811800,
+      "equity": 7525.64,
+      "cash": 6679.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1683898200,
+      "equity": 7525.56,
+      "cash": 6679.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684157400,
+      "equity": 7519.88,
+      "cash": 6679.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684243800,
+      "equity": 7495.15,
+      "cash": 7495.15,
+      "pos_count": 0
+    },
+    {
+      "ts": 1684330200,
+      "equity": 7497.32,
+      "cash": 7012.51,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684416600,
+      "equity": 7491.74,
+      "cash": 7012.51,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684503000,
+      "equity": 7491.33,
+      "cash": 7012.51,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684762200,
+      "equity": 7493.13,
+      "cash": 7012.51,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684848600,
+      "equity": 7491.95,
+      "cash": 7012.51,
+      "pos_count": 1
+    },
+    {
+      "ts": 1684935000,
+      "equity": 7470.07,
+      "cash": 4702.48,
+      "pos_count": 4
+    },
+    {
+      "ts": 1685021400,
+      "equity": 7466.83,
+      "cash": 3767.74,
+      "pos_count": 5
+    },
+    {
+      "ts": 1685107800,
+      "equity": 7514.06,
+      "cash": 4272.03,
+      "pos_count": 4
+    },
+    {
+      "ts": 1685453400,
+      "equity": 7479.82,
+      "cash": 4272.03,
+      "pos_count": 4
+    },
+    {
+      "ts": 1685539800,
+      "equity": 7452.07,
+      "cash": 5649.24,
+      "pos_count": 2
+    },
+    {
+      "ts": 1685626200,
+      "equity": 7490.57,
+      "cash": 4738.26,
+      "pos_count": 3
+    },
+    {
+      "ts": 1685712600,
+      "equity": 7522.62,
+      "cash": 4738.26,
+      "pos_count": 3
+    },
+    {
+      "ts": 1685971800,
+      "equity": 7502.48,
+      "cash": 4738.26,
+      "pos_count": 3
+    },
+    {
+      "ts": 1686058200,
+      "equity": 7514.32,
+      "cash": 5679.84,
+      "pos_count": 2
+    },
+    {
+      "ts": 1686144600,
+      "equity": 7493.52,
+      "cash": 6575.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1686231000,
+      "equity": 7499.06,
+      "cash": 7499.06,
+      "pos_count": 0
+    },
+    {
+      "ts": 1686317400,
+      "equity": 7499.06,
+      "cash": 7499.06,
+      "pos_count": 0
+    },
+    {
+      "ts": 1686576600,
+      "equity": 7499.06,
+      "cash": 7499.06,
+      "pos_count": 0
+    },
+    {
+      "ts": 1686663000,
+      "equity": 7499.06,
+      "cash": 7499.06,
+      "pos_count": 0
+    },
+    {
+      "ts": 1686749400,
+      "equity": 7499.06,
+      "cash": 7499.06,
+      "pos_count": 0
+    },
+    {
+      "ts": 1686835800,
+      "equity": 7501.78,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1686922200,
+      "equity": 7486.98,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687267800,
+      "equity": 7508.78,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687354200,
+      "equity": 7523.5,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687440600,
+      "equity": 7528.1,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687527000,
+      "equity": 7524.0,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687786200,
+      "equity": 7528.12,
+      "cash": 6570.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687872600,
+      "equity": 7534.66,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1687959000,
+      "equity": 7549.46,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688045400,
+      "equity": 7540.82,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688131800,
+      "equity": 7545.62,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688391000,
+      "equity": 7547.22,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688563800,
+      "equity": 7562.02,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688650200,
+      "equity": 7548.9,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688736600,
+      "equity": 7543.86,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1688995800,
+      "equity": 7519.62,
+      "cash": 6588.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1689082200,
+      "equity": 7519.99,
+      "cash": 7519.99,
+      "pos_count": 0
+    },
+    {
+      "ts": 1689168600,
+      "equity": 7519.42,
+      "cash": 6638.22,
+      "pos_count": 1
+    },
+    {
+      "ts": 1689255000,
+      "equity": 7494.15,
+      "cash": 5729.25,
+      "pos_count": 2
+    },
+    {
+      "ts": 1689341400,
+      "equity": 7568.93,
+      "cash": 6670.01,
+      "pos_count": 1
+    },
+    {
+      "ts": 1689600600,
+      "equity": 7565.24,
+      "cash": 5758.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1689687000,
+      "equity": 7569.22,
+      "cash": 5758.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1689773400,
+      "equity": 7580.24,
+      "cash": 5758.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1689859800,
+      "equity": 7611.77,
+      "cash": 6681.08,
+      "pos_count": 1
+    },
+    {
+      "ts": 1689946200,
+      "equity": 7616.09,
+      "cash": 6681.08,
+      "pos_count": 1
+    },
+    {
+      "ts": 1690205400,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690291800,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690378200,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690464600,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690551000,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690810200,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690896600,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1690983000,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1691069400,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1691155800,
+      "equity": 7625.54,
+      "cash": 7625.54,
+      "pos_count": 0
+    },
+    {
+      "ts": 1691415000,
+      "equity": 7604.13,
+      "cash": 6709.88,
+      "pos_count": 1
+    },
+    {
+      "ts": 1691501400,
+      "equity": 7608.88,
+      "cash": 6709.88,
+      "pos_count": 1
+    },
+    {
+      "ts": 1691587800,
+      "equity": 7600.83,
+      "cash": 6709.88,
+      "pos_count": 1
+    },
+    {
+      "ts": 1691674200,
+      "equity": 7574.4,
+      "cash": 4087.64,
+      "pos_count": 4
+    },
+    {
+      "ts": 1691760600,
+      "equity": 7520.62,
+      "cash": 4087.64,
+      "pos_count": 4
+    },
+    {
+      "ts": 1692019800,
+      "equity": 7627.72,
+      "cash": 4087.64,
+      "pos_count": 4
+    },
+    {
+      "ts": 1692106200,
+      "equity": 7601.19,
+      "cash": 4087.64,
+      "pos_count": 4
+    },
+    {
+      "ts": 1692192600,
+      "equity": 7527.37,
+      "cash": 376.02,
+      "pos_count": 8
+    },
+    {
+      "ts": 1692279000,
+      "equity": 7465.98,
+      "cash": 1239.65,
+      "pos_count": 7
+    },
+    {
+      "ts": 1692365400,
+      "equity": 7454.8,
+      "cash": 1448.77,
+      "pos_count": 7
+    },
+    {
+      "ts": 1692624600,
+      "equity": 7569.4,
+      "cash": 1923.02,
+      "pos_count": 7
+    },
+    {
+      "ts": 1692711000,
+      "equity": 7523.98,
+      "cash": 1923.02,
+      "pos_count": 7
+    },
+    {
+      "ts": 1692797400,
+      "equity": 7581.39,
+      "cash": 2881.95,
+      "pos_count": 6
+    },
+    {
+      "ts": 1692883800,
+      "equity": 7541.0,
+      "cash": 2881.95,
+      "pos_count": 6
+    },
+    {
+      "ts": 1692970200,
+      "equity": 7554.21,
+      "cash": 2881.95,
+      "pos_count": 6
+    },
+    {
+      "ts": 1693229400,
+      "equity": 7588.55,
+      "cash": 2881.95,
+      "pos_count": 6
+    },
+    {
+      "ts": 1693315800,
+      "equity": 7619.8,
+      "cash": 6584.2,
+      "pos_count": 2
+    },
+    {
+      "ts": 1693402200,
+      "equity": 7617.99,
+      "cash": 6584.2,
+      "pos_count": 2
+    },
+    {
+      "ts": 1693488600,
+      "equity": 7604.42,
+      "cash": 7604.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1693575000,
+      "equity": 7599.02,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1693920600,
+      "equity": 7603.59,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694007000,
+      "equity": 7599.72,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694093400,
+      "equity": 7607.59,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694179800,
+      "equity": 7603.55,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694439000,
+      "equity": 7602.16,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694525400,
+      "equity": 7602.68,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694611800,
+      "equity": 7602.62,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694698200,
+      "equity": 7606.38,
+      "cash": 7122.78,
+      "pos_count": 1
+    },
+    {
+      "ts": 1694784600,
+      "equity": 7606.81,
+      "cash": 7606.81,
+      "pos_count": 0
+    },
+    {
+      "ts": 1695043800,
+      "equity": 7606.81,
+      "cash": 7606.81,
+      "pos_count": 0
+    },
+    {
+      "ts": 1695130200,
+      "equity": 7606.81,
+      "cash": 7606.81,
+      "pos_count": 0
+    },
+    {
+      "ts": 1695216600,
+      "equity": 7606.81,
+      "cash": 7606.81,
+      "pos_count": 0
+    },
+    {
+      "ts": 1695303000,
+      "equity": 7606.81,
+      "cash": 7606.81,
+      "pos_count": 0
+    },
+    {
+      "ts": 1695389400,
+      "equity": 7570.71,
+      "cash": 1419.69,
+      "pos_count": 7
+    },
+    {
+      "ts": 1695648600,
+      "equity": 7587.9,
+      "cash": 783.03,
+      "pos_count": 8
+    },
+    {
+      "ts": 1695735000,
+      "equity": 7483.98,
+      "cash": 783.03,
+      "pos_count": 8
+    },
+    {
+      "ts": 1695821400,
+      "equity": 7489.01,
+      "cash": 2522.61,
+      "pos_count": 6
+    },
+    {
+      "ts": 1695907800,
+      "equity": 7546.22,
+      "cash": 701.07,
+      "pos_count": 8
+    },
+    {
+      "ts": 1695994200,
+      "equity": 7546.3,
+      "cash": 701.07,
+      "pos_count": 8
+    },
+    {
+      "ts": 1696253400,
+      "equity": 7554.72,
+      "cash": 1680.85,
+      "pos_count": 7
+    },
+    {
+      "ts": 1696339800,
+      "equity": 7438.13,
+      "cash": 4303.92,
+      "pos_count": 4
+    },
+    {
+      "ts": 1696426200,
+      "equity": 7457.92,
+      "cash": 1618.1,
+      "pos_count": 7
+    },
+    {
+      "ts": 1696512600,
+      "equity": 7449.31,
+      "cash": 2349.56,
+      "pos_count": 6
+    },
+    {
+      "ts": 1696599000,
+      "equity": 7489.25,
+      "cash": 3000.48,
+      "pos_count": 5
+    },
+    {
+      "ts": 1696858200,
+      "equity": 7524.39,
+      "cash": 3000.48,
+      "pos_count": 5
+    },
+    {
+      "ts": 1696944600,
+      "equity": 7575.45,
+      "cash": 4841.26,
+      "pos_count": 3
+    },
+    {
+      "ts": 1697031000,
+      "equity": 7543.61,
+      "cash": 6691.69,
+      "pos_count": 1
+    },
+    {
+      "ts": 1697117400,
+      "equity": 7543.45,
+      "cash": 6691.69,
+      "pos_count": 1
+    },
+    {
+      "ts": 1697203800,
+      "equity": 7565.66,
+      "cash": 5761.94,
+      "pos_count": 2
+    },
+    {
+      "ts": 1697463000,
+      "equity": 7579.67,
+      "cash": 5761.94,
+      "pos_count": 2
+    },
+    {
+      "ts": 1697549400,
+      "equity": 7577.93,
+      "cash": 5761.94,
+      "pos_count": 2
+    },
+    {
+      "ts": 1697635800,
+      "equity": 7560.66,
+      "cash": 6660.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1697722200,
+      "equity": 7707.1,
+      "cash": 7707.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1697808600,
+      "equity": 7682.25,
+      "cash": 6834.29,
+      "pos_count": 1
+    },
+    {
+      "ts": 1698067800,
+      "equity": 7675.01,
+      "cash": 4113.1,
+      "pos_count": 4
+    },
+    {
+      "ts": 1698154200,
+      "equity": 7712.73,
+      "cash": 3261.3,
+      "pos_count": 5
+    },
+    {
+      "ts": 1698240600,
+      "equity": 7658.5,
+      "cash": 3261.3,
+      "pos_count": 5
+    },
+    {
+      "ts": 1698327000,
+      "equity": 7600.98,
+      "cash": 1544.61,
+      "pos_count": 7
+    },
+    {
+      "ts": 1698413400,
+      "equity": 7613.86,
+      "cash": 847.94,
+      "pos_count": 8
+    },
+    {
+      "ts": 1698672600,
+      "equity": 7649.87,
+      "cash": 2547.0,
+      "pos_count": 6
+    },
+    {
+      "ts": 1698759000,
+      "equity": 7665.34,
+      "cash": 2547.0,
+      "pos_count": 6
+    },
+    {
+      "ts": 1698845400,
+      "equity": 7715.75,
+      "cash": 2547.0,
+      "pos_count": 6
+    },
+    {
+      "ts": 1698931800,
+      "equity": 7789.77,
+      "cash": 6048.82,
+      "pos_count": 2
+    },
+    {
+      "ts": 1699018200,
+      "equity": 7805.8,
+      "cash": 6902.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1699281000,
+      "equity": 7813.85,
+      "cash": 6902.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1699367400,
+      "equity": 7818.89,
+      "cash": 6902.1,
+      "pos_count": 1
+    },
+    {
+      "ts": 1699453800,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1699540200,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1699626600,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1699885800,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1699972200,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700058600,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700145000,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700231400,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700490600,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700577000,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700663400,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1700836200,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701095400,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701181800,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701268200,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701354600,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701441000,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701700200,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701786600,
+      "equity": 7819.9,
+      "cash": 7819.9,
+      "pos_count": 0
+    },
+    {
+      "ts": 1701873000,
+      "equity": 7806.94,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1701959400,
+      "equity": 7800.73,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1702045800,
+      "equity": 7810.9,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1702305000,
+      "equity": 7811.53,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1702391400,
+      "equity": 7797.4,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1702477800,
+      "equity": 7805.23,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1702564200,
+      "equity": 7829.17,
+      "cash": 6914.95,
+      "pos_count": 1
+    },
+    {
+      "ts": 1702650600,
+      "equity": 7819.85,
+      "cash": 6339.71,
+      "pos_count": 2
+    },
+    {
+      "ts": 1702909800,
+      "equity": 7834.32,
+      "cash": 6339.71,
+      "pos_count": 2
+    },
+    {
+      "ts": 1702996200,
+      "equity": 7837.89,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703082600,
+      "equity": 7820.18,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703169000,
+      "equity": 7825.92,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703255400,
+      "equity": 7824.74,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703601000,
+      "equity": 7824.74,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703687400,
+      "equity": 7838.34,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703773800,
+      "equity": 7839.79,
+      "cash": 6734.04,
+      "pos_count": 2
+    },
+    {
+      "ts": 1703860200,
+      "equity": 7840.23,
+      "cash": 7313.76,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704205800,
+      "equity": 7850.13,
+      "cash": 7850.13,
+      "pos_count": 0
+    },
+    {
+      "ts": 1704292200,
+      "equity": 7845.22,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704378600,
+      "equity": 7833.52,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704465000,
+      "equity": 7829.87,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704724200,
+      "equity": 7851.77,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704810600,
+      "equity": 7849.67,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704897000,
+      "equity": 7854.92,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1704983400,
+      "equity": 7851.92,
+      "cash": 6923.97,
+      "pos_count": 1
+    },
+    {
+      "ts": 1705069800,
+      "equity": 7843.96,
+      "cash": 6038.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1705415400,
+      "equity": 7836.59,
+      "cash": 6038.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1705501800,
+      "equity": 7806.0,
+      "cash": 4065.52,
+      "pos_count": 4
+    },
+    {
+      "ts": 1705588200,
+      "equity": 7805.0,
+      "cash": 3105.81,
+      "pos_count": 5
+    },
+    {
+      "ts": 1705674600,
+      "equity": 7819.18,
+      "cash": 2148.5,
+      "pos_count": 6
+    },
+    {
+      "ts": 1705933800,
+      "equity": 7788.42,
+      "cash": 1641.79,
+      "pos_count": 7
+    },
+    {
+      "ts": 1706020200,
+      "equity": 7824.21,
+      "cash": 1641.79,
+      "pos_count": 7
+    },
+    {
+      "ts": 1706106600,
+      "equity": 7856.9,
+      "cash": 3615.33,
+      "pos_count": 5
+    },
+    {
+      "ts": 1706193000,
+      "equity": 7786.72,
+      "cash": 6330.81,
+      "pos_count": 2
+    },
+    {
+      "ts": 1706279400,
+      "equity": 7785.39,
+      "cash": 5398.21,
+      "pos_count": 3
+    },
+    {
+      "ts": 1706538600,
+      "equity": 7818.17,
+      "cash": 5398.21,
+      "pos_count": 3
+    },
+    {
+      "ts": 1706625000,
+      "equity": 7812.71,
+      "cash": 5398.21,
+      "pos_count": 3
+    },
+    {
+      "ts": 1706711400,
+      "equity": 7801.08,
+      "cash": 5398.21,
+      "pos_count": 3
+    },
+    {
+      "ts": 1706797800,
+      "equity": 7809.75,
+      "cash": 6358.31,
+      "pos_count": 2
+    },
+    {
+      "ts": 1706884200,
+      "equity": 7805.28,
+      "cash": 6865.73,
+      "pos_count": 1
+    },
+    {
+      "ts": 1707143400,
+      "equity": 7771.03,
+      "cash": 6865.73,
+      "pos_count": 1
+    },
+    {
+      "ts": 1707229800,
+      "equity": 7791.23,
+      "cash": 6865.73,
+      "pos_count": 1
+    },
+    {
+      "ts": 1707316200,
+      "equity": 7803.63,
+      "cash": 6865.73,
+      "pos_count": 1
+    },
+    {
+      "ts": 1707402600,
+      "equity": 7808.32,
+      "cash": 7808.32,
+      "pos_count": 0
+    },
+    {
+      "ts": 1707489000,
+      "equity": 7808.32,
+      "cash": 7808.32,
+      "pos_count": 0
+    },
+    {
+      "ts": 1707748200,
+      "equity": 7808.32,
+      "cash": 7808.32,
+      "pos_count": 0
+    },
+    {
+      "ts": 1707834600,
+      "equity": 7808.32,
+      "cash": 7808.32,
+      "pos_count": 0
+    },
+    {
+      "ts": 1707921000,
+      "equity": 7804.15,
+      "cash": 6827.65,
+      "pos_count": 1
+    },
+    {
+      "ts": 1708007400,
+      "equity": 7811.65,
+      "cash": 6827.65,
+      "pos_count": 1
+    },
+    {
+      "ts": 1708093800,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1708439400,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1708525800,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1708612200,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1708698600,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1708957800,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1709044200,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1709130600,
+      "equity": 7815.49,
+      "cash": 7815.49,
+      "pos_count": 0
+    },
+    {
+      "ts": 1709217000,
+      "equity": 7810.82,
+      "cash": 6348.0,
+      "pos_count": 2
+    },
+    {
+      "ts": 1709303400,
+      "equity": 7797.51,
+      "cash": 6348.0,
+      "pos_count": 2
+    },
+    {
+      "ts": 1709562600,
+      "equity": 7763.32,
+      "cash": 6348.0,
+      "pos_count": 2
+    },
+    {
+      "ts": 1709649000,
+      "equity": 7743.38,
+      "cash": 5964.09,
+      "pos_count": 2
+    },
+    {
+      "ts": 1709735400,
+      "equity": 7720.59,
+      "cash": 5009.99,
+      "pos_count": 3
+    },
+    {
+      "ts": 1709821800,
+      "equity": 7769.92,
+      "cash": 4133.45,
+      "pos_count": 4
+    },
+    {
+      "ts": 1709908200,
+      "equity": 7764.81,
+      "cash": 4133.45,
+      "pos_count": 4
+    },
+    {
+      "ts": 1710163800,
+      "equity": 7828.04,
+      "cash": 4133.45,
+      "pos_count": 4
+    },
+    {
+      "ts": 1710250200,
+      "equity": 7835.5,
+      "cash": 4133.45,
+      "pos_count": 4
+    },
+    {
+      "ts": 1710336600,
+      "equity": 7785.64,
+      "cash": 5106.59,
+      "pos_count": 3
+    },
+    {
+      "ts": 1710423000,
+      "equity": 7762.09,
+      "cash": 5106.59,
+      "pos_count": 3
+    },
+    {
+      "ts": 1710509400,
+      "equity": 7769.18,
+      "cash": 5106.59,
+      "pos_count": 3
+    },
+    {
+      "ts": 1710768600,
+      "equity": 7813.52,
+      "cash": 5970.42,
+      "pos_count": 2
+    },
+    {
+      "ts": 1710855000,
+      "equity": 7808.23,
+      "cash": 6951.63,
+      "pos_count": 1
+    },
+    {
+      "ts": 1710941400,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711027800,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711114200,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711373400,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711459800,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711546200,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711632600,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1711978200,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1712064600,
+      "equity": 7825.1,
+      "cash": 7825.1,
+      "pos_count": 0
+    },
+    {
+      "ts": 1712151000,
+      "equity": 7815.5,
+      "cash": 6896.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1712237400,
+      "equity": 7806.78,
+      "cash": 6896.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1712323800,
+      "equity": 7807.5,
+      "cash": 6896.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1712583000,
+      "equity": 7808.02,
+      "cash": 6896.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1712669400,
+      "equity": 7815.46,
+      "cash": 6896.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1712755800,
+      "equity": 7796.12,
+      "cash": 6896.02,
+      "pos_count": 1
+    },
+    {
+      "ts": 1712842200,
+      "equity": 7766.62,
+      "cash": 5014.12,
+      "pos_count": 3
+    },
+    {
+      "ts": 1712928600,
+      "equity": 7727.82,
+      "cash": 5889.96,
+      "pos_count": 2
+    },
+    {
+      "ts": 1713187800,
+      "equity": 7673.66,
+      "cash": 5020.98,
+      "pos_count": 3
+    },
+    {
+      "ts": 1713274200,
+      "equity": 7612.57,
+      "cash": 870.16,
+      "pos_count": 8
+    },
+    {
+      "ts": 1713360600,
+      "equity": 7583.74,
+      "cash": 870.16,
+      "pos_count": 8
+    },
+    {
+      "ts": 1713447000,
+      "equity": 7543.46,
+      "cash": 870.16,
+      "pos_count": 8
+    },
+    {
+      "ts": 1713533400,
+      "equity": 7546.34,
+      "cash": 1695.42,
+      "pos_count": 7
+    },
+    {
+      "ts": 1713792600,
+      "equity": 7564.69,
+      "cash": 1592.87,
+      "pos_count": 7
+    },
+    {
+      "ts": 1713879000,
+      "equity": 7662.58,
+      "cash": 1651.53,
+      "pos_count": 7
+    },
+    {
+      "ts": 1713965400,
+      "equity": 7731.12,
+      "cash": 3598.2,
+      "pos_count": 5
+    },
+    {
+      "ts": 1714051800,
+      "equity": 7730.96,
+      "cash": 3598.2,
+      "pos_count": 5
+    },
+    {
+      "ts": 1714138200,
+      "equity": 7751.17,
+      "cash": 5402.23,
+      "pos_count": 3
+    },
+    {
+      "ts": 1714397400,
+      "equity": 7725.86,
+      "cash": 5909.49,
+      "pos_count": 2
+    },
+    {
+      "ts": 1714483800,
+      "equity": 7705.92,
+      "cash": 5909.49,
+      "pos_count": 2
+    },
+    {
+      "ts": 1714570200,
+      "equity": 7719.2,
+      "cash": 4311.08,
+      "pos_count": 4
+    },
+    {
+      "ts": 1714656600,
+      "equity": 7748.43,
+      "cash": 3375.88,
+      "pos_count": 5
+    },
+    {
+      "ts": 1714743000,
+      "equity": 7806.05,
+      "cash": 4355.34,
+      "pos_count": 4
+    },
+    {
+      "ts": 1715002200,
+      "equity": 7856.74,
+      "cash": 5991.38,
+      "pos_count": 2
+    },
+    {
+      "ts": 1715088600,
+      "equity": 7857.22,
+      "cash": 5991.38,
+      "pos_count": 2
+    },
+    {
+      "ts": 1715175000,
+      "equity": 7865.78,
+      "cash": 5991.38,
+      "pos_count": 2
+    },
+    {
+      "ts": 1715261400,
+      "equity": 7884.51,
+      "cash": 6936.99,
+      "pos_count": 1
+    },
+    {
+      "ts": 1715347800,
+      "equity": 7880.67,
+      "cash": 6936.99,
+      "pos_count": 1
+    },
+    {
+      "ts": 1715607000,
+      "equity": 7880.27,
+      "cash": 6936.99,
+      "pos_count": 1
+    },
+    {
+      "ts": 1715693400,
+      "equity": 7878.35,
+      "cash": 6936.99,
+      "pos_count": 1
+    },
+    {
+      "ts": 1715779800,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1715866200,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1715952600,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1716211800,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1716298200,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1716384600,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1716471000,
+      "equity": 7880.42,
+      "cash": 7880.42,
+      "pos_count": 0
+    },
+    {
+      "ts": 1716557400,
+      "equity": 7848.99,
+      "cash": 5967.87,
+      "pos_count": 2
+    },
+    {
+      "ts": 1716903000,
+      "equity": 7859.55,
+      "cash": 5967.87,
+      "pos_count": 2
+    },
+    {
+      "ts": 1716989400,
+      "equity": 7833.07,
+      "cash": 5967.87,
+      "pos_count": 2
+    },
+    {
+      "ts": 1717075800,
+      "equity": 7840.75,
+      "cash": 5967.87,
+      "pos_count": 2
+    },
+    {
+      "ts": 1717162200,
+      "equity": 7840.37,
+      "cash": 7840.37,
+      "pos_count": 0
+    },
+    {
+      "ts": 1717421400,
+      "equity": 7838.68,
+      "cash": 6946.98,
+      "pos_count": 1
+    },
+    {
+      "ts": 1717507800,
+      "equity": 7843.68,
+      "cash": 6946.98,
+      "pos_count": 1
+    },
+    {
+      "ts": 1717594200,
+      "equity": 7853.38,
+      "cash": 6946.98,
+      "pos_count": 1
+    },
+    {
+      "ts": 1717680600,
+      "equity": 7866.89,
+      "cash": 7866.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1717767000,
+      "equity": 7866.89,
+      "cash": 7866.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1718026200,
+      "equity": 7866.89,
+      "cash": 7866.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1718112600,
+      "equity": 7866.89,
+      "cash": 7866.89,
+      "pos_count": 0
+    },
+    {
+      "ts": 1718199000,
+      "equity": 7857.52,
+      "cash": 6899.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1718285400,
+      "equity": 7842.74,
+      "cash": 4947.6,
+      "pos_count": 3
+    },
+    {
+      "ts": 1718371800,
+      "equity": 7825.02,
+      "cash": 5874.4,
+      "pos_count": 2
+    },
+    {
+      "ts": 1718631000,
+      "equity": 7821.54,
+      "cash": 3983.86,
+      "pos_count": 4
+    },
+    {
+      "ts": 1718717400,
+      "equity": 7843.0,
+      "cash": 3983.86,
+      "pos_count": 4
+    },
+    {
+      "ts": 1718890200,
+      "equity": 7851.74,
+      "cash": 4971.74,
+      "pos_count": 3
+    },
+    {
+      "ts": 1718976600,
+      "equity": 7834.54,
+      "cash": 4971.74,
+      "pos_count": 3
+    },
+    {
+      "ts": 1719235800,
+      "equity": 7869.46,
+      "cash": 4971.74,
+      "pos_count": 3
+    },
+    {
+      "ts": 1719322200,
+      "equity": 7855.88,
+      "cash": 4971.74,
+      "pos_count": 3
+    },
+    {
+      "ts": 1719408600,
+      "equity": 7831.88,
+      "cash": 4971.74,
+      "pos_count": 3
+    },
+    {
+      "ts": 1719495000,
+      "equity": 7839.81,
+      "cash": 5964.89,
+      "pos_count": 2
+    },
+    {
+      "ts": 1719581400,
+      "equity": 7821.03,
+      "cash": 5158.88,
+      "pos_count": 3
+    },
+    {
+      "ts": 1719840600,
+      "equity": 7820.27,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1719927000,
+      "equity": 7835.24,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720013400,
+      "equity": 7837.52,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720186200,
+      "equity": 7841.63,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720445400,
+      "equity": 7829.75,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720531800,
+      "equity": 7826.87,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720618200,
+      "equity": 7819.55,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720704600,
+      "equity": 7818.2,
+      "cash": 7030.55,
+      "pos_count": 1
+    },
+    {
+      "ts": 1720791000,
+      "equity": 7823.39,
+      "cash": 7823.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1721050200,
+      "equity": 7831.47,
+      "cash": 6846.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1721136600,
+      "equity": 7831.27,
+      "cash": 6846.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1721223000,
+      "equity": 7817.98,
+      "cash": 6846.79,
+      "pos_count": 1
+    },
+    {
+      "ts": 1721309400,
+      "equity": 7807.83,
+      "cash": 5891.57,
+      "pos_count": 2
+    },
+    {
+      "ts": 1721395800,
+      "equity": 7780.2,
+      "cash": 5019.14,
+      "pos_count": 3
+    },
+    {
+      "ts": 1721655000,
+      "equity": 7831.16,
+      "cash": 5019.14,
+      "pos_count": 3
+    },
+    {
+      "ts": 1721741400,
+      "equity": 7838.95,
+      "cash": 5019.14,
+      "pos_count": 3
+    },
+    {
+      "ts": 1721827800,
+      "equity": 7755.54,
+      "cash": 5019.14,
+      "pos_count": 3
+    },
+    {
+      "ts": 1721914200,
+      "equity": 7605.6,
+      "cash": 677.26,
+      "pos_count": 8
+    },
+    {
+      "ts": 1722000600,
+      "equity": 7646.27,
+      "cash": 2420.53,
+      "pos_count": 6
+    },
+    {
+      "ts": 1722259800,
+      "equity": 7647.68,
+      "cash": 1602.04,
+      "pos_count": 7
+    },
+    {
+      "ts": 1722346200,
+      "equity": 7550.12,
+      "cash": 1602.04,
+      "pos_count": 7
+    },
+    {
+      "ts": 1722432600,
+      "equity": 7716.08,
+      "cash": 3339.11,
+      "pos_count": 5
+    },
+    {
+      "ts": 1722519000,
+      "equity": 7652.57,
+      "cash": 3339.11,
+      "pos_count": 5
+    },
+    {
+      "ts": 1722605400,
+      "equity": 7493.68,
+      "cash": 4958.42,
+      "pos_count": 3
+    },
+    {
+      "ts": 1722864600,
+      "equity": 7400.95,
+      "cash": 2547.91,
+      "pos_count": 6
+    },
+    {
+      "ts": 1722951000,
+      "equity": 7461.27,
+      "cash": 831.16,
+      "pos_count": 8
+    },
+    {
+      "ts": 1723037400,
+      "equity": 7463.6,
+      "cash": 831.16,
+      "pos_count": 8
+    },
+    {
+      "ts": 1723123800,
+      "equity": 7643.98,
+      "cash": 831.16,
+      "pos_count": 8
+    },
+    {
+      "ts": 1723210200,
+      "equity": 7734.15,
+      "cash": 1724.24,
+      "pos_count": 7
+    },
+    {
+      "ts": 1723469400,
+      "equity": 7736.41,
+      "cash": 2648.06,
+      "pos_count": 6
+    },
+    {
+      "ts": 1723555800,
+      "equity": 7772.94,
+      "cash": 6751.56,
+      "pos_count": 1
+    },
+    {
+      "ts": 1723642200,
+      "equity": 7772.16,
+      "cash": 6751.56,
+      "pos_count": 1
+    },
+    {
+      "ts": 1723728600,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1723815000,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724074200,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724160600,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724247000,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724333400,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724419800,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724679000,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724765400,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724851800,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1724938200,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1725024600,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1725370200,
+      "equity": 7797.05,
+      "cash": 7797.05,
+      "pos_count": 0
+    },
+    {
+      "ts": 1725456600,
+      "equity": 7790.62,
+      "cash": 6851.92,
+      "pos_count": 1
+    },
+    {
+      "ts": 1725543000,
+      "equity": 7795.36,
+      "cash": 6851.92,
+      "pos_count": 1
+    },
+    {
+      "ts": 1725629400,
+      "equity": 7757.44,
+      "cash": 6851.92,
+      "pos_count": 1
+    },
+    {
+      "ts": 1725888600,
+      "equity": 7726.82,
+      "cash": 5565.67,
+      "pos_count": 3
+    },
+    {
+      "ts": 1725975000,
+      "equity": 7772.42,
+      "cash": 4658.01,
+      "pos_count": 4
+    },
+    {
+      "ts": 1726061400,
+      "equity": 7852.67,
+      "cash": 4727.2,
+      "pos_count": 4
+    },
+    {
+      "ts": 1726147800,
+      "equity": 7894.29,
+      "cash": 5249.91,
+      "pos_count": 3
+    },
+    {
+      "ts": 1726234200,
+      "equity": 7901.15,
+      "cash": 5249.91,
+      "pos_count": 3
+    },
+    {
+      "ts": 1726493400,
+      "equity": 7931.39,
+      "cash": 5249.91,
+      "pos_count": 3
+    },
+    {
+      "ts": 1726579800,
+      "equity": 7950.43,
+      "cash": 5332.83,
+      "pos_count": 3
+    },
+    {
+      "ts": 1726666200,
+      "equity": 7957.31,
+      "cash": 6244.43,
+      "pos_count": 2
+    },
+    {
+      "ts": 1726752600,
+      "equity": 7996.79,
+      "cash": 7154.87,
+      "pos_count": 1
+    },
+    {
+      "ts": 1726839000,
+      "equity": 7999.23,
+      "cash": 7154.87,
+      "pos_count": 1
+    },
+    {
+      "ts": 1727098200,
+      "equity": 8000.63,
+      "cash": 7154.87,
+      "pos_count": 1
+    },
+    {
+      "ts": 1727184600,
+      "equity": 7996.58,
+      "cash": 7996.58,
+      "pos_count": 0
+    },
+    {
+      "ts": 1727271000,
+      "equity": 7996.58,
+      "cash": 7996.58,
+      "pos_count": 0
+    },
+    {
+      "ts": 1727357400,
+      "equity": 7996.58,
+      "cash": 7996.58,
+      "pos_count": 0
+    },
+    {
+      "ts": 1727443800,
+      "equity": 7996.58,
+      "cash": 7996.58,
+      "pos_count": 0
+    },
+    {
+      "ts": 1727703000,
+      "equity": 8013.24,
+      "cash": 7127.3,
+      "pos_count": 1
+    },
+    {
+      "ts": 1727789400,
+      "equity": 8011.78,
+      "cash": 7127.3,
+      "pos_count": 1
+    },
+    {
+      "ts": 1727875800,
+      "equity": 8018.37,
+      "cash": 7127.3,
+      "pos_count": 1
+    },
+    {
+      "ts": 1727962200,
+      "equity": 8012.85,
+      "cash": 7127.3,
+      "pos_count": 1
+    },
+    {
+      "ts": 1728048600,
+      "equity": 8014.46,
+      "cash": 7127.3,
+      "pos_count": 1
+    },
+    {
+      "ts": 1728307800,
+      "equity": 8025.7,
+      "cash": 7127.3,
+      "pos_count": 1
+    },
+    {
+      "ts": 1728394200,
+      "equity": 8039.1,
+      "cash": 7209.68,
+      "pos_count": 1
+    },
+    {
+      "ts": 1728480600,
+      "equity": 8044.6,
+      "cash": 7209.68,
+      "pos_count": 1
+    },
+    {
+      "ts": 1728567000,
+      "equity": 8038.68,
+      "cash": 6209.15,
+      "pos_count": 2
+    },
+    {
+      "ts": 1728653400,
+      "equity": 8032.99,
+      "cash": 6209.15,
+      "pos_count": 2
+    },
+    {
+      "ts": 1728912600,
+      "equity": 8051.96,
+      "cash": 5323.79,
+      "pos_count": 3
+    },
+    {
+      "ts": 1728999000,
+      "equity": 8033.55,
+      "cash": 5323.79,
+      "pos_count": 3
+    },
+    {
+      "ts": 1729085400,
+      "equity": 8048.37,
+      "cash": 4763.72,
+      "pos_count": 4
+    },
+    {
+      "ts": 1729171800,
+      "equity": 8040.4,
+      "cash": 4763.72,
+      "pos_count": 4
+    },
+    {
+      "ts": 1729258200,
+      "equity": 8062.84,
+      "cash": 4787.11,
+      "pos_count": 4
+    },
+    {
+      "ts": 1729517400,
+      "equity": 8052.88,
+      "cash": 5620.06,
+      "pos_count": 3
+    },
+    {
+      "ts": 1729603800,
+      "equity": 8045.3,
+      "cash": 5620.06,
+      "pos_count": 3
+    },
+    {
+      "ts": 1729690200,
+      "equity": 8014.26,
+      "cash": 6595.02,
+      "pos_count": 2
+    },
+    {
+      "ts": 1729776600,
+      "equity": 8153.06,
+      "cash": 6630.45,
+      "pos_count": 2
+    },
+    {
+      "ts": 1729863000,
+      "equity": 8153.57,
+      "cash": 6630.45,
+      "pos_count": 2
+    },
+    {
+      "ts": 1730122200,
+      "equity": 8161.93,
+      "cash": 6630.45,
+      "pos_count": 2
+    },
+    {
+      "ts": 1730208600,
+      "equity": 8152.25,
+      "cash": 7189.49,
+      "pos_count": 1
+    },
+    {
+      "ts": 1730295000,
+      "equity": 8146.01,
+      "cash": 7189.49,
+      "pos_count": 1
+    },
+    {
+      "ts": 1730381400,
+      "equity": 8109.92,
+      "cash": 6272.48,
+      "pos_count": 2
+    },
+    {
+      "ts": 1730467800,
+      "equity": 8098.69,
+      "cash": 5698.02,
+      "pos_count": 3
+    },
+    {
+      "ts": 1730730600,
+      "equity": 8099.68,
+      "cash": 3762.75,
+      "pos_count": 5
+    },
+    {
+      "ts": 1730817000,
+      "equity": 8128.5,
+      "cash": 2870.67,
+      "pos_count": 6
+    },
+    {
+      "ts": 1730903400,
+      "equity": 8095.22,
+      "cash": 6207.74,
+      "pos_count": 2
+    },
+    {
+      "ts": 1730989800,
+      "equity": 8138.64,
+      "cash": 5418.77,
+      "pos_count": 3
+    },
+    {
+      "ts": 1731076200,
+      "equity": 8155.05,
+      "cash": 5418.77,
+      "pos_count": 3
+    },
+    {
+      "ts": 1731335400,
+      "equity": 8145.33,
+      "cash": 5418.77,
+      "pos_count": 3
+    },
+    {
+      "ts": 1731421800,
+      "equity": 8114.33,
+      "cash": 6398.55,
+      "pos_count": 2
+    },
+    {
+      "ts": 1731508200,
+      "equity": 8082.81,
+      "cash": 3401.5,
+      "pos_count": 5
+    },
+    {
+      "ts": 1731594600,
+      "equity": 8069.04,
+      "cash": 3401.5,
+      "pos_count": 5
+    },
+    {
+      "ts": 1731681000,
+      "equity": 8009.64,
+      "cash": 3401.5,
+      "pos_count": 5
+    },
+    {
+      "ts": 1731940200,
+      "equity": 8001.39,
+      "cash": 4464.42,
+      "pos_count": 4
+    },
+    {
+      "ts": 1732026600,
+      "equity": 8003.09,
+      "cash": 4464.42,
+      "pos_count": 4
+    },
+    {
+      "ts": 1732113000,
+      "equity": 8001.69,
+      "cash": 4464.42,
+      "pos_count": 4
+    },
+    {
+      "ts": 1732199400,
+      "equity": 7995.65,
+      "cash": 4464.42,
+      "pos_count": 4
+    },
+    {
+      "ts": 1732285800,
+      "equity": 7999.43,
+      "cash": 4464.42,
+      "pos_count": 4
+    },
+    {
+      "ts": 1732545000,
+      "equity": 8016.69,
+      "cash": 4464.42,
+      "pos_count": 4
+    },
+    {
+      "ts": 1732631400,
+      "equity": 7989.93,
+      "cash": 7989.93,
+      "pos_count": 0
+    },
+    {
+      "ts": 1732717800,
+      "equity": 7989.93,
+      "cash": 7989.93,
+      "pos_count": 0
+    },
+    {
+      "ts": 1732890600,
+      "equity": 7997.4,
+      "cash": 7002.12,
+      "pos_count": 1
+    },
+    {
+      "ts": 1733149800,
+      "equity": 7986.48,
+      "cash": 7002.12,
+      "pos_count": 1
+    },
+    {
+      "ts": 1733236200,
+      "equity": 7992.72,
+      "cash": 7002.12,
+      "pos_count": 1
+    },
+    {
+      "ts": 1733322600,
+      "equity": 7994.67,
+      "cash": 7002.12,
+      "pos_count": 1
+    },
+    {
+      "ts": 1733409000,
+      "equity": 8006.95,
+      "cash": 6079.39,
+      "pos_count": 2
+    },
+    {
+      "ts": 1733495400,
+      "equity": 7973.48,
+      "cash": 6079.39,
+      "pos_count": 2
+    },
+    {
+      "ts": 1733754600,
+      "equity": 7983.84,
+      "cash": 5524.35,
+      "pos_count": 3
+    },
+    {
+      "ts": 1733841000,
+      "equity": 7997.49,
+      "cash": 5524.35,
+      "pos_count": 3
+    },
+    {
+      "ts": 1733927400,
+      "equity": 7981.35,
+      "cash": 6552.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1734013800,
+      "equity": 7962.78,
+      "cash": 6552.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1734100200,
+      "equity": 7947.17,
+      "cash": 7060.45,
+      "pos_count": 1
+    },
+    {
+      "ts": 1734359400,
+      "equity": 7935.6,
+      "cash": 7935.6,
+      "pos_count": 0
+    },
+    {
+      "ts": 1734445800,
+      "equity": 7927.29,
+      "cash": 6956.25,
+      "pos_count": 1
+    },
+    {
+      "ts": 1734532200,
+      "equity": 7901.95,
+      "cash": 5961.71,
+      "pos_count": 2
+    },
+    {
+      "ts": 1734618600,
+      "equity": 7846.37,
+      "cash": 1564.3,
+      "pos_count": 7
+    },
+    {
+      "ts": 1734705000,
+      "equity": 7912.08,
+      "cash": 1564.3,
+      "pos_count": 7
+    },
+    {
+      "ts": 1734964200,
+      "equity": 7919.39,
+      "cash": 608.83,
+      "pos_count": 8
+    },
+    {
+      "ts": 1735050600,
+      "equity": 7963.44,
+      "cash": 1206.82,
+      "pos_count": 7
+    },
+    {
+      "ts": 1735223400,
+      "equity": 7982.77,
+      "cash": 2174.03,
+      "pos_count": 6
+    },
+    {
+      "ts": 1735309800,
+      "equity": 7951.62,
+      "cash": 2174.03,
+      "pos_count": 6
+    },
+    {
+      "ts": 1735569000,
+      "equity": 7907.97,
+      "cash": 1237.91,
+      "pos_count": 7
+    },
+    {
+      "ts": 1735655400,
+      "equity": 7886.44,
+      "cash": 2244.07,
+      "pos_count": 6
+    },
+    {
+      "ts": 1735828200,
+      "equity": 7856.31,
+      "cash": 2336.9,
+      "pos_count": 6
+    },
+    {
+      "ts": 1735914600,
+      "equity": 7887.26,
+      "cash": 5172.23,
+      "pos_count": 3
+    },
+    {
+      "ts": 1736173800,
+      "equity": 7915.29,
+      "cash": 5172.23,
+      "pos_count": 3
+    },
+    {
+      "ts": 1736260200,
+      "equity": 7897.68,
+      "cash": 6131.57,
+      "pos_count": 2
+    },
+    {
+      "ts": 1736346600,
+      "equity": 7908.06,
+      "cash": 6131.57,
+      "pos_count": 2
+    },
+    {
+      "ts": 1736519400,
+      "equity": 7906.41,
+      "cash": 6131.57,
+      "pos_count": 2
+    },
+    {
+      "ts": 1736778600,
+      "equity": 7894.33,
+      "cash": 3352.57,
+      "pos_count": 5
+    },
+    {
+      "ts": 1736865000,
+      "equity": 7867.72,
+      "cash": 4264.75,
+      "pos_count": 4
+    },
+    {
+      "ts": 1736951400,
+      "equity": 7939.18,
+      "cash": 4455.26,
+      "pos_count": 4
+    },
+    {
+      "ts": 1737037800,
+      "equity": 7896.99,
+      "cash": 5299.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1737124200,
+      "equity": 7889.3,
+      "cash": 5299.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1737469800,
+      "equity": 7904.17,
+      "cash": 7161.82,
+      "pos_count": 1
+    },
+    {
+      "ts": 1737556200,
+      "equity": 7915.8,
+      "cash": 7161.82,
+      "pos_count": 1
+    },
+    {
+      "ts": 1737642600,
+      "equity": 7928.42,
+      "cash": 7161.82,
+      "pos_count": 1
+    },
+    {
+      "ts": 1737729000,
+      "equity": 7942.91,
+      "cash": 7942.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1737988200,
+      "equity": 7942.91,
+      "cash": 7942.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1738074600,
+      "equity": 7987.82,
+      "cash": 6126.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1738161000,
+      "equity": 7941.46,
+      "cash": 6126.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1738247400,
+      "equity": 7986.3,
+      "cash": 6126.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1738333800,
+      "equity": 7972.1,
+      "cash": 6126.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1738593000,
+      "equity": 7930.66,
+      "cash": 6126.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1738679400,
+      "equity": 7965.38,
+      "cash": 6126.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1738765800,
+      "equity": 8047.99,
+      "cash": 7049.35,
+      "pos_count": 1
+    },
+    {
+      "ts": 1738852200,
+      "equity": 8078.79,
+      "cash": 7049.35,
+      "pos_count": 1
+    },
+    {
+      "ts": 1738938600,
+      "equity": 8088.07,
+      "cash": 7049.35,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739197800,
+      "equity": 8097.16,
+      "cash": 7395.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739284200,
+      "equity": 8052.7,
+      "cash": 7395.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739370600,
+      "equity": 8068.72,
+      "cash": 7395.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739457000,
+      "equity": 8107.58,
+      "cash": 7395.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739543400,
+      "equity": 8107.38,
+      "cash": 7395.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739889000,
+      "equity": 8103.92,
+      "cash": 7395.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1739975400,
+      "equity": 8130.72,
+      "cash": 6387.52,
+      "pos_count": 2
+    },
+    {
+      "ts": 1740061800,
+      "equity": 8101.16,
+      "cash": 6387.52,
+      "pos_count": 2
+    },
+    {
+      "ts": 1740148200,
+      "equity": 7905.68,
+      "cash": 6363.76,
+      "pos_count": 2
+    },
+    {
+      "ts": 1740407400,
+      "equity": 7841.52,
+      "cash": 5202.72,
+      "pos_count": 3
+    },
+    {
+      "ts": 1740493800,
+      "equity": 7843.6,
+      "cash": 6041.2,
+      "pos_count": 2
+    },
+    {
+      "ts": 1740580200,
+      "equity": 7791.34,
+      "cash": 2821.57,
+      "pos_count": 6
+    },
+    {
+      "ts": 1740666600,
+      "equity": 7724.45,
+      "cash": 2821.57,
+      "pos_count": 6
+    },
+    {
+      "ts": 1740753000,
+      "equity": 7830.04,
+      "cash": 1443.15,
+      "pos_count": 8
+    },
+    {
+      "ts": 1741012200,
+      "equity": 7684.99,
+      "cash": 2279.2,
+      "pos_count": 7
+    },
+    {
+      "ts": 1741098600,
+      "equity": 7563.71,
+      "cash": 2932.26,
+      "pos_count": 6
+    },
+    {
+      "ts": 1741185000,
+      "equity": 7641.81,
+      "cash": 2101.91,
+      "pos_count": 7
+    },
+    {
+      "ts": 1741271400,
+      "equity": 7544.26,
+      "cash": 1147.83,
+      "pos_count": 8
+    },
+    {
+      "ts": 1741357800,
+      "equity": 7599.25,
+      "cash": 4032.85,
+      "pos_count": 4
+    },
+    {
+      "ts": 1741613400,
+      "equity": 7505.96,
+      "cash": 4153.63,
+      "pos_count": 4
+    },
+    {
+      "ts": 1741699800,
+      "equity": 7551.48,
+      "cash": 816.74,
+      "pos_count": 8
+    },
+    {
+      "ts": 1741786200,
+      "equity": 7668.42,
+      "cash": 816.74,
+      "pos_count": 8
+    },
+    {
+      "ts": 1741872600,
+      "equity": 7515.0,
+      "cash": 1570.11,
+      "pos_count": 7
+    },
+    {
+      "ts": 1741959000,
+      "equity": 7678.09,
+      "cash": 720.46,
+      "pos_count": 8
+    },
+    {
+      "ts": 1742218200,
+      "equity": 7686.95,
+      "cash": 1687.61,
+      "pos_count": 7
+    },
+    {
+      "ts": 1742304600,
+      "equity": 7576.91,
+      "cash": 2495.98,
+      "pos_count": 6
+    },
+    {
+      "ts": 1742391000,
+      "equity": 7682.22,
+      "cash": 3450.2,
+      "pos_count": 5
+    },
+    {
+      "ts": 1742477400,
+      "equity": 7668.57,
+      "cash": 3450.2,
+      "pos_count": 5
+    },
+    {
+      "ts": 1742563800,
+      "equity": 7757.88,
+      "cash": 3450.2,
+      "pos_count": 5
+    },
+    {
+      "ts": 1742823000,
+      "equity": 7919.2,
+      "cash": 7036.28,
+      "pos_count": 1
+    },
+    {
+      "ts": 1742909400,
+      "equity": 7931.28,
+      "cash": 7036.28,
+      "pos_count": 1
+    },
+    {
+      "ts": 1742995800,
+      "equity": 7922.4,
+      "cash": 7036.28,
+      "pos_count": 1
+    },
+    {
+      "ts": 1743082200,
+      "equity": 7893.52,
+      "cash": 7033.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1743168600,
+      "equity": 7879.17,
+      "cash": 7033.57,
+      "pos_count": 1
+    },
+    {
+      "ts": 1743427800,
+      "equity": 7874.85,
+      "cash": 6109.86,
+      "pos_count": 2
+    },
+    {
+      "ts": 1743514200,
+      "equity": 7894.88,
+      "cash": 6109.86,
+      "pos_count": 2
+    },
+    {
+      "ts": 1743600600,
+      "equity": 7912.55,
+      "cash": 6109.86,
+      "pos_count": 2
+    },
+    {
+      "ts": 1743687000,
+      "equity": 7809.65,
+      "cash": 6905.33,
+      "pos_count": 1
+    },
+    {
+      "ts": 1743773400,
+      "equity": 7671.73,
+      "cash": 1403.85,
+      "pos_count": 8
+    },
+    {
+      "ts": 1744032600,
+      "equity": 7629.28,
+      "cash": 4414.14,
+      "pos_count": 4
+    },
+    {
+      "ts": 1744119000,
+      "equity": 7380.29,
+      "cash": 1590.42,
+      "pos_count": 7
+    },
+    {
+      "ts": 1744205400,
+      "equity": 8019.03,
+      "cash": 3242.33,
+      "pos_count": 5
+    },
+    {
+      "ts": 1744291800,
+      "equity": 7889.64,
+      "cash": 3242.33,
+      "pos_count": 5
+    },
+    {
+      "ts": 1744378200,
+      "equity": 8027.1,
+      "cash": 3282.59,
+      "pos_count": 5
+    },
+    {
+      "ts": 1744637400,
+      "equity": 8119.88,
+      "cash": 5298.88,
+      "pos_count": 3
+    },
+    {
+      "ts": 1744723800,
+      "equity": 8120.67,
+      "cash": 6258.97,
+      "pos_count": 2
+    },
+    {
+      "ts": 1744810200,
+      "equity": 8121.53,
+      "cash": 6258.97,
+      "pos_count": 2
+    },
+    {
+      "ts": 1744896600,
+      "equity": 8148.53,
+      "cash": 7186.25,
+      "pos_count": 1
+    },
+    {
+      "ts": 1745242200,
+      "equity": 8080.59,
+      "cash": 6281.78,
+      "pos_count": 2
+    },
+    {
+      "ts": 1745328600,
+      "equity": 8110.84,
+      "cash": 6281.78,
+      "pos_count": 2
+    },
+    {
+      "ts": 1745415000,
+      "equity": 8104.03,
+      "cash": 6281.78,
+      "pos_count": 2
+    },
+    {
+      "ts": 1745501400,
+      "equity": 8102.57,
+      "cash": 7254.07,
+      "pos_count": 1
+    },
+    {
+      "ts": 1745587800,
+      "equity": 8091.35,
+      "cash": 7254.07,
+      "pos_count": 1
+    },
+    {
+      "ts": 1745847000,
+      "equity": 8094.07,
+      "cash": 7254.07,
+      "pos_count": 1
+    },
+    {
+      "ts": 1745933400,
+      "equity": 8072.53,
+      "cash": 7254.07,
+      "pos_count": 1
+    },
+    {
+      "ts": 1746019800,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746106200,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746192600,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746451800,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746538200,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746624600,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746711000,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1746797400,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1747056600,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1747143000,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1747229400,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1747315800,
+      "equity": 8059.59,
+      "cash": 8059.59,
+      "pos_count": 0
+    },
+    {
+      "ts": 1747402200,
+      "equity": 8092.84,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1747661400,
+      "equity": 8164.78,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1747747800,
+      "equity": 8181.85,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1747834200,
+      "equity": 8126.05,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1747920600,
+      "equity": 8107.12,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1748007000,
+      "equity": 8103.82,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1748352600,
+      "equity": 8102.11,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1748439000,
+      "equity": 8111.44,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1748525400,
+      "equity": 8111.62,
+      "cash": 7217.11,
+      "pos_count": 1
+    },
+    {
+      "ts": 1748611800,
+      "equity": 8117.86,
+      "cash": 8117.86,
+      "pos_count": 0
+    },
+    {
+      "ts": 1748871000,
+      "equity": 8117.86,
+      "cash": 8117.86,
+      "pos_count": 0
+    },
+    {
+      "ts": 1748957400,
+      "equity": 8117.86,
+      "cash": 8117.86,
+      "pos_count": 0
+    },
+    {
+      "ts": 1749043800,
+      "equity": 8117.86,
+      "cash": 8117.86,
+      "pos_count": 0
+    },
+    {
+      "ts": 1749130200,
+      "equity": 8117.86,
+      "cash": 8117.86,
+      "pos_count": 0
+    },
+    {
+      "ts": 1749216600,
+      "equity": 8101.86,
+      "cash": 7216.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1749475800,
+      "equity": 8142.18,
+      "cash": 7216.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1749562200,
+      "equity": 8194.71,
+      "cash": 7216.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1749648600,
+      "equity": 8195.73,
+      "cash": 7216.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1749735000,
+      "equity": 8173.77,
+      "cash": 7216.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1749821400,
+      "equity": 8192.37,
+      "cash": 7216.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1750080600,
+      "equity": 8197.89,
+      "cash": 6499.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1750167000,
+      "equity": 8164.27,
+      "cash": 6499.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1750253400,
+      "equity": 8135.54,
+      "cash": 6211.18,
+      "pos_count": 2
+    },
+    {
+      "ts": 1750426200,
+      "equity": 8117.49,
+      "cash": 6490.72,
+      "pos_count": 2
+    },
+    {
+      "ts": 1750685400,
+      "equity": 8144.12,
+      "cash": 5519.25,
+      "pos_count": 3
+    },
+    {
+      "ts": 1750771800,
+      "equity": 8184.54,
+      "cash": 5519.25,
+      "pos_count": 3
+    },
+    {
+      "ts": 1750858200,
+      "equity": 8160.41,
+      "cash": 5519.25,
+      "pos_count": 3
+    },
+    {
+      "ts": 1750944600,
+      "equity": 8181.18,
+      "cash": 5519.25,
+      "pos_count": 3
+    },
+    {
+      "ts": 1751031000,
+      "equity": 8191.36,
+      "cash": 7494.14,
+      "pos_count": 1
+    },
+    {
+      "ts": 1751290200,
+      "equity": 8204.24,
+      "cash": 7494.14,
+      "pos_count": 1
+    },
+    {
+      "ts": 1751376600,
+      "equity": 8205.08,
+      "cash": 7494.14,
+      "pos_count": 1
+    },
+    {
+      "ts": 1751463000,
+      "equity": 8202.58,
+      "cash": 7494.14,
+      "pos_count": 1
+    },
+    {
+      "ts": 1751549400,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1751895000,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1751981400,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1752067800,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1752154200,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1752240600,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1752499800,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1752586200,
+      "equity": 8207.92,
+      "cash": 8207.92,
+      "pos_count": 0
+    },
+    {
+      "ts": 1752672600,
+      "equity": 8202.91,
+      "cash": 7325.44,
+      "pos_count": 1
+    },
+    {
+      "ts": 1752759000,
+      "equity": 8187.97,
+      "cash": 6369.85,
+      "pos_count": 2
+    },
+    {
+      "ts": 1752845400,
+      "equity": 8168.75,
+      "cash": 6369.85,
+      "pos_count": 2
+    },
+    {
+      "ts": 1753104600,
+      "equity": 8180.34,
+      "cash": 5399.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1753191000,
+      "equity": 8148.81,
+      "cash": 5399.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1753277400,
+      "equity": 8159.89,
+      "cash": 5399.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1753363800,
+      "equity": 8113.89,
+      "cash": 5399.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1753450200,
+      "equity": 8122.8,
+      "cash": 5399.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1753709400,
+      "equity": 8119.78,
+      "cash": 5399.75,
+      "pos_count": 3
+    },
+    {
+      "ts": 1753795800,
+      "equity": 8062.02,
+      "cash": 6192.46,
+      "pos_count": 2
+    },
+    {
+      "ts": 1753882200,
+      "equity": 8061.58,
+      "cash": 6316.1,
+      "pos_count": 2
+    },
+    {
+      "ts": 1753968600,
+      "equity": 7992.3,
+      "cash": 6316.1,
+      "pos_count": 2
+    },
+    {
+      "ts": 1754055000,
+      "equity": 7971.62,
+      "cash": 6230.91,
+      "pos_count": 2
+    },
+    {
+      "ts": 1754314200,
+      "equity": 7963.5,
+      "cash": 2017.67,
+      "pos_count": 7
+    },
+    {
+      "ts": 1754400600,
+      "equity": 8003.29,
+      "cash": 2017.67,
+      "pos_count": 7
+    },
+    {
+      "ts": 1754487000,
+      "equity": 8041.84,
+      "cash": 2865.98,
+      "pos_count": 6
+    },
+    {
+      "ts": 1754573400,
+      "equity": 7943.12,
+      "cash": 5192.56,
+      "pos_count": 3
+    },
+    {
+      "ts": 1754659800,
+      "equity": 7937.74,
+      "cash": 3862.93,
+      "pos_count": 5
+    },
+    {
+      "ts": 1754919000,
+      "equity": 7945.71,
+      "cash": 3862.93,
+      "pos_count": 5
+    },
+    {
+      "ts": 1755005400,
+      "equity": 8010.25,
+      "cash": 4765.18,
+      "pos_count": 4
+    },
+    {
+      "ts": 1755091800,
+      "equity": 8078.11,
+      "cash": 5834.28,
+      "pos_count": 3
+    },
+    {
+      "ts": 1755178200,
+      "equity": 8128.43,
+      "cash": 7444.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1755264600,
+      "equity": 8145.23,
+      "cash": 7444.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1755523800,
+      "equity": 8142.05,
+      "cash": 7444.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1755610200,
+      "equity": 8147.21,
+      "cash": 7444.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1755696600,
+      "equity": 8149.44,
+      "cash": 7444.0,
+      "pos_count": 1
+    },
+    {
+      "ts": 1755783000,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1755869400,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1756128600,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1756215000,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1756301400,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1756387800,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1756474200,
+      "equity": 8149.91,
+      "cash": 8149.91,
+      "pos_count": 0
+    },
+    {
+      "ts": 1756819800,
+      "equity": 8149.14,
+      "cash": 7295.24,
+      "pos_count": 1
+    },
+    {
+      "ts": 1756906200,
+      "equity": 8148.34,
+      "cash": 7295.24,
+      "pos_count": 1
+    },
+    {
+      "ts": 1756992600,
+      "equity": 8153.54,
+      "cash": 7295.24,
+      "pos_count": 1
+    },
+    {
+      "ts": 1757079000,
+      "equity": 8130.34,
+      "cash": 7295.24,
+      "pos_count": 1
+    },
+    {
+      "ts": 1757338200,
+      "equity": 8136.79,
+      "cash": 7295.24,
+      "pos_count": 1
+    },
+    {
+      "ts": 1757424600,
+      "equity": 8149.04,
+      "cash": 7295.24,
+      "pos_count": 1
+    },
+    {
+      "ts": 1757511000,
+      "equity": 8177.01,
+      "cash": 8177.01,
+      "pos_count": 0
+    },
+    {
+      "ts": 1757597400,
+      "equity": 8185.7,
+      "cash": 7155.23,
+      "pos_count": 1
+    },
+    {
+      "ts": 1757683800,
+      "equity": 8173.52,
+      "cash": 7155.23,
+      "pos_count": 1
+    },
+    {
+      "ts": 1757943000,
+      "equity": 8172.38,
+      "cash": 7155.23,
+      "pos_count": 1
+    },
+    {
+      "ts": 1758029400,
+      "equity": 8175.32,
+      "cash": 7155.23,
+      "pos_count": 1
+    },
+    {
+      "ts": 1758115800,
+      "equity": 8188.12,
+      "cash": 8188.12,
+      "pos_count": 0
+    },
+    {
+      "ts": 1758202200,
+      "equity": 8188.12,
+      "cash": 8188.12,
+      "pos_count": 0
+    },
+    {
+      "ts": 1758288600,
+      "equity": 8188.12,
+      "cash": 8188.12,
+      "pos_count": 0
+    },
+    {
+      "ts": 1758547800,
+      "equity": 8188.12,
+      "cash": 8188.12,
+      "pos_count": 0
+    },
+    {
+      "ts": 1758634200,
+      "equity": 8188.12,
+      "cash": 8188.12,
+      "pos_count": 0
+    },
+    {
+      "ts": 1758720600,
+      "equity": 8167.43,
+      "cash": 7286.59,
+      "pos_count": 1
+    },
+    {
+      "ts": 1758807000,
+      "equity": 8159.19,
+      "cash": 7286.59,
+      "pos_count": 1
+    },
+    {
+      "ts": 1758893400,
+      "equity": 8162.15,
+      "cash": 6558.49,
+      "pos_count": 2
+    },
+    {
+      "ts": 1759152600,
+      "equity": 8169.17,
+      "cash": 5637.11,
+      "pos_count": 3
+    },
+    {
+      "ts": 1759239000,
+      "equity": 8199.82,
+      "cash": 6395.91,
+      "pos_count": 2
+    },
+    {
+      "ts": 1759325400,
+      "equity": 8195.77,
+      "cash": 6395.91,
+      "pos_count": 2
+    },
+    {
+      "ts": 1759411800,
+      "equity": 8202.82,
+      "cash": 5669.36,
+      "pos_count": 3
+    },
+    {
+      "ts": 1759498200,
+      "equity": 8158.87,
+      "cash": 4732.23,
+      "pos_count": 4
+    },
+    {
+      "ts": 1759757400,
+      "equity": 8173.08,
+      "cash": 4732.23,
+      "pos_count": 4
+    },
+    {
+      "ts": 1759843800,
+      "equity": 8195.2,
+      "cash": 5614.47,
+      "pos_count": 3
+    },
+    {
+      "ts": 1759930200,
+      "equity": 8213.17,
+      "cash": 6580.53,
+      "pos_count": 2
+    },
+    {
+      "ts": 1760016600,
+      "equity": 8251.74,
+      "cash": 7518.23,
+      "pos_count": 1
+    },
+    {
+      "ts": 1760103000,
+      "equity": 8223.53,
+      "cash": 7518.23,
+      "pos_count": 1
+    },
+    {
+      "ts": 1760362200,
+      "equity": 8229.34,
+      "cash": 3928.79,
+      "pos_count": 5
+    },
+    {
+      "ts": 1760448600,
+      "equity": 8206.21,
+      "cash": 3928.79,
+      "pos_count": 5
+    },
+    {
+      "ts": 1760535000,
+      "equity": 8245.77,
+      "cash": 6302.5,
+      "pos_count": 2
+    },
+    {
+      "ts": 1760621400,
+      "equity": 8221.52,
+      "cash": 6302.5,
+      "pos_count": 2
+    },
+    {
+      "ts": 1760707800,
+      "equity": 8235.03,
+      "cash": 6302.5,
+      "pos_count": 2
+    },
+    {
+      "ts": 1760967000,
+      "equity": 8261.46,
+      "cash": 7354.38,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761053400,
+      "equity": 8245.65,
+      "cash": 7354.38,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761139800,
+      "equity": 8224.68,
+      "cash": 8224.68,
+      "pos_count": 0
+    },
+    {
+      "ts": 1761226200,
+      "equity": 8207.13,
+      "cash": 7204.9,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761312600,
+      "equity": 8190.12,
+      "cash": 7204.9,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761571800,
+      "equity": 8190.0,
+      "cash": 7204.9,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761658200,
+      "equity": 8197.15,
+      "cash": 7204.9,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761744600,
+      "equity": 8195.26,
+      "cash": 7204.9,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761831000,
+      "equity": 8185.0,
+      "cash": 7204.9,
+      "pos_count": 1
+    },
+    {
+      "ts": 1761917400,
+      "equity": 8172.55,
+      "cash": 5834.11,
+      "pos_count": 3
+    },
+    {
+      "ts": 1762180200,
+      "equity": 8129.48,
+      "cash": 5834.11,
+      "pos_count": 3
+    },
+    {
+      "ts": 1762266600,
+      "equity": 8106.75,
+      "cash": 5834.11,
+      "pos_count": 3
+    },
+    {
+      "ts": 1762353000,
+      "equity": 8108.71,
+      "cash": 6817.28,
+      "pos_count": 2
+    },
+    {
+      "ts": 1762439400,
+      "equity": 8079.82,
+      "cash": 7436.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1762525800,
+      "equity": 8066.77,
+      "cash": 7073.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1762785000,
+      "equity": 8085.13,
+      "cash": 7073.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1762871400,
+      "equity": 8090.49,
+      "cash": 7073.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1762957800,
+      "equity": 8095.41,
+      "cash": 7073.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1763044200,
+      "equity": 8079.71,
+      "cash": 7073.13,
+      "pos_count": 1
+    },
+    {
+      "ts": 1763130600,
+      "equity": 8136.77,
+      "cash": 5357.79,
+      "pos_count": 3
+    },
+    {
+      "ts": 1763389800,
+      "equity": 8099.96,
+      "cash": 4358.85,
+      "pos_count": 4
+    },
+    {
+      "ts": 1763476200,
+      "equity": 8046.35,
+      "cash": 4358.85,
+      "pos_count": 4
+    },
+    {
+      "ts": 1763562600,
+      "equity": 8028.56,
+      "cash": 1261.96,
+      "pos_count": 8
+    },
+    {
+      "ts": 1763649000,
+      "equity": 7935.65,
+      "cash": 2213.55,
+      "pos_count": 7
+    },
+    {
+      "ts": 1763735400,
+      "equity": 7998.49,
+      "cash": 1259.56,
+      "pos_count": 8
+    },
+    {
+      "ts": 1763994600,
+      "equity": 8095.81,
+      "cash": 1259.56,
+      "pos_count": 8
+    },
+    {
+      "ts": 1764081000,
+      "equity": 8153.78,
+      "cash": 3904.06,
+      "pos_count": 5
+    },
+    {
+      "ts": 1764167400,
+      "equity": 8196.18,
+      "cash": 5458.44,
+      "pos_count": 3
+    },
+    {
+      "ts": 1764340200,
+      "equity": 8200.37,
+      "cash": 7222.61,
+      "pos_count": 1
+    },
+    {
+      "ts": 1764599400,
+      "equity": 8199.65,
+      "cash": 7222.61,
+      "pos_count": 1
+    },
+    {
+      "ts": 1764685800,
+      "equity": 8200.01,
+      "cash": 7222.61,
+      "pos_count": 1
+    },
+    {
+      "ts": 1764772200,
+      "equity": 8200.73,
+      "cash": 7222.61,
+      "pos_count": 1
+    },
+    {
+      "ts": 1764858600,
+      "equity": 8200.55,
+      "cash": 7222.61,
+      "pos_count": 1
+    },
+    {
+      "ts": 1764945000,
+      "equity": 8206.96,
+      "cash": 8206.96,
+      "pos_count": 0
+    },
+    {
+      "ts": 1765204200,
+      "equity": 8206.96,
+      "cash": 8206.96,
+      "pos_count": 0
+    },
+    {
+      "ts": 1765290600,
+      "equity": 8198.42,
+      "cash": 7231.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1765377000,
+      "equity": 8158.42,
+      "cash": 7231.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1765463400,
+      "equity": 8172.22,
+      "cash": 7231.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1765549800,
+      "equity": 8183.22,
+      "cash": 7231.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1765809000,
+      "equity": 8169.02,
+      "cash": 7231.32,
+      "pos_count": 1
+    },
+    {
+      "ts": 1765895400,
+      "equity": 8175.26,
+      "cash": 6369.17,
+      "pos_count": 2
+    },
+    {
+      "ts": 1765981800,
+      "equity": 8179.72,
+      "cash": 6369.17,
+      "pos_count": 2
+    },
+    {
+      "ts": 1766068200,
+      "equity": 8151.81,
+      "cash": 3475.28,
+      "pos_count": 5
+    },
+    {
+      "ts": 1766154600,
+      "equity": 8192.89,
+      "cash": 4375.25,
+      "pos_count": 4
+    },
+    {
+      "ts": 1766413800,
+      "equity": 8169.65,
+      "cash": 5302.42,
+      "pos_count": 3
+    },
+    {
+      "ts": 1766500200,
+      "equity": 8196.23,
+      "cash": 6328.64,
+      "pos_count": 2
+    },
+    {
+      "ts": 1766586600,
+      "equity": 8210.1,
+      "cash": 6328.64,
+      "pos_count": 2
+    },
+    {
+      "ts": 1766759400,
+      "equity": 8217.35,
+      "cash": 6328.64,
+      "pos_count": 2
+    },
+    {
+      "ts": 1767018600,
+      "equity": 8201.92,
+      "cash": 6328.64,
+      "pos_count": 2
+    },
+    {
+      "ts": 1767105000,
+      "equity": 8213.2,
+      "cash": 7189.52,
+      "pos_count": 1
+    },
+    {
+      "ts": 1767191400,
+      "equity": 8206.16,
+      "cash": 7189.52,
+      "pos_count": 1
+    },
+    {
+      "ts": 1767364200,
+      "equity": 8214.26,
+      "cash": 8214.26,
+      "pos_count": 0
+    },
+    {
+      "ts": 1767623400,
+      "equity": 8214.26,
+      "cash": 8214.26,
+      "pos_count": 0
+    },
+    {
+      "ts": 1767709800,
+      "equity": 8195.93,
+      "cash": 7408.85,
+      "pos_count": 1
+    },
+    {
+      "ts": 1767796200,
+      "equity": 8175.17,
+      "cash": 6396.15,
+      "pos_count": 2
+    },
+    {
+      "ts": 1767882600,
+      "equity": 8157.58,
+      "cash": 7161.75,
+      "pos_count": 1
+    },
+    {
+      "ts": 1767969000,
+      "equity": 8142.41,
+      "cash": 6380.24,
+      "pos_count": 2
+    },
+    {
+      "ts": 1768228200,
+      "equity": 8144.5,
+      "cash": 6380.24,
+      "pos_count": 2
+    },
+    {
+      "ts": 1768314600,
+      "equity": 8156.91,
+      "cash": 6380.24,
+      "pos_count": 2
+    },
+    {
+      "ts": 1768401000,
+      "equity": 8115.85,
+      "cash": 4758.89,
+      "pos_count": 4
+    },
+    {
+      "ts": 1768487400,
+      "equity": 8083.38,
+      "cash": 2895.05,
+      "pos_count": 6
+    },
+    {
+      "ts": 1768573800,
+      "equity": 8091.92,
+      "cash": 2895.05,
+      "pos_count": 6
+    },
+    {
+      "ts": 1768919400,
+      "equity": 7996.56,
+      "cash": 3637.86,
+      "pos_count": 5
+    },
+    {
+      "ts": 1769005800,
+      "equity": 7931.4,
+      "cash": 2913.0,
+      "pos_count": 6
+    },
+    {
+      "ts": 1769092200,
+      "equity": 7960.69,
+      "cash": 2599.86,
+      "pos_count": 6
+    },
+    {
+      "ts": 1769178600,
+      "equity": 7993.46,
+      "cash": 2610.28,
+      "pos_count": 6
+    },
+    {
+      "ts": 1769437800,
+      "equity": 8053.47,
+      "cash": 2610.28,
+      "pos_count": 6
+    },
+    {
+      "ts": 1769524200,
+      "equity": 8074.64,
+      "cash": 3557.89,
+      "pos_count": 5
+    },
+    {
+      "ts": 1769610600,
+      "equity": 8085.25,
+      "cash": 3677.6,
+      "pos_count": 5
+    },
+    {
+      "ts": 1769697000,
+      "equity": 8072.33,
+      "cash": 5619.24,
+      "pos_count": 3
+    },
+    {
+      "ts": 1769783400,
+      "equity": 8043.87,
+      "cash": 3880.69,
+      "pos_count": 5
+    },
+    {
+      "ts": 1770042600,
+      "equity": 8000.4,
+      "cash": 3880.69,
+      "pos_count": 5
+    },
+    {
+      "ts": 1770129000,
+      "equity": 7919.57,
+      "cash": 3880.69,
+      "pos_count": 5
+    },
+    {
+      "ts": 1770215400,
+      "equity": 7832.05,
+      "cash": 4482.13,
+      "pos_count": 4
+    },
+    {
+      "ts": 1770301800,
+      "equity": 7708.99,
+      "cash": 4515.38,
+      "pos_count": 4
+    },
+    {
+      "ts": 1770388200,
+      "equity": 7913.45,
+      "cash": 4008.07,
+      "pos_count": 5
+    },
+    {
+      "ts": 1770647400,
+      "equity": 7946.21,
+      "cash": 4008.07,
+      "pos_count": 5
+    },
+    {
+      "ts": 1770733800,
+      "equity": 7939.49,
+      "cash": 4823.22,
+      "pos_count": 4
+    },
+    {
+      "ts": 1770820200,
+      "equity": 7883.93,
+      "cash": 4712.88,
+      "pos_count": 4
+    },
+    {
+      "ts": 1770906600,
+      "equity": 7842.6,
+      "cash": 4712.88,
+      "pos_count": 4
+    },
+    {
+      "ts": 1770993000,
+      "equity": 7833.49,
+      "cash": 3794.17,
+      "pos_count": 5
+    },
+    {
+      "ts": 1771338600,
+      "equity": 7833.93,
+      "cash": 2845.75,
+      "pos_count": 6
+    },
+    {
+      "ts": 1771425000,
+      "equity": 7876.67,
+      "cash": 2845.75,
+      "pos_count": 6
+    },
+    {
+      "ts": 1771511400,
+      "equity": 7851.6,
+      "cash": 3445.9,
+      "pos_count": 5
+    },
+    {
+      "ts": 1771597800,
+      "equity": 7923.64,
+      "cash": 5071.81,
+      "pos_count": 3
+    },
+    {
+      "ts": 1771857000,
+      "equity": 7838.08,
+      "cash": 5071.81,
+      "pos_count": 3
+    },
+    {
+      "ts": 1771943400,
+      "equity": 7862.65,
+      "cash": 5071.81,
+      "pos_count": 3
+    },
+    {
+      "ts": 1772029800,
+      "equity": 7931.26,
+      "cash": 6992.29,
+      "pos_count": 1
+    },
+    {
+      "ts": 1772116200,
+      "equity": 7942.39,
+      "cash": 6992.29,
+      "pos_count": 1
+    },
+    {
+      "ts": 1772202600,
+      "equity": 7952.71,
+      "cash": 6992.29,
+      "pos_count": 1
+    },
+    {
+      "ts": 1772461800,
+      "equity": 7948.53,
+      "cash": 7948.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1772548200,
+      "equity": 7948.53,
+      "cash": 7948.53,
+      "pos_count": 0
+    },
+    {
+      "ts": 1772634600,
+      "equity": 7958.85,
+      "cash": 5282.06,
+      "pos_count": 3
+    },
+    {
+      "ts": 1772721000,
+      "equity": 7918.95,
+      "cash": 5282.06,
+      "pos_count": 3
+    },
+    {
+      "ts": 1772807400,
+      "equity": 7875.25,
+      "cash": 4137.46,
+      "pos_count": 4
+    },
+    {
+      "ts": 1773063000,
+      "equity": 7993.89,
+      "cash": 832.72,
+      "pos_count": 8
+    },
+    {
+      "ts": 1773149400,
+      "equity": 8004.25,
+      "cash": 832.72,
+      "pos_count": 8
+    },
+    {
+      "ts": 1773235800,
+      "equity": 8014.11,
+      "cash": 1643.88,
+      "pos_count": 7
+    },
+    {
+      "ts": 1773322200,
+      "equity": 7863.71,
+      "cash": 1643.88,
+      "pos_count": 7
+    },
+    {
+      "ts": 1773408600,
+      "equity": 7813.22,
+      "cash": 785.17,
+      "pos_count": 8
+    },
+    {
+      "ts": 1773667800,
+      "equity": 7927.16,
+      "cash": 785.17,
+      "pos_count": 8
+    },
+    {
+      "ts": 1773754200,
+      "equity": 7893.65,
+      "cash": 785.17,
+      "pos_count": 8
+    },
+    {
+      "ts": 1773840600,
+      "equity": 7795.23,
+      "cash": 785.17,
+      "pos_count": 8
+    },
+    {
+      "ts": 1773927000,
+      "equity": 7785.99,
+      "cash": 3651.86,
+      "pos_count": 5
+    },
+    {
+      "ts": 1774013400,
+      "equity": 7635.94,
+      "cash": 5446.68,
+      "pos_count": 3
+    },
+    {
+      "ts": 1774272600,
+      "equity": 7664.07,
+      "cash": 3419.2,
+      "pos_count": 6
+    },
+    {
+      "ts": 1774359000,
+      "equity": 7638.99,
+      "cash": 3480.53,
+      "pos_count": 6
+    },
+    {
+      "ts": 1774445400,
+      "equity": 7633.32,
+      "cash": 2595.37,
+      "pos_count": 7
+    },
+    {
+      "ts": 1774531800,
+      "equity": 7492.23,
+      "cash": 3150.28,
+      "pos_count": 6
+    },
+    {
+      "ts": 1774618200,
+      "equity": 7356.33,
+      "cash": 3858.2,
+      "pos_count": 5
+    },
+    {
+      "ts": 1774877400,
+      "equity": 7312.83,
+      "cash": 2272.09,
+      "pos_count": 7
+    },
+    {
+      "ts": 1774963800,
+      "equity": 7569.85,
+      "cash": 1368.98,
+      "pos_count": 8
+    },
+    {
+      "ts": 1775050200,
+      "equity": 7661.47,
+      "cash": 3094.25,
+      "pos_count": 6
+    },
+    {
+      "ts": 1775136600,
+      "equity": 7628.71,
+      "cash": 4638.67,
+      "pos_count": 4
+    },
+    {
+      "ts": 1775482200,
+      "equity": 7626.79,
+      "cash": 5521.98,
+      "pos_count": 3
+    },
+    {
+      "ts": 1775568600,
+      "equity": 7676.77,
+      "cash": 7101.72,
+      "pos_count": 1
+    },
+    {
+      "ts": 1775655000,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1775741400,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1775827800,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776087000,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776173400,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776259800,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776346200,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776432600,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776691800,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776778200,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776864600,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1776951000,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1777037400,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1777296600,
+      "equity": 7704.39,
+      "cash": 7704.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1777383000,
+      "equity": 7701.7,
+      "cash": 6827.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1777469400,
+      "equity": 7678.91,
+      "cash": 6827.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1777555800,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1777642200,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1777901400,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1777987800,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1778074200,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1778160600,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1778247000,
+      "equity": 7757.16,
+      "cash": 7757.16,
+      "pos_count": 0
+    },
+    {
+      "ts": 1778506200,
+      "equity": 7745.87,
+      "cash": 6845.87,
+      "pos_count": 1
+    },
+    {
+      "ts": 1778592600,
+      "equity": 7760.51,
+      "cash": 6845.87,
+      "pos_count": 1
+    },
+    {
+      "ts": 1778679000,
+      "equity": 7746.62,
+      "cash": 6845.87,
+      "pos_count": 1
+    },
+    {
+      "ts": 1778765400,
+      "equity": 7738.72,
+      "cash": 5873.61,
+      "pos_count": 2
+    },
+    {
+      "ts": 1778851800,
+      "equity": 7709.02,
+      "cash": 5873.61,
+      "pos_count": 2
+    },
+    {
+      "ts": 1779111000,
+      "equity": 7731.04,
+      "cash": 5873.61,
+      "pos_count": 2
+    },
+    {
+      "ts": 1779197400,
+      "equity": 7693.85,
+      "cash": 5873.61,
+      "pos_count": 2
+    },
+    {
+      "ts": 1779283800,
+      "equity": 7735.05,
+      "cash": 5873.61,
+      "pos_count": 2
+    },
+    {
+      "ts": 1779370200,
+      "equity": 7744.87,
+      "cash": 5873.61,
+      "pos_count": 2
+    },
+    {
+      "ts": 1779456600,
+      "equity": 7733.32,
+      "cash": 6787.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1779802200,
+      "equity": 7736.44,
+      "cash": 6787.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1779888600,
+      "equity": 7726.56,
+      "cash": 6787.7,
+      "pos_count": 1
+    },
+    {
+      "ts": 1779975000,
+      "equity": 7721.39,
+      "cash": 7721.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1780061400,
+      "equity": 7721.39,
+      "cash": 7721.39,
+      "pos_count": 0
+    },
+    {
+      "ts": 1780320600,
+      "equity": 7707.25,
+      "cash": 6761.14,
+      "pos_count": 1
+    },
+    {
+      "ts": 1780407000,
+      "equity": 7715.41,
+      "cash": 6761.14,
+      "pos_count": 1
+    },
+    {
+      "ts": 1780493400,
+      "equity": 7674.36,
+      "cash": 4347.77,
+      "pos_count": 4
+    },
+    {
+      "ts": 1780579800,
+      "equity": 7727.97,
+      "cash": 3392.17,
+      "pos_count": 5
+    },
+    {
+      "ts": 1780666200,
+      "equity": 7713.88,
+      "cash": 3392.17,
+      "pos_count": 5
+    },
+    {
+      "ts": 1780925400,
+      "equity": 7707.35,
+      "cash": 1749.81,
+      "pos_count": 7
+    },
+    {
+      "ts": 1781011800,
+      "equity": 7670.91,
+      "cash": 2719.6,
+      "pos_count": 6
+    },
+    {
+      "ts": 1781098200,
+      "equity": 7589.84,
+      "cash": 2552.11,
+      "pos_count": 6
+    },
+    {
+      "ts": 1781184600,
+      "equity": 7646.46,
+      "cash": 1250.4,
+      "pos_count": 8
+    },
+    {
+      "ts": 1781271000,
+      "equity": 7646.19,
+      "cash": 2227.35,
+      "pos_count": 7
+    },
+    {
+      "ts": 1781530200,
+      "equity": 7770.35,
+      "cash": 2978.44,
+      "pos_count": 6
+    },
+    {
+      "ts": 1781616600,
+      "equity": 7718.88,
+      "cash": 4581.99,
+      "pos_count": 4
+    },
+    {
+      "ts": 1781703000,
+      "equity": 7648.78,
+      "cash": 4581.99,
+      "pos_count": 4
+    },
+    {
+      "ts": 1781789400,
+      "equity": 7696.98,
+      "cash": 4581.99,
+      "pos_count": 4
+    },
+    {
+      "ts": 1782135000,
+      "equity": 7667.53,
+      "cash": 5381.83,
+      "pos_count": 3
+    },
+    {
+      "ts": 1782221400,
+      "equity": 7654.36,
+      "cash": 4424.22,
+      "pos_count": 4
+    },
+    {
+      "ts": 1782307800,
+      "equity": 7611.61,
+      "cash": 5298.62,
+      "pos_count": 3
+    },
+    {
+      "ts": 1782394200,
+      "equity": 7585.5,
+      "cash": 5838.5,
+      "pos_count": 2
+    },
+    {
+      "ts": 1782480600,
+      "equity": 7639.08,
+      "cash": 5008.97,
+      "pos_count": 3
+    },
+    {
+      "ts": 1782739800,
+      "equity": 7649.57,
+      "cash": 4321.55,
+      "pos_count": 4
+    },
+    {
+      "ts": 1782826200,
+      "equity": 7652.89,
+      "cash": 4321.55,
+      "pos_count": 4
+    },
+    {
+      "ts": 1782912600,
+      "equity": 7705.28,
+      "cash": 5039.99,
+      "pos_count": 3
+    },
+    {
+      "ts": 1782999000,
+      "equity": 7787.01,
+      "cash": 6012.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1783344600,
+      "equity": 7777.18,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1783431000,
+      "equity": 7774.43,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1783517400,
+      "equity": 7780.06,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1783603800,
+      "equity": 7739.9,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1783690200,
+      "equity": 7743.18,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1783949400,
+      "equity": 7753.36,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1784035800,
+      "equity": 7748.68,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1784122200,
+      "equity": 7743.47,
+      "cash": 6826.93,
+      "pos_count": 1
+    },
+    {
+      "ts": 1784208600,
+      "equity": 7767.3,
+      "cash": 7767.3,
+      "pos_count": 0
+    },
+    {
+      "ts": 1784295000,
+      "equity": 7767.3,
+      "cash": 7767.3,
+      "pos_count": 0
+    },
+    {
+      "ts": 1784554200,
+      "equity": 7742.0,
+      "cash": 6099.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1784640600,
+      "equity": 7769.89,
+      "cash": 6099.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1784727000,
+      "equity": 7764.31,
+      "cash": 6099.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1784813400,
+      "equity": 7755.96,
+      "cash": 6099.54,
+      "pos_count": 2
+    },
+    {
+      "ts": 1784899800,
+      "equity": 7735.38,
+      "cash": 4171.58,
+      "pos_count": 4
+    },
+    {
+      "ts": 1785159000,
+      "equity": 7746.64,
+      "cash": 4171.58,
+      "pos_count": 4
+    },
+    {
+      "ts": 1785245400,
+      "equity": 7770.89,
+      "cash": 3235.05,
+      "pos_count": 5
+    },
+    {
+      "ts": 1785331800,
+      "equity": 7733.68,
+      "cash": 4921.99,
+      "pos_count": 3
+    },
+    {
+      "ts": 1785418200,
+      "equity": 7809.21,
+      "cash": 1682.82,
+      "pos_count": 7
+    },
+    {
+      "ts": 1785504600,
+      "equity": 8003.03,
+      "cash": 3989.75,
+      "pos_count": 5
+    },
+    {
+      "ts": 1785763800,
+      "equity": 8091.02,
+      "cash": 5569.74,
+      "pos_count": 3
+    },
+    {
+      "ts": 1785850200,
+      "equity": 8124.28,
+      "cash": 6554.29,
+      "pos_count": 2
+    },
+    {
+      "ts": 1785936600,
+      "equity": 8122.4,
+      "cash": 5743.48,
+      "pos_count": 3
+    },
+    {
+      "ts": 1786023000,
+      "equity": 8094.64,
+      "cash": 6696.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1786109400,
+      "equity": 8103.06,
+      "cash": 6696.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1786368600,
+      "equity": 8109.2,
+      "cash": 6696.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1786455000,
+      "equity": 8100.3,
+      "cash": 6696.8,
+      "pos_count": 2
+    },
+    {
+      "ts": 1786541400,
+      "equity": 8079.38,
+      "cash": 5707.41,
+      "pos_count": 3
+    },
+    {
+      "ts": 1786627800,
+      "equity": 8076.56,
+      "cash": 6299.11,
+      "pos_count": 2
+    },
+    {
+      "ts": 1786714200,
+      "equity": 8086.54,
+      "cash": 6299.11,
+      "pos_count": 2
+    },
+    {
+      "ts": 1786973400,
+      "equity": 8075.48,
+      "cash": 6299.11,
+      "pos_count": 2
+    },
+    {
+      "ts": 1787059800,
+      "equity": 8059.94,
+      "cash": 7082.64,
+      "pos_count": 1
+    },
+    {
+      "ts": 1787146200,
+      "equity": 8077.89,
+      "cash": 6538.32,
+      "pos_count": 2
+    },
+    {
+      "ts": 1787232600,
+      "equity": 8074.21,
+      "cash": 6538.32,
+      "pos_count": 2
+    },
+    {
+      "ts": 1787319000,
+      "equity": 8104.96,
+      "cash": 6538.32,
+      "pos_count": 2
+    },
+    {
+      "ts": 1787578200,
+      "equity": 8111.66,
+      "cash": 7552.64,
+      "pos_count": 1
+    },
+    {
+      "ts": 1787664600,
+      "equity": 8122.69,
+      "cash": 7552.64,
+      "pos_count": 1
+    },
+    {
+      "ts": 1787751000,
+      "equity": 8125.61,
+      "cash": 8125.61,
+      "pos_count": 0
+    },
+    {
+      "ts": 1787837400,
+      "equity": 8125.61,
+      "cash": 8125.61,
+      "pos_count": 0
+    },
+    {
+      "ts": 1787923800,
+      "equity": 8125.61,
+      "cash": 8125.61,
+      "pos_count": 0
+    },
+    {
+      "ts": 1788183000,
+      "equity": 8125.61,
+      "cash": 8125.61,
+      "pos_count": 0
+    },
+    {
+      "ts": 1788269400,
+      "equity": 8116.57,
+      "cash": 7244.86,
+      "pos_count": 1
+    },
+    {
+      "ts": 1788355800,
+      "equity": 8119.29,
+      "cash": 5273.16,
+      "pos_count": 3
+    },
+    {
+      "ts": 1788442200,
+      "equity": 8136.4,
+      "cash": 6241.69,
+      "pos_count": 2
+    },
+    {
+      "ts": 1788528600,
+      "equity": 8138.86,
+      "cash": 6241.69,
+      "pos_count": 2
+    },
+    {
+      "ts": 1788874200,
+      "equity": 8121.56,
+      "cash": 5324.28,
+      "pos_count": 3
+    },
+    {
+      "ts": 1788960600,
+      "equity": 8091.11,
+      "cash": 5324.28,
+      "pos_count": 3
+    },
+    {
+      "ts": 1789047000,
+      "equity": 8075.5,
+      "cash": 5312.22,
+      "pos_count": 3
+    },
+    {
+      "ts": 1789133400,
+      "equity": 8082.69,
+      "cash": 3345.23,
+      "pos_count": 5
+    },
+    {
+      "ts": 1789392600,
+      "equity": 8104.86,
+      "cash": 3620.94,
+      "pos_count": 5
+    },
+    {
+      "ts": 1789479000,
+      "equity": 8034.39,
+      "cash": 3775.48,
+      "pos_count": 5
+    },
+    {
+      "ts": 1789565400,
+      "equity": 7991.65,
+      "cash": 4684.53,
+      "pos_count": 4
+    },
+    {
+      "ts": 1789651800,
+      "equity": 8016.08,
+      "cash": 2955.41,
+      "pos_count": 6
+    },
+    {
+      "ts": 1789738200,
+      "equity": 8041.0,
+      "cash": 2955.41,
+      "pos_count": 6
+    },
+    {
+      "ts": 1789997400,
+      "equity": 8092.81,
+      "cash": 5428.84,
+      "pos_count": 3
+    },
+    {
+      "ts": 1790083800,
+      "equity": 8071.32,
+      "cash": 5428.84,
+      "pos_count": 3
+    },
+    {
+      "ts": 1790170200,
+      "equity": 8038.43,
+      "cash": 4749.91,
+      "pos_count": 4
+    },
+    {
+      "ts": 1790256600,
+      "equity": 8049.91,
+      "cash": 4749.91,
+      "pos_count": 4
+    },
+    {
+      "ts": 1790343000,
+      "equity": 8060.05,
+      "cash": 5498.94,
+      "pos_count": 3
+    },
+    {
+      "ts": 1790602200,
+      "equity": 8017.47,
+      "cash": 5498.94,
+      "pos_count": 3
+    },
+    {
+      "ts": 1790688600,
+      "equity": 8023.66,
+      "cash": 5498.94,
+      "pos_count": 3
+    },
+    {
+      "ts": 1790775000,
+      "equity": 7995.01,
+      "cash": 6428.81,
+      "pos_count": 2
+    },
+    {
+      "ts": 1790861400,
+      "equity": 7977.22,
+      "cash": 6428.81,
+      "pos_count": 2
+    },
+    {
+      "ts": 1790947800,
+      "equity": 7954.88,
+      "cash": 5404.3,
+      "pos_count": 3
+    },
+    {
+      "ts": 1791207000,
+      "equity": 7954.41,
+      "cash": 5404.3,
+      "pos_count": 3
+    },
+    {
+      "ts": 1791293400,
+      "equity": 7953.58,
+      "cash": 6063.22,
+      "pos_count": 2
+    },
+    {
+      "ts": 1791379800,
+      "equity": 7932.28,
+      "cash": 6063.22,
+      "pos_count": 2
+    },
+    {
+      "ts": 1791466200,
+      "equity": 7927.25,
+      "cash": 6063.22,
+      "pos_count": 2
+    }
+  ],
+  "benchmark_spy": {
+    "return_pct": 78.04,
+    "cagr": 12.29,
+    "mdd_pct": -25.36
+  },
+  "config": {
+    "slots": 8,
+    "cash": 10000.0,
+    "profile": "XTB_PLN",
+    "universe_size": 22,
+    "start": "2021-10-11",
+    "end": "2026-10-08"
+  }
+}

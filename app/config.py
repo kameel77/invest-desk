@@ -27,6 +27,14 @@ SLIPPAGE_PCT = float(os.getenv("TD_SLIPPAGE_PCT", "0.001"))
 # Minimum tradable notional per signal — small-ticket discipline.
 MIN_TICKET = float(os.getenv("TD_MIN_TICKET", "50"))
 
+# Broker profiles per market
+DEFAULT_BROKER_PROFILE_US = os.getenv("TD_BROKER_PROFILE_US", "IBKR_TIERED_USD")
+DEFAULT_BROKER_PROFILE_GPW = os.getenv("TD_BROKER_PROFILE_GPW", "GPW_RETAIL")
+
+# Portfolio slot constraints for US paper trading / execution
+US_MAX_SLOTS = int(os.getenv("TD_US_MAX_SLOTS", "5"))
+US_SLOT_PCT = float(os.getenv("TD_US_SLOT_PCT", "0.20"))
+
 # --- Strategy & Hypothesis flags ------------------------------------------
 # Trend-momentum has an unconfirmed OOS edge (-2.02% OOS). By default, new BUY
 # entries for trend are disabled (0) to preserve cash for validated hypotheses.

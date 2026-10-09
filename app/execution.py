@@ -186,6 +186,17 @@ def buy(symbol: str, qty: float, signal_id: Optional[int] = None,
     notional = fill * qty
     fee = _commission(notional)
     cash = db.get_cash()
+
+    # Slot constraint for US reversion hypothesis
+    if hypothesis == "reversion" and not symbol.endswith(".WA"):
+        open_us_lots = [l for l in db.open_lots(hypothesis="reversion") if not l["symbol"].endswith(".WA")]
+        if len(open_us_lots) >= config.US_MAX_SLOTS:
+            db.record_decision(action="REJECTED", symbol=symbol, side="BUY",
+                               hypothesis=hypothesis, qty=qty, price=fill,
+                               reason=f"maksymalna liczba slotów US ({config.US_MAX_SLOTS}) osiągnięta",
+                               state={"open_us_slots": len(open_us_lots), "max_slots": config.US_MAX_SLOTS})
+            return {"status": "REJECTED", "reason": f"max US slots ({config.US_MAX_SLOTS}) reached"}
+
     if notional + fee > cash:
         db.record_decision(action="REJECTED", symbol=symbol, side="BUY",
                            hypothesis=hypothesis, qty=qty, price=fill,

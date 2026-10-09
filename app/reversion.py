@@ -42,6 +42,8 @@ class Trade:
     exit_px: float
     reason: str
     ret_pct: float
+    entry_ts: int = 0
+    exit_ts: int = 0
 
 
 def round_trip_net_pct(entry_px: float, exit_px: float) -> float:
@@ -49,27 +51,76 @@ def round_trip_net_pct(entry_px: float, exit_px: float) -> float:
     return net_return_pct(entry_px, exit_px)
 
 
+def evaluate_entry_signal(
+    z_val: float,
+    stretch_val: float,
+    atr_val: float,
+    z_entry: float = Z_ENTRY,
+    min_stretch_atr: float = 1.0,
+) -> bool:
+    """Check if bar conditions satisfy mean-reversion entry."""
+    if pd.isna(z_val) or float(z_val) > -float(z_entry):
+        return False
+    if pd.isna(atr_val) or float(atr_val) <= 0:
+        return False
+    if not pd.isna(stretch_val) and float(stretch_val) > -float(min_stretch_atr):
+        return False
+    return True
+
+
+def check_bar_exit(
+    low_k: float,
+    high_k: float,
+    open_k: float,
+    close_k: float,
+    zk: float,
+    stop_px: float,
+    target_px: float,
+    bars_held: int,
+    max_hold: int,
+    exit_on_open_z: bool = False,
+    next_open: float | None = None,
+) -> tuple[float | None, str | None]:
+    """Check exits for a single bar in strict priority order.
+
+    Priority 1 (Stop-loss): if low_k <= stop_px -> exit at min(stop_px, open_k)
+    Priority 2 (Take-profit): if high_k >= target_px -> exit at max(target_px, open_k)
+    Priority 3 (Mean reversion): if zk >= 0 -> exit at close_k (or next_open if exit_on_open_z)
+    Priority 4 (Time stop): if bars_held >= max_hold -> exit at close_k
+    """
+    if low_k <= stop_px:
+        return min(stop_px, open_k), "stop-loss"
+    if high_k >= target_px:
+        return max(target_px, open_k), "take-profit"
+    if not pd.isna(zk) and zk >= 0:
+        if exit_on_open_z and next_open is not None and not pd.isna(next_open):
+            return float(next_open), "mean-reversion-open"
+        return close_k, "mean-reversion"
+    if bars_held >= max_hold:
+        return close_k, "time-stop"
+    return None, None
+
+
 def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTRY,
              hold: int = HOLD_DAYS, stop_atr: float = STOP_ATR,
              target_atr: float = TARGET_ATR, min_stretch_atr: float = 1.0,
              as_trades: bool = False,
              commission_pct: float | None = None,
-             slippage_pct: float | None = None) -> list[Any]:
+             slippage_pct: float | None = None,
+             broker_profile: Any = None,
+             symbol: str = "") -> list[Any]:
     """Pure simulation of the reversion strategy on historical bars.
 
     Returns net percentage returns per trade in chronological order (or Trade objects if as_trades=True).
     Matches live execution rules:
       - indicators computed if missing (True Range ATR, z-score, ATR stretch)
-      - entry signal at bar i: z <= -z_entry and stretch <= -min_stretch_atr
+      - entry signal at bar i via evaluate_entry_signal()
       - warmup guard: no entry if ATR is NaN or non-positive
       - entry fill at open[i+1] * (1 + SLIPPAGE_PCT)
       - risk levels anchored to entry fill:
           stop = max(entry - stop_atr * atr_i, entry * 0.90)
           target = entry + target_atr * atr_i
-      - bar evaluation k in [i+1, min(n-1, i+hold)]:
-          1. Priority 1 (Stop): if low[k] <= stop -> exit at min(stop, open[k])
-          2. Priority 2 (Target): if high[k] >= target -> exit at max(target, open[k])
-          3. Priority 3 (Mean): if z[k] >= 0 -> exit at close[k]
+      - bar evaluation k in [i+1, min(n-1, i+hold)] via check_bar_exit()
       - Time stop / EOD: exit at close
       - Net return accounts for commissions and slippage via costs.net_return_pct.
       - Next entry earliest at exit_bar + 1.
@@ -89,19 +140,10 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
     trades: list[Trade] = []
     n = len(df)
     i = lookback
+    slip_rate = slippage_pct if slippage_pct is not None else config.SLIPPAGE_PCT
+
     while i < n - 1:
-        zi = z.iloc[i]
-        if pd.isna(zi) or zi > -z_entry:
-            i += 1
-            continue
-
-        atr_val = atr.iloc[i]
-        if pd.isna(atr_val) or float(atr_val) <= 0:
-            i += 1
-            continue
-
-        si = stretch.iloc[i]
-        if not pd.isna(si) and si > -min_stretch_atr:
+        if not evaluate_entry_signal(z.iloc[i], stretch.iloc[i], atr.iloc[i], z_entry, min_stretch_atr):
             i += 1
             continue
 
@@ -113,8 +155,8 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
             i += 1
             continue
 
-        entry_fill = entry_open * (1.0 + config.SLIPPAGE_PCT)
-        atr_i = float(atr_val)
+        entry_fill = entry_open * (1.0 + slip_rate)
+        atr_i = float(atr.iloc[i])
         stop = max(entry_fill - stop_atr * atr_i, entry_fill * 0.90)
         target = entry_fill + target_atr * atr_i
 
@@ -128,21 +170,13 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
             open_k = float(df["open"].iloc[k])
             close_k = float(df["close"].iloc[k])
             zk = z.iloc[k]
+            bars_held = k - (i + 1) + 1
 
-            if low_k <= stop:
-                exit_raw = min(stop, open_k)
+            px, r = check_bar_exit(low_k, high_k, open_k, close_k, zk, stop, target, bars_held, hold)
+            if px is not None:
+                exit_raw = px
                 exit_bar = k
-                reason = "stop-loss"
-                break
-            if high_k >= target:
-                exit_raw = max(target, open_k)
-                exit_bar = k
-                reason = "take-profit"
-                break
-            if not pd.isna(zk) and zk >= 0:
-                exit_raw = close_k
-                exit_bar = k
-                reason = "mean-reversion"
+                reason = r or "exit"
                 break
 
         if exit_raw is None:
@@ -155,9 +189,13 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
                 exit_raw = float(df["close"].iloc[exit_bar])
                 reason = "eod"
 
-        ret = net_return_pct(entry_open, exit_raw,
-                             commission_pct=commission_pct,
-                             slippage_pct=slippage_pct)
+        ret = net_return_pct(
+            entry_open, exit_raw,
+            commission_pct=commission_pct,
+            slippage_pct=slippage_pct,
+            profile=broker_profile,
+            symbol=symbol,
+        )
         trades.append(Trade(
             entry_bar=i + 1,
             exit_bar=exit_bar,
@@ -165,10 +203,13 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
             exit_px=exit_raw,
             reason=reason,
             ret_pct=round(ret, 4),
+            entry_ts=int(df["ts"].iloc[i + 1]) if "ts" in df.columns else 0,
+            exit_ts=int(df["ts"].iloc[exit_bar]) if "ts" in df.columns else 0,
         ))
         i = exit_bar + 1
 
     return trades if as_trades else [t.ret_pct for t in trades]
+
 
 
 

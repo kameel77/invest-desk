@@ -246,6 +246,8 @@ def execute_signals(signal_list: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     sells = [s for s in signal_list if s.get("side") == "SELL"]
     buys = [s for s in signal_list if s.get("side") != "SELL"]
+    # Sort buys deterministically: reversion buys sorted by z ascending (most oversold first), then symbol
+    buys.sort(key=lambda s: (float((s.get("meta") or {}).get("z", 0.0) or 0.0), s.get("symbol", "")))
     ordered_signals = sells + buys
 
     for sig in ordered_signals:
@@ -260,6 +262,13 @@ def execute_signals(signal_list: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 out.append({"symbol": sig["symbol"], "status": "SKIPPED",
                             "reason": "reversion disabled on GPW", "signal_id": sig.get("id")})
                 continue
+            if hyp == reversion.HYPOTHESIS and not sig["symbol"].endswith(".WA"):
+                open_us_lots = [l for l in db.open_lots(hypothesis="reversion") if not l["symbol"].endswith(".WA")]
+                if len(open_us_lots) >= config.US_MAX_SLOTS:
+                    out.append({"symbol": sig["symbol"], "status": "SKIPPED",
+                                "reason": f"max US slots ({config.US_MAX_SLOTS}) reached",
+                                "signal_id": sig.get("id")})
+                    continue
             sizing = meta.get("sizing") or {}
             qty = float(sizing.get("qty") or 0)
             if qty <= 0:

@@ -1,0 +1,210 @@
+{
+  "timestamp": "2026-10-09 06:46:29",
+  "target_profile": "IBKR_TIERED_USD",
+  "gate_decision": "GO",
+  "criteria": {
+    "ci_lower_above_010": {
+      "value": 0.603,
+      "passed": true
+    },
+    "profitable_folds_min_5": {
+      "value": 7,
+      "passed": true
+    },
+    "conservative_exp_above_0": {
+      "value": 0.054,
+      "passed": true
+    }
+  },
+  "profiles": {
+    "IBKR_TIERED_USD": {
+      "profile": "IBKR_TIERED_USD",
+      "trades": 352,
+      "expectancy": 1.356,
+      "median_return": 1.813,
+      "ci_90": [
+        0.603,
+        2.115
+      ],
+      "bootstrap_se": 0.466,
+      "profitable_folds": 7,
+      "total_folds": 8,
+      "fold_details": [
+        {
+          "fold": 1,
+          "trades": 44,
+          "expectancy": 1.575,
+          "profitable": true
+        },
+        {
+          "fold": 2,
+          "trades": 58,
+          "expectancy": 0.556,
+          "profitable": true
+        },
+        {
+          "fold": 3,
+          "trades": 37,
+          "expectancy": 0.789,
+          "profitable": true
+        },
+        {
+          "fold": 4,
+          "trades": 56,
+          "expectancy": 1.937,
+          "profitable": true
+        },
+        {
+          "fold": 5,
+          "trades": 43,
+          "expectancy": 2.092,
+          "profitable": true
+        },
+        {
+          "fold": 6,
+          "trades": 48,
+          "expectancy": 0.394,
+          "profitable": true
+        },
+        {
+          "fold": 7,
+          "trades": 19,
+          "expectancy": 0.716,
+          "profitable": false
+        },
+        {
+          "fold": 8,
+          "trades": 47,
+          "expectancy": 2.46,
+          "profitable": true
+        }
+      ]
+    },
+    "XTB_PLN": {
+      "profile": "XTB_PLN",
+      "trades": 352,
+      "expectancy": 0.355,
+      "median_return": 0.814,
+      "ci_90": [
+        -0.391,
+        1.106
+      ],
+      "bootstrap_se": 0.462,
+      "profitable_folds": 4,
+      "total_folds": 8,
+      "fold_details": [
+        {
+          "fold": 1,
+          "trades": 44,
+          "expectancy": 0.57,
+          "profitable": true
+        },
+        {
+          "fold": 2,
+          "trades": 58,
+          "expectancy": -0.439,
+          "profitable": false
+        },
+        {
+          "fold": 3,
+          "trades": 37,
+          "expectancy": -0.209,
+          "profitable": false
+        },
+        {
+          "fold": 4,
+          "trades": 56,
+          "expectancy": 0.929,
+          "profitable": true
+        },
+        {
+          "fold": 5,
+          "trades": 43,
+          "expectancy": 1.085,
+          "profitable": true
+        },
+        {
+          "fold": 6,
+          "trades": 48,
+          "expectancy": -0.596,
+          "profitable": false
+        },
+        {
+          "fold": 7,
+          "trades": 19,
+          "expectancy": -0.278,
+          "profitable": false
+        },
+        {
+          "fold": 8,
+          "trades": 47,
+          "expectancy": 1.45,
+          "profitable": true
+        }
+      ]
+    },
+    "CONSERVATIVE_US": {
+      "profile": "CONSERVATIVE_US",
+      "trades": 352,
+      "expectancy": 0.054,
+      "median_return": 0.512,
+      "ci_90": [
+        -0.69,
+        0.803
+      ],
+      "bootstrap_se": 0.46,
+      "profitable_folds": 4,
+      "total_folds": 8,
+      "fold_details": [
+        {
+          "fold": 1,
+          "trades": 44,
+          "expectancy": 0.269,
+          "profitable": true
+        },
+        {
+          "fold": 2,
+          "trades": 58,
+          "expectancy": -0.738,
+          "profitable": false
+        },
+        {
+          "fold": 3,
+          "trades": 37,
+          "expectancy": -0.508,
+          "profitable": false
+        },
+        {
+          "fold": 4,
+          "trades": 56,
+          "expectancy": 0.627,
+          "profitable": true
+        },
+        {
+          "fold": 5,
+          "trades": 43,
+          "expectancy": 0.782,
+          "profitable": true
+        },
+        {
+          "fold": 6,
+          "trades": 48,
+          "expectancy": -0.894,
+          "profitable": false
+        },
+        {
+          "fold": 7,
+          "trades": 19,
+          "expectancy": -0.576,
+          "profitable": false
+        },
+        {
+          "fold": 8,
+          "trades": 47,
+          "expectancy": 1.146,
+          "profitable": true
+        }
+      ]
+    }
+  }
+}
