@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from app import costs
+from app import config, costs
 
 
 def test_broker_profiles_exist():
@@ -98,6 +98,13 @@ def test_net_return_pct_backward_compatibility():
 
     # Passing symbol="AAPL" without profile must NOT default to 0% commission
     ret_aapl = costs.net_return_pct(100.0, 110.0, symbol="AAPL")
-    # Must use config.COMMISSION_PCT (0.001 = 0.10%) and config.SLIPPAGE_PCT (0.001 = 0.10%)
-    assert ret_aapl < 9.7  # If commission was 0, it would be higher (~9.78%)
+    # Must use config.COMMISSION_PCT (0.0035 = 0.35%) and config.SLIPPAGE_PCT (0.0010 = 0.10%)
+    expected_legacy = costs.net_return_pct(
+        100.0,
+        110.0,
+        commission_pct=config.COMMISSION_PCT,
+        slippage_pct=config.SLIPPAGE_PCT,
+    )
+    assert pytest.approx(ret_aapl, abs=1e-6) == expected_legacy
+
 

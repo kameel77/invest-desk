@@ -14,6 +14,7 @@ import asyncio
 import datetime
 import json
 from pathlib import Path
+import subprocess
 import sys
 import time
 from typing import Any, Callable
@@ -254,17 +255,20 @@ def run_fixed_sweep(symbols: list[str], folds: int = 8,
 def run_us_reversion_gate(symbols: list[str], folds: int = 8,
                           test_months: float = 5.0,
                           target_profile: str = "IBKR_TIERED_USD",
+                          capital: float = 16000.0,
+                          slots: int = 8,
                           n_bootstrap: int = 2000) -> dict[str, Any]:
     """Faza 0: Rygorystyczna bramka walidacyjna OOS dla US Reversion z block bootstrapem."""
     now = _anchor()
     test_span = int(test_months * 30.4 * DAY)
     us_symbols = [s for s in symbols if not s.endswith(".WA")]
+    real_notional = float(capital) / float(slots)
 
     print("\n" + "=" * 85)
     print("=== FAZA 0: BRAMKA WALIDACYJNA DLA US REVERSION (WALK-FORWARD OOS) ===")
     print("=" * 85)
     print(f"Uniwersum US: {len(us_symbols)} instrumentów | Fałdy: {folds} | Okno OOS: {test_months} mies.")
-    print(f"Docelowy profil brokera: {target_profile}")
+    print(f"Docelowy profil brokera: {target_profile} | Realny bilet: ${real_notional:,.2f} (${capital:,.2f} / {slots} slotów)")
     print("Parametry bazy: lookback=20, z_entry=2.0, hold=10, stop_atr=2.5, target_atr=3.0, min_stretch_atr=1.0")
     print("-" * 85)
 
@@ -294,6 +298,9 @@ def run_us_reversion_gate(symbols: list[str], folds: int = 8,
                 stop_atr=2.5,
                 target_atr=3.0,
                 min_stretch_atr=1.0,
+                broker_profile=target_profile,
+                notional=real_notional,
+                symbol=sym,
                 as_trades=True,
             )
             for t in trades:
@@ -334,6 +341,7 @@ def run_us_reversion_gate(symbols: list[str], folds: int = 8,
                 rt["entry_px"],
                 rt["exit_px"],
                 profile=prof,
+                notional=real_notional,
                 symbol=rt["symbol"],
             )
             trade_returns.append(ret)
@@ -504,17 +512,20 @@ def run_us_reversion_gate_v2(
         print(f"  {sym:6s}: {len(df):4d} barów | od {dt_min} do {dt_max}")
 
     current_year = datetime.datetime.now(datetime.timezone.utc).year
-    # Wyznaczenie roku początkowego: od pierwszego roku z >= 60 barami historii przed 1 stycznia
+    # Wyznaczenie roku początkowego: rok kwalifikuje się, gdy większość (>=50%)
+    # aktywnych symboli US posiada co najmniej 60 barów historii przed 1 stycznia danego roku.
+    # W 2007 r. tylko 1 symbol (SPY) spełniał ten warunek; w 2008 r. aż 18 z 22 (82%).
     eligible_years: list[int] = []
+    min_sym_required = max(1, len(symbol_data) // 2)
     for y in range(1995, current_year + 1):
         jan1_ts = int(datetime.datetime(y, 1, 1, tzinfo=datetime.timezone.utc).timestamp())
-        bars_before = sum(len(df[df["ts"] < jan1_ts]) for df in symbol_data.values())
-        if bars_before >= 60:
+        syms_with_bars = sum(1 for df in symbol_data.values() if len(df[df["ts"] < jan1_ts]) >= 60)
+        if syms_with_bars >= min_sym_required:
             eligible_years.append(y)
 
     start_year = min(eligible_years) if eligible_years else current_year
     annual_folds = list(range(start_year, current_year + 1))
-    print(f"\nWyznaczone fałdy roczne ({len(annual_folds)} fałdów): {annual_folds[0]}..{annual_folds[-1]}")
+    print(f"\nWyznaczone fałdy roczne ({len(annual_folds)} fałdów, kryterium większości symboli ≥60 barów): {annual_folds[0]}..{annual_folds[-1]}")
 
     # 2. Transakcje na pełnej historii (bez sztucznego ucinania df)
     raw_trades: list[dict[str, Any]] = []
@@ -529,6 +540,9 @@ def run_us_reversion_gate_v2(
             stop_atr=2.5,
             target_atr=3.0,
             min_stretch_atr=1.0,
+            broker_profile=target_profile,
+            notional=real_notional,
+            symbol=sym,
             as_trades=True,
         )
         for t in trades:
@@ -731,7 +745,16 @@ def run_us_reversion_gate_v2(
     crit_3 = pct_prof_folds >= 60.0
     crit_4 = conserv_res["expectancy"] >= 0.0
     crit_5 = all(portfolio_annual_returns[y]["return_pct"] >= -15.0 for y in full_years)
-    crit_6 = True  # Zielony test uzgodnienia w pytest (3 seedy)
+    crit_6_res = subprocess.run(
+        [sys.executable, "-m", "pytest", "tests/test_portfolio_sim.py", "-k", "reconciliation", "-q"],
+        capture_output=True,
+        text=True,
+    )
+    crit_6 = (crit_6_res.returncode == 0)
+    if not crit_6:
+        print(f"OSTRZEŻENIE: Test uzgodnienia silników (pytest reconciliation) zwrócił błąd (kod {crit_6_res.returncode}):")
+        print(crit_6_res.stdout)
+        print(crit_6_res.stderr)
 
     gate_v2_pass = crit_1 and crit_2 and crit_3 and crit_4 and crit_5 and crit_6
     gate_decision = "GO" if gate_v2_pass else "NO-GO"
@@ -846,6 +869,8 @@ def main() -> None:
     parser.add_argument("--gate-v2", action="store_true", help="Uruchom bramkę walidacyjną v2 dla US Reversion na 15+ latach")
     parser.add_argument("--profile", default=config.DEFAULT_BROKER_PROFILE_US,
                         help=f"Docelowy profil brokera dla bramki (domyślnie: {config.DEFAULT_BROKER_PROFILE_US})")
+    parser.add_argument("--capital", type=float, default=None, help="Kapitał początkowy portfela/bramki (USD)")
+    parser.add_argument("--slots", type=int, default=None, help="Liczba slotów w portfelu")
     args = parser.parse_args()
 
 
@@ -860,7 +885,12 @@ def main() -> None:
         asyncio.run(market.refresh_candles(symbols, rng=args.range))
 
     if args.gate_v2:
-        run_us_reversion_gate_v2(symbols, target_profile=args.profile)
+        gate_v2_kwargs: dict[str, Any] = {"target_profile": args.profile}
+        if args.capital is not None:
+            gate_v2_kwargs["capital"] = args.capital
+        if args.slots is not None:
+            gate_v2_kwargs["slots"] = args.slots
+        run_us_reversion_gate_v2(symbols, **gate_v2_kwargs)
         return
 
     drivers = H.driver_series()
@@ -872,8 +902,16 @@ def main() -> None:
         print(f"   {s:9} ADV {adv:>14,.0f}  20d {mv:+.1f}%")
 
     if args.gate:
-        run_us_reversion_gate(symbols, folds=args.folds, test_months=args.test_months,
-                              target_profile=args.profile)
+        gate_kwargs: dict[str, Any] = {
+            "folds": args.folds,
+            "test_months": args.test_months,
+            "target_profile": args.profile,
+        }
+        if args.capital is not None:
+            gate_kwargs["capital"] = args.capital
+        if args.slots is not None:
+            gate_kwargs["slots"] = args.slots
+        run_us_reversion_gate(symbols, **gate_kwargs)
         return
 
     out = []
