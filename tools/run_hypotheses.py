@@ -531,20 +531,20 @@ def run_us_reversion_gate_v2(
         print(f"  {sym:6s}: {len(df):4d} barów | od {dt_min} do {dt_max} | odrzucone bary: {dropped_bars}")
 
     current_year = datetime.datetime.now(datetime.timezone.utc).year
-    # Wyznaczenie roku początkowego: rok kwalifikuje się, gdy większość (>=50%)
-    # aktywnych symboli US posiada co najmniej 60 barów historii przed 1 stycznia danego roku.
-    # W 2007 r. tylko 1 symbol (SPY) spełniał ten warunek; w 2008 r. aż 18 z 22 (82%).
-    eligible_years: list[int] = []
-    min_sym_required = max(1, len(symbol_data) // 2)
-    for y in range(1995, current_year + 1):
-        jan1_ts = int(datetime.datetime(y, 1, 1, tzinfo=datetime.timezone.utc).timestamp())
-        syms_with_bars = sum(1 for df in symbol_data.values() if len(df[df["ts"] < jan1_ts]) >= 60)
-        if syms_with_bars >= min_sym_required:
-            eligible_years.append(y)
+    # Reguła roku startowego: fałdy roczne obejmują każdy rok od pierwszego, w którym co najmniej
+    # jeden symbol ma >= 60 barów przed 1 stycznia, do roku bieżącego. Transakcje symbolu liczą się
+    # dopiero od roku, w którym ten symbol sam spełnia warunek >= 60 barów przed 1 stycznia.
+    sym_start_year: dict[str, int] = {}
+    for sym, df in symbol_data.items():
+        for y in range(1995, current_year + 1):
+            jan1_ts = int(datetime.datetime(y, 1, 1, tzinfo=datetime.timezone.utc).timestamp())
+            if len(df[df["ts"] < jan1_ts]) >= 60:
+                sym_start_year[sym] = y
+                break
 
-    start_year = min(eligible_years) if eligible_years else current_year
+    start_year = min(sym_start_year.values()) if sym_start_year else current_year
     annual_folds = list(range(start_year, current_year + 1))
-    print(f"\nWyznaczone fałdy roczne ({len(annual_folds)} fałdów, kryterium większości symboli ≥60 barów): {annual_folds[0]}..{annual_folds[-1]}")
+    print(f"\nWyznaczone fałdy roczne ({len(annual_folds)} fałdów, pierwszy rok z ≥1 symbolem o ≥60 barów przed 1 stycznia): {annual_folds[0]}..{annual_folds[-1]}")
 
     # 2. Transakcje na pełnej historii (bez sztucznego ucinania df), generowane osobno dla
     # każdego profilu: stop/target są kotwiczone na poślizgu danego profilu, więc zestaw
@@ -573,7 +573,7 @@ def run_us_reversion_gate_v2(
             )
             for t in trades:
                 e_year = datetime.datetime.fromtimestamp(t.entry_ts, tz=datetime.timezone.utc).year
-                if e_year >= start_year:
+                if e_year >= sym_start_year.get(sym, current_year + 1):
                     out.append({
                         "symbol": sym,
                         "entry_ts": t.entry_ts,
