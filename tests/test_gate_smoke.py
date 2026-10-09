@@ -67,3 +67,11 @@ def test_gate_v1_smoke_synthetic(monkeypatch):
     assert "profiles" in report
     assert "XTB_USD" in report["profiles"]
     assert "ci_90" in report["profiles"]["XTB_USD"]
+
+
+def test_gate_v2_crit6_runs_from_foreign_cwd(monkeypatch):
+    """Kryterium 6 ma działać także wtedy, gdy bramkę uruchomiono spoza katalogu repo."""
+    from tools import run_hypotheses
+
+    monkeypatch.chdir(run_hypotheses.ROOT.parent)
+    assert run_hypotheses._run_reconciliation_test() is True

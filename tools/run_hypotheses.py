@@ -461,6 +461,22 @@ def _calc_spy_benchmark(start_ts: int, end_ts: int) -> dict[str, float]:
     return {"return_pct": round(ret, 2), "cagr": round(cagr, 2), "mdd_pct": round(mdd, 2)}
 
 
+def _run_reconciliation_test() -> bool:
+    """Kryterium 6: uruchamia test uzgodnienia silników (niezależnie od bieżącego katalogu)."""
+    res = subprocess.run(
+        [sys.executable, "-m", "pytest", str(ROOT / "tests" / "test_portfolio_sim.py"),
+         "-k", "reconciliation", "-q"],
+        capture_output=True,
+        text=True,
+        cwd=ROOT,
+    )
+    if res.returncode != 0:
+        print(f"OSTRZEŻENIE: Test uzgodnienia silników (pytest reconciliation) zwrócił błąd (kod {res.returncode}):")
+        print(res.stdout)
+        print(res.stderr)
+    return res.returncode == 0
+
+
 def run_us_reversion_gate_v2(
     symbols: list[str],
     target_profile: str = "XTB_USD",
@@ -752,16 +768,7 @@ def run_us_reversion_gate_v2(
     crit_3 = pct_prof_folds >= 60.0
     crit_4 = conserv_res["expectancy"] >= 0.0
     crit_5 = all(portfolio_annual_returns[y]["return_pct"] >= -15.0 for y in full_years)
-    crit_6_res = subprocess.run(
-        [sys.executable, "-m", "pytest", "tests/test_portfolio_sim.py", "-k", "reconciliation", "-q"],
-        capture_output=True,
-        text=True,
-    )
-    crit_6 = (crit_6_res.returncode == 0)
-    if not crit_6:
-        print(f"OSTRZEŻENIE: Test uzgodnienia silników (pytest reconciliation) zwrócił błąd (kod {crit_6_res.returncode}):")
-        print(crit_6_res.stdout)
-        print(crit_6_res.stderr)
+    crit_6 = _run_reconciliation_test()
 
     gate_v2_pass = crit_1 and crit_2 and crit_3 and crit_4 and crit_5 and crit_6
     gate_decision = "GO" if gate_v2_pass else "NO-GO"
