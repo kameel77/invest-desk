@@ -73,7 +73,7 @@ class PortfolioSimulator:
         stop_atr: float = reversion.STOP_ATR,
         target_atr: float = reversion.TARGET_ATR,
         min_stretch_atr: float = 1.0,
-        exit_on_open_z: bool = False,
+        fractional: bool = True,
     ):
         self.symbols = [s.upper() for s in symbols]
         self.initial_cash = float(initial_cash)
@@ -86,7 +86,7 @@ class PortfolioSimulator:
         self.stop_atr = stop_atr
         self.target_atr = target_atr
         self.min_stretch_atr = min_stretch_atr
-        self.exit_on_open_z = exit_on_open_z
+        self.fractional = fractional
 
     def _prepare_data(self) -> tuple[list[int], dict[str, pd.DataFrame]]:
         """Load and align daily candles across symbols, precomputing indicators."""
@@ -111,6 +111,7 @@ class PortfolioSimulator:
         self,
         start_ts: Optional[int] = None,
         end_ts: Optional[int] = None,
+        all_trades: bool = False,
     ) -> dict[str, Any]:
         """Execute the bar-by-bar simulation over the requested timestamp range."""
         timestamps, frames = self._prepare_data()
@@ -167,8 +168,12 @@ class PortfolioSimulator:
                     })
                     continue
 
-                # Number of whole shares
-                shares = math.floor(usable_cash / executed_entry_px)
+                # Number of shares (fractional or whole)
+                if self.fractional:
+                    shares = usable_cash / executed_entry_px
+                else:
+                    shares = float(math.floor(usable_cash / executed_entry_px))
+
                 if shares <= 0:
                     rejected_signals.append({
                         "ts": t_ts, "symbol": sym, "reason": "size_below_min"
@@ -178,14 +183,19 @@ class PortfolioSimulator:
                 # Trade cash deduction
                 costs_res = costs.calculate_trade_costs("BUY", open_px, shares, self.broker_profile)
                 if costs_res["total_cash"] > cash:
-                    # Adjust shares if commission pushed over cash
-                    shares -= 1
-                    if shares <= 0:
-                        rejected_signals.append({
-                            "ts": t_ts, "symbol": sym, "reason": "cash_exhausted_comm"
-                        })
-                        continue
-                    costs_res = costs.calculate_trade_costs("BUY", open_px, shares, self.broker_profile)
+                    if self.fractional:
+                        ratio = cash / costs_res["total_cash"]
+                        shares *= (ratio * 0.9999)
+                        costs_res = costs.calculate_trade_costs("BUY", open_px, shares, self.broker_profile)
+                    else:
+                        # Adjust shares if commission pushed over cash
+                        shares -= 1
+                        if shares <= 0:
+                            rejected_signals.append({
+                                "ts": t_ts, "symbol": sym, "reason": "cash_exhausted_comm"
+                            })
+                            continue
+                        costs_res = costs.calculate_trade_costs("BUY", open_px, shares, self.broker_profile)
 
                 cash -= costs_res["total_cash"]
 
@@ -245,8 +255,10 @@ class PortfolioSimulator:
                     symbols_to_close.append((sym, exit_px, reason))
 
             # Process exits
+            symbols_closed_today: set[str] = set()
             for sym, exit_px, reason in symbols_to_close:
                 slot = open_slots.pop(sym)
+                symbols_closed_today.add(sym)
                 sell_costs = costs.calculate_trade_costs("SELL", exit_px, slot.shares, self.broker_profile)
                 cash += sell_costs["total_cash"]
 
@@ -290,9 +302,10 @@ class PortfolioSimulator:
             available_slots = max(0, self.max_slots - len(open_slots))
 
             # Evaluate entry signals across universe
+            # Cooldown: Symbol zamknięty w dniu t nie może generować sygnału na Close(t)
             candidates: list[dict[str, Any]] = []
             for sym in self.symbols:
-                if sym in open_slots:
+                if sym in open_slots or sym in symbols_closed_today:
                     continue
                 bar_t = data_by_sym_ts.get(sym, {}).get(t_ts)
                 if bar_t is None:
@@ -356,13 +369,14 @@ class PortfolioSimulator:
             })
 
         # Calculate performance statistics
-        return self._compute_performance(daily_snapshots, closed_trades, rejected_signals)
+        return self._compute_performance(daily_snapshots, closed_trades, rejected_signals, all_trades=all_trades)
 
     def _compute_performance(
         self,
         snapshots: list[dict[str, Any]],
         trades: list[SimulatedTrade],
         rejected: list[dict[str, Any]],
+        all_trades: bool = False,
     ) -> dict[str, Any]:
         """Compute comprehensive portfolio metrics from daily curve and trades."""
         if not snapshots:
@@ -428,8 +442,33 @@ class PortfolioSimulator:
         gross_losses = abs(sum(t.net_pnl for t in trades if t.net_pnl < 0))
         profit_factor = round(gross_profits / gross_losses, 2) if gross_losses > 0 else (999.0 if gross_profits > 0 else 0.0)
 
-        rejected_slot_full = sum(1 for r in rejected if r.get("reason") == "slot_full")
-        rejected_cash = sum(1 for r in rejected if "cash" in r.get("reason", ""))
+        # Pełne powody odrzuceń - zliczanie każdego reason osobno
+        rejected_by_reason: dict[str, int] = {
+            "slot_full": 0,
+            "cash_exhausted": 0,
+            "cash_exhausted_comm": 0,
+            "size_below_min": 0,
+            "no_open_price": 0,
+        }
+        for r in rejected:
+            reason = r.get("reason", "unknown")
+            rejected_by_reason[reason] = rejected_by_reason.get(reason, 0) + 1
+
+        formatted_trades = [
+            {
+                "symbol": t.symbol,
+                "entry_ts": t.entry_ts,
+                "exit_ts": t.exit_ts,
+                "entry_px": t.entry_px,
+                "exit_px": t.exit_px,
+                "shares": t.shares,
+                "net_ret": t.net_return_pct,
+                "net_pnl": t.net_pnl,
+                "reason": t.reason,
+                "bars_held": t.bars_held,
+            }
+            for t in trades
+        ]
 
         return {
             "initial_cash": self.initial_cash,
@@ -452,24 +491,14 @@ class PortfolioSimulator:
             "pct_days_slots_above_80": pct_slots_80,
             "rejected_signals": {
                 "total": len(rejected),
-                "slot_full": rejected_slot_full,
-                "cash_exhausted": rejected_cash,
+                "slot_full": rejected_by_reason.get("slot_full", 0),
+                "cash_exhausted": rejected_by_reason.get("cash_exhausted", 0),
+                "cash_exhausted_comm": rejected_by_reason.get("cash_exhausted_comm", 0),
+                "size_below_min": rejected_by_reason.get("size_below_min", 0),
+                "no_open_price": rejected_by_reason.get("no_open_price", 0),
             },
-            "closed_trades": [
-                {
-                    "symbol": t.symbol,
-                    "entry_ts": t.entry_ts,
-                    "exit_ts": t.exit_ts,
-                    "entry_px": t.entry_px,
-                    "exit_px": t.exit_px,
-                    "shares": t.shares,
-                    "net_ret": t.net_return_pct,
-                    "net_pnl": t.net_pnl,
-                    "reason": t.reason,
-                    "bars_held": t.bars_held,
-                }
-                for t in trades[:100]  # Cap trade list in summary
-            ],
+            "closed_trades": formatted_trades if all_trades else formatted_trades[:100],
+            "all_closed_trades": formatted_trades,
             "curve": [
                 {"ts": s["ts"], "equity": s["equity"], "cash": s["cash"], "pos_count": s["open_positions_count"]}
                 for s in snapshots

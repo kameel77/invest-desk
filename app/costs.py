@@ -57,6 +57,13 @@ PROFILES: dict[str, BrokerProfile] = {
         slippage_pct=0.0005,
         fx_pct=0.0050,  # 0.5% each way = ~1.0% round trip
     ),
+    "XTB_USD": BrokerProfile(
+        name="XTB_USD",
+        commission_pct=0.0,
+        commission_min=0.0,
+        slippage_pct=0.0005,
+        fx_pct=0.0,  # Subkonto USD - bez marży FX na transakcjach
+    ),
     "CONSERVATIVE_US": BrokerProfile(
         name="CONSERVATIVE_US",
         commission_pct=0.0010,
@@ -135,17 +142,29 @@ def net_return_pct(
     slippage_pct: float | None = None,
     fx_pct: float | None = None,
     shares: float | None = None,
+    notional: float | None = None,
     symbol: str = "",
     profile: BrokerProfile | str | None = None,
 ) -> float:
     """Zwrot netto uwzględniający prowizję, poślizg i ewentualny FX po obu stronach transakcji.
 
-    Wspiera zarówno wywołanie uproszczone (procentowe), jak i precyzyjne wyliczenie z profilu brokera
-    oraz liczby akcji / wartości transakcji.
+    W ścieżce profilowej (gdy przekazano profile lub gdy podano notional/shares z symbolem)
+    wymagane jest jawne podanie wartości transakcji (notional w USD) lub liczby akcji (shares).
+    W przeciwnym razie rzucany jest ValueError (nie zakłada się stałych 100 akcji).
+
+    Gdy nie podano profilu ani notional/shares, funkcja zachowuje standardowe procentowe zachowanie
+    oparte na config.COMMISSION_PCT i config.SLIPPAGE_PCT, unikając pułapki zerowej prowizji
+    z profilu IBKR dla symboli US.
     """
-    if profile is not None or (shares is not None and shares > 0):
+    if profile is not None or notional is not None or (shares is not None and shares > 0):
+        if shares is not None and shares > 0:
+            n_shares = float(shares)
+        elif notional is not None and notional > 0:
+            n_shares = float(notional) / float(entry_px)
+        else:
+            raise ValueError("Profile-based net_return_pct requires 'notional' or 'shares'")
+
         prof = profile if isinstance(profile, BrokerProfile) else get_profile(profile or symbol)
-        n_shares = float(shares) if shares is not None and shares > 0 else 100.0
         buy_res = calculate_trade_costs("BUY", entry_px, n_shares, prof)
         sell_res = calculate_trade_costs("SELL", exit_px, n_shares, prof)
         if buy_res["total_cash"] <= 0:
@@ -153,11 +172,11 @@ def net_return_pct(
         return float(((sell_res["total_cash"] / buy_res["total_cash"]) - 1.0) * 100.0)
 
     # Legacy/percentage-based multiplicative formula
-    p = get_profile(symbol)
-    comm = float(commission_pct if commission_pct is not None else (p.commission_pct if symbol else config.COMMISSION_PCT))
-    slip = float(slippage_pct if slippage_pct is not None else (p.slippage_pct if symbol else config.SLIPPAGE_PCT))
-    fx = float(fx_pct if fx_pct is not None else (p.fx_pct if symbol else 0.0))
+    comm = float(commission_pct if commission_pct is not None else config.COMMISSION_PCT)
+    slip = float(slippage_pct if slippage_pct is not None else config.SLIPPAGE_PCT)
+    fx = float(fx_pct if fx_pct is not None else 0.0)
 
     entry_eff = float(entry_px) * (1.0 + slip) * (1.0 + comm) * (1.0 + fx)
     exit_eff = float(exit_px) * (1.0 - slip) * (1.0 - comm) * (1.0 - fx)
     return float(((exit_eff / entry_eff) - 1.0) * 100.0)
+

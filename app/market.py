@@ -166,7 +166,8 @@ async def fetch_candles(symbol: str, rng: str = "2y", interval: str = "1d",
     if not force and cached and (time.time() - cached[0]) < config.CANDLE_TTL:
         return 0
 
-    result = await _yahoo_chart(symbol, rng, interval)
+    rng_query = "20y" if (rng == "max" and interval == "1d") else rng
+    result = await _yahoo_chart(symbol, rng_query, interval)
     if not result:
         return 0
     bars, _info = _parse_yahoo(result)

@@ -23,43 +23,78 @@ def _synthetic_symbol_frame(symbol: str, closes: list[float], spread: float = 0.
     })
 
 
-def test_portfolio_sim_reconciliation_with_reversion_simulate(monkeypatch):
-    """Reconciliation test: with infinite slots and cash, PortfolioSimulator
+def _synthetic_student_t_frame(symbol: str, n_bars: int = 1500, seed: int = 42, df_t: float = 4.0) -> pd.DataFrame:
+    """Generate synthetic OHLCV random walk with Student-t fat tails."""
+    rng = np.random.default_rng(seed)
+    # Scaled to ~1.5% daily volatility
+    t_innovations = rng.standard_t(df=df_t, size=n_bars) * 0.015 / math.sqrt(df_t / (df_t - 2.0))
+    closes = 100.0 * np.exp(np.cumsum(t_innovations))
+    highs = closes * (1.0 + rng.uniform(0.005, 0.02, size=n_bars))
+    lows = closes * (1.0 - rng.uniform(0.005, 0.02, size=n_bars))
+    opens = np.empty(n_bars)
+    opens[0] = closes[0]
+    for i in range(1, n_bars):
+        opens[i] = np.clip(closes[i - 1] * (1.0 + rng.normal(0, 0.003)), lows[i] * 1.001, highs[i] * 0.999)
+    highs = np.maximum(highs, np.maximum(opens, closes) * 1.001)
+    lows = np.minimum(lows, np.minimum(opens, closes) * 0.999)
 
-    produces identical trade outcomes as reversion.simulate().
+    timestamps = [1_700_000_000 + i * 86_400 for i in range(n_bars)]
+    return pd.DataFrame({
+        "ts": timestamps,
+        "symbol": symbol,
+        "open": opens,
+        "high": highs,
+        "low": lows,
+        "close": closes,
+        "volume": [1_000_000.0] * n_bars,
+    })
+
+
+@pytest.mark.parametrize("seed", [42, 123, 999])
+def test_portfolio_sim_reconciliation_with_reversion_simulate(monkeypatch, seed):
+    """Reconciliation test on 1500 bars synthetic Student-t series (seed parameterised):
+
+    With infinite slots and cash, PortfolioSimulator produces 1:1 identical trades
+    and net returns (tol 1e-3 pp) to reversion.simulate().
     """
-    # 30 bars of warm wave, then sharp dip to trigger entry
-    wave = [100.0 + math.sin(i * 0.5) * 2.0 for i in range(30)] + [92.0]
-    # Then recovery above mean (e.g. 102.0)
-    wave += [95.0, 98.0, 102.0]
-    df = _synthetic_symbol_frame("TEST_SYM", wave)
+    df = _synthetic_student_t_frame("SYNTH_TEST", n_bars=1500, seed=seed)
+    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: df if sym == "SYNTH_TEST" else None)
 
-    # Monkeypatch bt._cached_frame to return df
-    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: df if sym == "TEST_SYM" else None)
+    # 1. Single asset simulate() with target budget notional ($1e7 = $1e9 / 100)
+    target_notional = 1e7
+    single_trades = reversion.simulate(
+        df,
+        as_trades=True,
+        broker_profile="IBKR_TIERED_USD",
+        notional=target_notional,
+    )
+    assert len(single_trades) >= 10, f"Seed {seed} generated too few trades: {len(single_trades)}"
 
-    # 1. Single asset simulate()
-    single_trades = reversion.simulate(df, as_trades=True, broker_profile="IBKR_TIERED_USD")
-    assert len(single_trades) >= 1
-
-    # 2. PortfolioSimulator with infinite slots and large cash
+    # 2. PortfolioSimulator with 100 slots and 1e9 cash
     sim = PortfolioSimulator(
-        symbols=["TEST_SYM"],
-        initial_cash=1_000_000.0,
+        symbols=["SYNTH_TEST"],
+        initial_cash=1e9,
         max_slots=100,
         broker_profile="IBKR_TIERED_USD",
     )
-    res = sim.run()
+    res = sim.run(all_trades=True)
     assert "error" not in res
-    closed = res["closed_trades"]
-    assert len(closed) == len(single_trades)
+    port_trades = res["all_closed_trades"]
 
-    # Compare trade 0
-    t_single = single_trades[0]
-    t_port = closed[0]
-    assert t_port["symbol"] == "TEST_SYM"
-    assert t_port["reason"] == t_single.reason
-    assert pytest.approx(t_port["entry_px"], abs=1e-4) == t_single.entry_px
-    assert pytest.approx(t_port["exit_px"], abs=1e-4) == t_single.exit_px
+    assert len(port_trades) == len(single_trades), (
+        f"Trade count mismatch for seed {seed}: port={len(port_trades)} vs single={len(single_trades)}"
+    )
+
+    # 3. Assert 1:1 identical trades and net_ret within 1e-3 pp
+    for i, (t_single, t_port) in enumerate(zip(single_trades, port_trades)):
+        assert t_port["symbol"] == "SYNTH_TEST"
+        assert t_port["entry_ts"] == t_single.entry_ts, f"Trade {i} entry_ts mismatch"
+        assert t_port["exit_ts"] == t_single.exit_ts, f"Trade {i} exit_ts mismatch"
+        assert t_port["reason"] == t_single.reason, f"Trade {i} reason mismatch"
+        assert pytest.approx(t_port["exit_px"], abs=1e-4) == t_single.exit_px, f"Trade {i} exit_px mismatch"
+        assert abs(t_port["net_ret"] - t_single.ret_pct) < 1e-3, (
+            f"Trade {i} net_ret mismatch: port={t_port['net_ret']} vs single={t_single.ret_pct}"
+        )
 
 
 def test_deterministic_priority_and_slot_limit(monkeypatch):

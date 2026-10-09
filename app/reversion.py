@@ -21,7 +21,7 @@ import pandas as pd
 
 from dataclasses import dataclass
 
-from . import config, db, signals
+from . import config, costs, db, signals
 from .costs import net_return_pct
 
 # --- walk-forward-selected parameters ------------------------------------
@@ -108,6 +108,8 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
              commission_pct: float | None = None,
              slippage_pct: float | None = None,
              broker_profile: Any = None,
+             shares: float | None = None,
+             notional: float | None = None,
              symbol: str = "") -> list[Any]:
     """Pure simulation of the reversion strategy on historical bars.
 
@@ -116,7 +118,7 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
       - indicators computed if missing (True Range ATR, z-score, ATR stretch)
       - entry signal at bar i via evaluate_entry_signal()
       - warmup guard: no entry if ATR is NaN or non-positive
-      - entry fill at open[i+1] * (1 + SLIPPAGE_PCT)
+      - entry fill at open[i+1] * (1 + slip_rate)
       - risk levels anchored to entry fill:
           stop = max(entry - stop_atr * atr_i, entry * 0.90)
           target = entry + target_atr * atr_i
@@ -140,7 +142,15 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
     trades: list[Trade] = []
     n = len(df)
     i = lookback
-    slip_rate = slippage_pct if slippage_pct is not None else config.SLIPPAGE_PCT
+
+    # Wspólny poślizg: jawne slippage_pct ma pierwszeństwo, potem profil, na końcu config
+    if slippage_pct is not None:
+        slip_rate = slippage_pct
+    elif broker_profile is not None:
+        prof = broker_profile if isinstance(broker_profile, costs.BrokerProfile) else costs.get_profile(broker_profile)
+        slip_rate = prof.slippage_pct
+    else:
+        slip_rate = config.SLIPPAGE_PCT
 
     while i < n - 1:
         if not evaluate_entry_signal(z.iloc[i], stretch.iloc[i], atr.iloc[i], z_entry, min_stretch_atr):
@@ -192,8 +202,10 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
         ret = net_return_pct(
             entry_open, exit_raw,
             commission_pct=commission_pct,
-            slippage_pct=slippage_pct,
+            slippage_pct=slip_rate,
             profile=broker_profile,
+            shares=shares,
+            notional=notional,
             symbol=symbol,
         )
         trades.append(Trade(
