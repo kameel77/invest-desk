@@ -530,51 +530,55 @@ def run_us_reversion_gate_v2(
     annual_folds = list(range(start_year, current_year + 1))
     print(f"\nWyznaczone fałdy roczne ({len(annual_folds)} fałdów, kryterium większości symboli ≥60 barów): {annual_folds[0]}..{annual_folds[-1]}")
 
-    # 2. Transakcje na pełnej historii (bez sztucznego ucinania df)
-    raw_trades: list[dict[str, Any]] = []
+    # 2. Transakcje na pełnej historii (bez sztucznego ucinania df), generowane osobno dla
+    # każdego profilu: stop/target są kotwiczone na poślizgu danego profilu, więc zestaw
+    # transakcji różni się między profilami.
     etf_set = {"SPY", "QQQ", "IWM", "EEM", "EFA", "EWZ", "VGK"}
 
-    for sym, df in symbol_data.items():
-        trades = reversion.simulate(
-            df,
-            lookback=20,
-            z_entry=2.0,
-            hold=10,
-            stop_atr=2.5,
-            target_atr=3.0,
-            min_stretch_atr=1.0,
-            broker_profile=target_profile,
-            notional=real_notional,
-            symbol=sym,
-            as_trades=True,
-        )
-        for t in trades:
-            e_year = datetime.datetime.fromtimestamp(t.entry_ts, tz=datetime.timezone.utc).year
-            if e_year >= start_year:
-                raw_trades.append({
-                    "symbol": sym,
-                    "entry_ts": t.entry_ts,
-                    "exit_ts": t.exit_ts,
-                    "entry_px": t.entry_px,
-                    "exit_px": t.exit_px,
-                    "reason": t.reason,
-                    "year": e_year,
-                    "is_etf": sym in etf_set,
-                })
-
-    raw_trades.sort(key=lambda t: t["entry_ts"])
-    print(f"Łącznie zebrano transakcji na US w latach {start_year}..{current_year}: {len(raw_trades)}")
-
-    # 3. Ewaluacja profili kosztowych
     profiles_to_test = [target_profile, "XTB_PLN", "CONSERVATIVE_US"]
     seen = set()
     test_profiles = [p for p in profiles_to_test if not (p in seen or seen.add(p))]
 
+    def _profile_trades(prof_name: str) -> list[dict[str, Any]]:
+        out: list[dict[str, Any]] = []
+        for sym, df in symbol_data.items():
+            trades = reversion.simulate(
+                df,
+                lookback=20,
+                z_entry=2.0,
+                hold=10,
+                stop_atr=2.5,
+                target_atr=3.0,
+                min_stretch_atr=1.0,
+                broker_profile=prof_name,
+                notional=real_notional,
+                symbol=sym,
+                as_trades=True,
+            )
+            for t in trades:
+                e_year = datetime.datetime.fromtimestamp(t.entry_ts, tz=datetime.timezone.utc).year
+                if e_year >= start_year:
+                    out.append({
+                        "symbol": sym,
+                        "entry_ts": t.entry_ts,
+                        "exit_ts": t.exit_ts,
+                        "entry_px": t.entry_px,
+                        "exit_px": t.exit_px,
+                        "reason": t.reason,
+                        "year": e_year,
+                        "is_etf": sym in etf_set,
+                    })
+        out.sort(key=lambda t: t["entry_ts"])
+        return out
+
+    # 3. Ewaluacja profili kosztowych
     profile_results = {}
     holdout_cutoff_ts = int(datetime.datetime(2021, 10, 1, tzinfo=datetime.timezone.utc).timestamp())
 
     for prof_name in test_profiles:
         prof = costs.get_profile(prof_name)
+        raw_trades = _profile_trades(prof_name)
+        print(f"Profil {prof_name}: transakcji na US w latach {start_year}..{current_year}: {len(raw_trades)}")
         trade_returns = []
         months_map: dict[str, list[float]] = {}
         weeks_map: dict[int, list[float]] = {}
