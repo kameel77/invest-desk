@@ -146,6 +146,77 @@ def test_portfolio_sim_reconciliation_two_calendars(monkeypatch, seed):
             assert abs(tp["net_ret"] - ts_.ret_pct) < 1e-3, f"{sym} trade {i} net_ret"
 
 
+@pytest.mark.parametrize("seed", [42, 123, 999])
+def test_portfolio_sim_reconciliation_with_regime_filter(monkeypatch, seed):
+    """Reconciliation test with SPY regime filter on 1500 bars synthetic Student-t series.
+
+    Verifies 1:1 parity between reversion.simulate(..., regime_ok=...) and
+    PortfolioSimulator(..., regime_filter='spy200', spy_df=spy_df) across 3 seeds.
+    """
+    from app import regime
+
+    df = _synthetic_student_t_frame("SYNTH_TEST", n_bars=1500, seed=seed)
+    # Generate synthetic SPY oscillating around SMA200 so regime turns on and off
+    # Sine wave with wavelength 400 bars ensures multiple bull and bear cycles
+    timestamps = df["ts"].tolist()
+    spy_closes = [100.0 + 15.0 * math.sin(i * 2 * math.pi / 400.0) for i in range(len(timestamps))]
+    spy_df = pd.DataFrame({
+        "ts": timestamps,
+        "open": spy_closes,
+        "high": [c * 1.01 for c in spy_closes],
+        "low": [c * 0.99 for c in spy_closes],
+        "close": spy_closes,
+        "volume": [10_000_000] * len(timestamps),
+    })
+
+    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: df if sym == "SYNTH_TEST" else (spy_df if sym == "SPY" else None))
+
+    # 1. Compute regime_ok mapping
+    regime_ok = regime.spy_above_sma(spy_df, window=200)
+
+    # 2. Single asset simulate() with regime_ok
+    target_notional = 1e7
+    single_trades = reversion.simulate(
+        df,
+        as_trades=True,
+        broker_profile="IBKR_TIERED_USD",
+        notional=target_notional,
+        regime_ok=regime_ok,
+    )
+    single_trades = [t for t in single_trades if t.reason != "eod"]
+
+    # 3. PortfolioSimulator with regime_filter="spy200"
+    sim = PortfolioSimulator(
+        symbols=["SYNTH_TEST"],
+        initial_cash=1e9,
+        max_slots=100,
+        broker_profile="IBKR_TIERED_USD",
+        regime_filter="spy200",
+        spy_df=spy_df,
+    )
+    res = sim.run()
+    assert "error" not in res
+    port_trades = res["closed_trades"]
+
+    # Filter must have triggered rejections
+    assert res["rejected_signals"]["regime_off"] > 0, "Regime filter should have rejected signals"
+
+    assert len(port_trades) == len(single_trades), (
+        f"Trade count mismatch with regime filter for seed {seed}: port={len(port_trades)} vs single={len(single_trades)}"
+    )
+
+    # 4. Assert 1:1 match
+    for i, (t_single, t_port) in enumerate(zip(single_trades, port_trades)):
+        assert t_port["symbol"] == "SYNTH_TEST"
+        assert t_port["entry_ts"] == t_single.entry_ts, f"Trade {i} entry_ts mismatch"
+        assert t_port["exit_ts"] == t_single.exit_ts, f"Trade {i} exit_ts mismatch"
+        assert t_port["reason"] == t_single.reason, f"Trade {i} reason mismatch"
+        assert pytest.approx(t_port["exit_px"], abs=1e-4) == t_single.exit_px, f"Trade {i} exit_px mismatch"
+        assert abs(t_port["net_ret"] - t_single.ret_pct) < 1e-3, (
+            f"Trade {i} net_ret mismatch: port={t_port['net_ret']} vs single={t_single.ret_pct}"
+        )
+
+
 def test_deterministic_priority_and_slot_limit(monkeypatch):
     """When more signals occur than available slots, lowest z-score wins,
 

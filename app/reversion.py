@@ -14,7 +14,7 @@ comparison is the real test of which one the backtest was right about.
 from __future__ import annotations
 
 import math
-from typing import Any, Optional
+from typing import Any, Mapping, Optional
 
 import numpy as np
 import pandas as pd
@@ -106,13 +106,15 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
              broker_profile: Any = None,
              shares: float | None = None,
              notional: float | None = None,
-             symbol: str = "") -> list[Any]:
+             symbol: str = "",
+             regime_ok: Mapping[int, bool] | None = None) -> list[Any]:
     """Pure simulation of the reversion strategy on historical bars.
 
     Returns net percentage returns per trade in chronological order (or Trade objects if as_trades=True).
     Matches live execution rules:
       - indicators computed if missing (True Range ATR, z-score, ATR stretch)
       - entry signal at bar i via evaluate_entry_signal()
+      - regime filter: if regime_ok provided, skips signals on bars where regime_ok.get(ts_i, False) is False
       - warmup guard: no entry if ATR is NaN or non-positive
       - entry fill at open[i+1] * (1 + slip_rate)
       - risk levels anchored to entry fill:
@@ -152,6 +154,12 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
         if not evaluate_entry_signal(z.iloc[i], stretch.iloc[i], atr.iloc[i], z_entry, min_stretch_atr):
             i += 1
             continue
+
+        if regime_ok is not None:
+            ts_i = int(df["ts"].iloc[i]) if "ts" in df.columns else int(df.index[i])
+            if not regime_ok.get(ts_i, False):
+                i += 1
+                continue
 
         if i + 1 >= n:
             break

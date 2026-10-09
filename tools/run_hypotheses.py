@@ -485,6 +485,7 @@ def run_us_reversion_gate_v2(
     slots: int = 8,
     n_bootstrap: int = 2000,
     seed: int = 42,
+    regime_filter: str | None = None,
 ) -> dict[str, Any]:
     """Bramka walidacyjna v2 na pełnej historii (15+ lat).
 
@@ -505,6 +506,7 @@ def run_us_reversion_gate_v2(
     print(f"Liczba instrumentów US: {len(us_symbols)}")
     print(f"Docelowy profil: {target_profile} | Realny bilet (notional): ${real_notional:,.2f} (${capital:,.2f} / {slots} slotów)")
     print(f"Ustawienia bootstrapu: {n_bootstrap} iteracji, seed {seed}, bloki miesięczne (+ tygodniowe)")
+    print(f"Filtr reżimu rynkowego: {regime_filter or 'BRAK'}")
     print("-" * 90)
 
     # 1. Daty pierwszego bara per symbol
@@ -547,17 +549,36 @@ def run_us_reversion_gate_v2(
     annual_folds = list(range(start_year, current_year + 1))
     print(f"\nWyznaczone fałdy roczne ({len(annual_folds)} fałdów, pierwszy rok z ≥1 symbolem o ≥60 barów przed 1 stycznia): {annual_folds[0]}..{annual_folds[-1]}")
 
+    # Przygotowanie filtra reżimu
+    regime_ok: dict[int, bool] | None = None
+    regime_pct_active: float = 0.0
+    if regime_filter:
+        from app import regime
+        window = 200
+        rf_lower = regime_filter.lower()
+        if rf_lower.startswith("spy"):
+            try:
+                window = int(rf_lower[3:])
+            except ValueError:
+                window = 200
+        spy_df = symbol_data.get("SPY")
+        if spy_df is None:
+            spy_df = bt._cached_frame("SPY", limit=6000)
+        regime_ok = regime.spy_above_sma(spy_df, window=window)
+        if regime_ok:
+            start_ts = int(datetime.datetime(start_year, 1, 1, tzinfo=datetime.timezone.utc).timestamp())
+            relevant_sessions = [v for k, v in regime_ok.items() if k >= start_ts]
+            if relevant_sessions:
+                regime_pct_active = round(sum(1 for v in relevant_sessions if v) / len(relevant_sessions) * 100.0, 1)
+
     # 2. Transakcje na pełnej historii (bez sztucznego ucinania df), generowane osobno dla
     # każdego profilu: stop/target są kotwiczone na poślizgu danego profilu, więc zestaw
     # transakcji różni się między profilami.
     etf_set = {"SPY", "QQQ", "IWM", "EEM", "EFA", "EWZ", "VGK"}
 
-    profiles_to_test = [target_profile, "XTB_PLN", "CONSERVATIVE_US"]
-    seen = set()
-    test_profiles = [p for p in profiles_to_test if not (p in seen or seen.add(p))]
-
-    def _profile_trades(prof_name: str) -> list[dict[str, Any]]:
+    def _profile_trades(prof_name: str, apply_regime: bool = True) -> list[dict[str, Any]]:
         out: list[dict[str, Any]] = []
+        r_ok = regime_ok if apply_regime else None
         for sym, df in symbol_data.items():
             trades = reversion.simulate(
                 df,
@@ -571,6 +592,7 @@ def run_us_reversion_gate_v2(
                 notional=real_notional,
                 symbol=sym,
                 as_trades=True,
+                regime_ok=r_ok,
             )
             for t in trades:
                 e_year = datetime.datetime.fromtimestamp(t.entry_ts, tz=datetime.timezone.utc).year
@@ -587,6 +609,26 @@ def run_us_reversion_gate_v2(
                     })
         out.sort(key=lambda t: t["entry_ts"])
         return out
+
+    # Statystyki usuniętych transakcji dla profilu docelowego
+    target_raw_trades = _profile_trades(target_profile, apply_regime=True)
+    baseline_raw_trades = _profile_trades(target_profile, apply_regime=False)
+    kept_keys = {(t["symbol"], t["entry_ts"]) for t in target_raw_trades}
+    removed_trades = [t for t in baseline_raw_trades if (t["symbol"], t["entry_ts"]) not in kept_keys]
+    removed_trades_count = len(removed_trades)
+    removed_trades_expectancy = 0.0
+    if removed_trades:
+        rem_rets = [
+            costs.net_return_pct(
+                t["entry_px"], t["exit_px"], profile=target_profile, notional=real_notional, symbol=t["symbol"]
+            )
+            for t in removed_trades
+        ]
+        removed_trades_expectancy = round(float(np.mean(rem_rets)), 3)
+
+    print(f"Łącznie zebrano transakcji na US w latach {start_year}..{current_year}: {len(target_raw_trades)} (bez filtra: {len(baseline_raw_trades)})")
+    if regime_filter:
+        print(f"Filtr {regime_filter}: aktywny przez {regime_pct_active}% sesji | usunięto transakcji: {removed_trades_count} | expectancy usuniętych: {removed_trades_expectancy:+.3f}%")
 
     # 3. Ewaluacja profili kosztowych
     profile_results = {}
@@ -726,6 +768,7 @@ def run_us_reversion_gate_v2(
         max_slots=slots,
         broker_profile=target_profile,
         fractional=True,
+        regime_filter=regime_filter,
     )
     port_res = sim.run()
     curve = port_res.get("curve", [])
@@ -827,6 +870,10 @@ def run_us_reversion_gate_v2(
         "capital": capital,
         "slots": slots,
         "notional": real_notional,
+        "regime_filter": regime_filter,
+        "regime_pct_active": regime_pct_active,
+        "removed_trades_count": removed_trades_count,
+        "removed_trades_expectancy": removed_trades_expectancy,
         "gate_decision": gate_decision,
         "criteria": {
             "1_full_period_ci_lower_above_010": {"value": target_res["ci_90_monthly"][0], "passed": crit_1},
@@ -864,7 +911,8 @@ def run_us_reversion_gate_v2(
 
     reports_dir = config.DATA_DIR.parent / "reports" if hasattr(config, "DATA_DIR") else Path("reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
-    report_file = reports_dir / f"gate_v2_{time.strftime('%Y%m%d_%H%M%S')}_{target_profile}_{slots}slots.json"
+    regime_suffix = f"_{regime_filter}" if regime_filter else ""
+    report_file = reports_dir / f"gate_v2_{time.strftime('%Y%m%d_%H%M%S')}_{target_profile}_{slots}slots{regime_suffix}.json"
     with open(report_file, "w") as f:
         json.dump(report, f, default=str, indent=2)
     print(f"Zapisano raport bramki v2: {report_file}\n")
@@ -889,6 +937,8 @@ def main() -> None:
                              f"--gate-v2 -> {GATE_V2_DEFAULT_PROFILE})")
     parser.add_argument("--capital", type=float, default=None, help="Kapitał początkowy portfela/bramki (USD)")
     parser.add_argument("--slots", type=int, default=None, help="Liczba slotów w portfelu")
+    parser.add_argument("--regime-filter", default=None, choices=["spy200", "spy150", "spy250"],
+                        help="Filtr reżimu rynkowego dla bramki v2 (np. spy200)")
     args = parser.parse_args()
 
 
@@ -903,7 +953,10 @@ def main() -> None:
         asyncio.run(market.refresh_candles(symbols, rng=args.range))
 
     if args.gate_v2:
-        gate_v2_kwargs: dict[str, Any] = {"target_profile": args.profile or GATE_V2_DEFAULT_PROFILE}
+        gate_v2_kwargs: dict[str, Any] = {
+            "target_profile": args.profile or GATE_V2_DEFAULT_PROFILE,
+            "regime_filter": args.regime_filter,
+        }
         if args.capital is not None:
             gate_v2_kwargs["capital"] = args.capital
         if args.slots is not None:

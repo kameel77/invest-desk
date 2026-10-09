@@ -74,6 +74,8 @@ class PortfolioSimulator:
         target_atr: float = reversion.TARGET_ATR,
         min_stretch_atr: float = 1.0,
         fractional: bool = True,
+        regime_filter: str | None = None,
+        spy_df: pd.DataFrame | None = None,
     ):
         self.symbols = [s.upper() for s in symbols]
         self.initial_cash = float(initial_cash)
@@ -87,6 +89,25 @@ class PortfolioSimulator:
         self.target_atr = target_atr
         self.min_stretch_atr = min_stretch_atr
         self.fractional = fractional
+        self.regime_filter = regime_filter
+        self.spy_df = spy_df
+        self.regime_map: dict[int, bool] = {}
+
+        if self.regime_filter:
+            window = 200
+            rf_lower = self.regime_filter.lower()
+            if rf_lower.startswith("spy"):
+                try:
+                    window = int(rf_lower[3:])
+                except ValueError:
+                    window = 200
+
+            s_df = self.spy_df
+            if s_df is None:
+                s_df = bt._cached_frame("SPY", limit=6000)
+            if s_df is not None and len(s_df) > 0:
+                from . import regime
+                self.regime_map = regime.spy_above_sma(s_df, window=window)
 
     def _prepare_data(self) -> tuple[list[int], dict[str, pd.DataFrame]]:
         """Load and align daily candles across symbols, precomputing indicators."""
@@ -340,6 +361,14 @@ class PortfolioSimulator:
             # Deterministic ranking: lowest z_score first, tie-breaker alphabetically by symbol
             candidates.sort(key=lambda c: (c["z"], c["symbol"]))
 
+            # Regime filter check: if active and regime is OFF on day t, reject all candidates as regime_off
+            if self.regime_filter is not None and not self.regime_map.get(t_ts, False):
+                for cand in candidates:
+                    rejected_signals.append({
+                        "ts": t_ts, "symbol": cand["symbol"], "z": cand["z"], "reason": "regime_off"
+                    })
+                candidates = []
+
             target_slot_budget = current_equity * self.slot_pct
 
             for cand in candidates:
@@ -459,6 +488,7 @@ class PortfolioSimulator:
             "cash_exhausted_comm": 0,
             "size_below_min": 0,
             "no_open_price": 0,
+            "regime_off": 0,
         }
         for r in rejected:
             reason = r.get("reason", "unknown")
@@ -506,6 +536,7 @@ class PortfolioSimulator:
                 "cash_exhausted_comm": rejected_by_reason.get("cash_exhausted_comm", 0),
                 "size_below_min": rejected_by_reason.get("size_below_min", 0),
                 "no_open_price": rejected_by_reason.get("no_open_price", 0),
+                "regime_off": rejected_by_reason.get("regime_off", 0),
             },
             "closed_trades": formatted_trades,
             "curve": [
