@@ -27,9 +27,9 @@ from . import config, db, market, signals
 log = logging.getLogger("trading.execution")
 
 # Time stops, in trading days. The trend engine used 20 bars and the
-# reversion engine 10 (the value its walk-forward run settled on). Without a
-# time stop a losing lot waits forever for a mean reversion that never comes.
-MAX_HOLD_BARS = {"trend": 20, "reversion": 10}
+# reversion engine config.REVERSION_HOLD_DAYS (the value its walk-forward run settled on).
+# Without a time stop a losing lot waits forever for a mean reversion that never comes.
+MAX_HOLD_BARS = {"trend": 20, "reversion": config.REVERSION_HOLD_DAYS}
 DEFAULT_MAX_HOLD = 20
 
 

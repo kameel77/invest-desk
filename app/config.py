@@ -27,6 +27,19 @@ SLIPPAGE_PCT = float(os.getenv("TD_SLIPPAGE_PCT", "0.001"))
 # Minimum tradable notional per signal — small-ticket discipline.
 MIN_TICKET = float(os.getenv("TD_MIN_TICKET", "50"))
 
+# --- Strategy & Hypothesis flags ------------------------------------------
+# Trend-momentum has an unconfirmed OOS edge (-2.02% OOS). By default, new BUY
+# entries for trend are disabled (0) to preserve cash for validated hypotheses.
+TREND_ENABLED = os.getenv("TD_TREND_ENABLED", "0") == "1"
+
+# Mean reversion hold period (bars) — single source of truth across modules.
+REVERSION_HOLD_DAYS = int(os.getenv("TD_REVERSION_HOLD_DAYS", "10"))
+
+# Mean reversion on GPW showed consistent negative OOS expectancy (-0.62%)
+# across all 12 tested parameter variants due to transaction costs (0.9% round-trip).
+# By default, paper trade execution for reversion is disabled on GPW (0).
+REVERSION_GPW_ENABLED = os.getenv("TD_REVERSION_GPW_ENABLED", "0") == "1"
+
 # --- Market data ----------------------------------------------------------
 # Optional Alpaca key unlocks true real-time US quotes (IEX, free tier).
 ALPACA_API_KEY = os.getenv("ALPACA_API_KEY", "")

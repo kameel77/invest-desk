@@ -55,6 +55,10 @@ def _generate_signal(analysis: dict[str, Any], holding: bool) -> dict[str, Any] 
                     "meta": {"hypothesis": "trend", "components": analysis["components"], "holding": True}}
         return None
 
+    if not config.TREND_ENABLED:
+        analysis["trend_disabled"] = True
+        return None
+
     if not analysis["liquidity_ok"]:
         return None
     if score >= signals.BUY_THRESHOLD:
@@ -211,7 +215,8 @@ def _reversion_signal(symbol: str, holding: bool) -> dict[str, Any] | None:
             "strategy": "reversion-long", "reasons": a["reasons"],
             "meta": {"hypothesis": reversion.HYPOTHESIS, "sizing": sizing,
                      "z": a["z"], "target_mean": a["target_mean"],
-                     "max_hold_days": reversion.HOLD_DAYS}}
+                     "max_hold_days": reversion.HOLD_DAYS,
+                     "paper_disabled": (not config.REVERSION_GPW_ENABLED if symbol.upper().endswith(".WA") else False)}}
 
 
 def _run_reversions(universe: list[str], held: set[str]) -> dict[str, dict[str, Any]]:
@@ -247,6 +252,14 @@ def execute_signals(signal_list: list[dict[str, Any]]) -> list[dict[str, Any]]:
         meta = sig.get("meta") or {}
         hyp = meta.get("hypothesis", "trend")
         if sig["side"] == "BUY":
+            if hyp == "trend" and not config.TREND_ENABLED:
+                out.append({"symbol": sig["symbol"], "status": "SKIPPED",
+                            "reason": "trend disabled", "signal_id": sig.get("id")})
+                continue
+            if hyp == reversion.HYPOTHESIS and sig["symbol"].endswith(".WA") and not config.REVERSION_GPW_ENABLED:
+                out.append({"symbol": sig["symbol"], "status": "SKIPPED",
+                            "reason": "reversion disabled on GPW", "signal_id": sig.get("id")})
+                continue
             sizing = meta.get("sizing") or {}
             qty = float(sizing.get("qty") or 0)
             if qty <= 0:

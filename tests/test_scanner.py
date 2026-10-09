@@ -65,7 +65,8 @@ def test_execute_signals_sell_trend_does_not_close_reversion_lot(monkeypatch):
 
 def test_execute_signals_sells_executed_before_buys(monkeypatch):
     """Zlecenia SELL są wykonywane przed BUY, co uwalnia gotówkę na nowe pozycje."""
-    from app import market
+    from app import config, market
+    monkeypatch.setattr(config, "TREND_ENABLED", True)
     monkeypatch.setattr(market, "cached_price", lambda s: 100.0)
 
     # Ustaw małą ilość gotówki, niewystarczającą na BUY bez uprzedniej sprzedaży
@@ -152,3 +153,148 @@ def test_legacy_null_hypothesis_lot_migration():
     db.init_db()
     row = db.get_conn().execute("SELECT hypothesis FROM lots WHERE symbol='LEGACY.WA'").fetchone()
     assert row["hypothesis"] == "trend"
+
+
+def test_reversion_hold_days_config_parity():
+    """Wartość time-stopu dla rewersji musi pochodzić z jednego źródła prawdy w config."""
+    from app import config, execution, reversion
+    assert reversion.HOLD_DAYS == config.REVERSION_HOLD_DAYS
+    assert execution.MAX_HOLD_BARS["reversion"] == config.REVERSION_HOLD_DAYS
+
+
+def test_trend_disabled_blocks_new_buy(monkeypatch):
+    """Gdy TREND_ENABLED=False, nowe sygnały BUY trendu są blokowane."""
+    from app import config
+    monkeypatch.setattr(config, "TREND_ENABLED", False)
+
+    analysis = {
+        "symbol": "PKN.WA",
+        "score": 50.0,
+        "price": 60.0,
+        "liquidity_ok": True,
+        "reasons": ["strong momentum"],
+        "components": {},
+        "rsi": 55.0,
+        "adv": 5_000_000,
+    }
+
+    sig = scanner._generate_signal(analysis, holding=False)
+    assert sig is None
+    assert analysis.get("trend_disabled") is True
+
+
+def test_trend_disabled_allows_sell_exits(monkeypatch):
+    """Gdy TREND_ENABLED=False, sygnały SELL zamykające istniejące pozycje trendu nadal działają."""
+    from app import config
+    monkeypatch.setattr(config, "TREND_ENABLED", False)
+
+    analysis = {
+        "symbol": "PKN.WA",
+        "score": -35.0,
+        "price": 55.0,
+        "liquidity_ok": True,
+        "reasons": ["trend broken"],
+        "components": {},
+    }
+
+    sig = scanner._generate_signal(analysis, holding=True)
+    assert sig is not None
+    assert sig["side"] == "SELL"
+    assert sig["strategy"] == "trend-momentum-exit"
+    assert sig["meta"]["hypothesis"] == "trend"
+
+
+def test_trend_disabled_check_stops_closes_stale_lot(monkeypatch):
+    """Otwarte transze trendu są poprawnie zamykane przez time-stop nawet przy TREND_ENABLED=False."""
+    from app import config, market
+    monkeypatch.setattr(config, "TREND_ENABLED", False)
+    monkeypatch.setattr(market, "cached_price", lambda s: 100.0)
+    monkeypatch.setattr(execution, "bars_held", lambda ts: 25)
+
+    lot_id = db.open_lot(
+        symbol="PKN.WA",
+        qty=10.0,
+        entry_price=100.0,
+        entry_fee=1.0,
+        stop=80.0,
+        target=120.0,
+        hypothesis="trend",
+    )
+
+    triggered = execution.check_exits()
+    assert len(triggered) == 1
+    assert triggered[0]["lot_id"] == lot_id
+    assert "time-stop" in triggered[0]["trigger"]
+
+    # Lot powinien być zamknięty w bazie
+    open_lots = db.open_lots("PKN.WA", "trend")
+    assert len(open_lots) == 0
+
+
+def test_trend_disabled_execute_signals_skips_queued_buy(monkeypatch):
+    """Zapisany wcześniej sygnał BUY trendu w execute_signals otrzymuje status SKIPPED."""
+    from app import config
+    monkeypatch.setattr(config, "TREND_ENABLED", False)
+
+    queued_buy = {
+        "ts": int(time.time()),
+        "symbol": "ALE.WA",
+        "side": "BUY",
+        "score": 45.0,
+        "price": 30.0,
+        "strategy": "trend-momentum-long",
+        "meta": {"hypothesis": "trend", "sizing": {"qty": 10.0, "stop": 28.0}},
+    }
+
+    res = scanner.execute_signals([queued_buy])
+    assert len(res) == 1
+    assert res[0]["status"] == "SKIPPED"
+    assert res[0]["reason"] == "trend disabled"
+
+
+def test_reversion_disabled_on_gpw_skips_buy(monkeypatch):
+    """Gdy REVERSION_GPW_ENABLED=False, sygnały BUY rewersji dla spółek GPW (.WA) otrzymują status SKIPPED."""
+    from app import config
+    monkeypatch.setattr(config, "REVERSION_GPW_ENABLED", False)
+
+    queued_buy = {
+        "ts": int(time.time()),
+        "symbol": "CDR.WA",
+        "side": "BUY",
+        "score": 60.0,
+        "price": 140.0,
+        "strategy": "reversion-long",
+        "meta": {"hypothesis": "reversion", "sizing": {"qty": 5.0, "stop": 130.0}},
+    }
+
+    res = scanner.execute_signals([queued_buy])
+    assert len(res) == 1
+    assert res[0]["status"] == "SKIPPED"
+    assert res[0]["reason"] == "reversion disabled on GPW"
+
+
+def test_reversion_enabled_on_us_fills_buy(monkeypatch):
+    """Sygnały BUY rewersji dla spółek US (np. META) są realizowane bez przeszkód."""
+    from app import config, market
+    monkeypatch.setattr(config, "REVERSION_GPW_ENABLED", False)
+    monkeypatch.setattr(market, "cached_price", lambda s: 500.0)
+
+    queued_buy = {
+        "ts": int(time.time()),
+        "symbol": "META",
+        "side": "BUY",
+        "score": 60.0,
+        "price": 500.0,
+        "strategy": "reversion-long",
+        "meta": {"hypothesis": "reversion", "sizing": {"qty": 1.0, "stop": 470.0}},
+    }
+
+    res = scanner.execute_signals([queued_buy])
+    assert len(res) == 1
+    assert res[0]["status"] == "FILLED"
+    assert res[0]["symbol"] == "META"
+
+    open_lots = db.open_lots("META", "reversion")
+    assert len(open_lots) == 1
+
+

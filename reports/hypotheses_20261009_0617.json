@@ -1,0 +1,570 @@
+{
+  "timestamp": "2026-10-09 06:17:48",
+  "params": {
+    "folds": 8,
+    "train_years": 2.0,
+    "test_months": 5.0,
+    "families": [
+      "reversion"
+    ]
+  },
+  "costs": {
+    "commission_pct": 0.0035,
+    "slippage_pct": 0.001
+  },
+  "results": [
+    {
+      "family": "reversion",
+      "symbols": 52,
+      "folds": 8,
+      "grid_size": 12,
+      "results": [
+        {
+          "fold": 1,
+          "params": {
+            "lookback": 20,
+            "z_entry": 2.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 233,
+            "win_rate_pct": 52.8,
+            "total_return_pct": -32.0,
+            "expectancy_per_trade": 0.049,
+            "compounded_100trades_pct": 5.0,
+            "sharpe": 0.01,
+            "sharpe_per_trade": 0.01,
+            "profit_factor": 1.02,
+            "max_drawdown_pct": -60.43,
+            "expectancy_pct": 0.049,
+            "avg_win_pct": 5.25,
+            "avg_loss_pct": -5.76
+          },
+          "test": {
+            "label": "test{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 32,
+            "win_rate_pct": 37.5,
+            "total_return_pct": -29.7,
+            "expectancy_per_trade": -0.944,
+            "compounded_100trades_pct": -61.3,
+            "sharpe": -0.17,
+            "sharpe_per_trade": -0.17,
+            "profit_factor": 0.66,
+            "max_drawdown_pct": -30.72,
+            "expectancy_pct": -0.944,
+            "avg_win_pct": 4.88,
+            "avg_loss_pct": -4.44
+          }
+        },
+        {
+          "fold": 2,
+          "params": {
+            "lookback": 10,
+            "z_entry": 2.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 10, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 103,
+            "win_rate_pct": 55.3,
+            "total_return_pct": 17.47,
+            "expectancy_per_trade": 0.399,
+            "compounded_100trades_pct": 48.9,
+            "sharpe": 0.06,
+            "sharpe_per_trade": 0.06,
+            "profit_factor": 1.17,
+            "max_drawdown_pct": -46.09,
+            "expectancy_pct": 0.399,
+            "avg_win_pct": 5.07,
+            "avg_loss_pct": -5.38
+          },
+          "test": {
+            "label": "test{'lookback': 10, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 17,
+            "win_rate_pct": 47.1,
+            "total_return_pct": -13.73,
+            "expectancy_per_trade": -0.8,
+            "compounded_100trades_pct": -55.2,
+            "sharpe": -0.22,
+            "sharpe_per_trade": -0.22,
+            "profit_factor": 0.57,
+            "max_drawdown_pct": -19.25,
+            "expectancy_pct": -0.8,
+            "avg_win_pct": 2.25,
+            "avg_loss_pct": -3.51
+          }
+        },
+        {
+          "fold": 3,
+          "params": {
+            "lookback": 20,
+            "z_entry": 2.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 234,
+            "win_rate_pct": 53.8,
+            "total_return_pct": 29.56,
+            "expectancy_per_trade": 0.331,
+            "compounded_100trades_pct": 39.1,
+            "sharpe": 0.05,
+            "sharpe_per_trade": 0.05,
+            "profit_factor": 1.13,
+            "max_drawdown_pct": -71.95,
+            "expectancy_pct": 0.331,
+            "avg_win_pct": 5.38,
+            "avg_loss_pct": -5.56
+          },
+          "test": {
+            "label": "test{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 32,
+            "win_rate_pct": 53.1,
+            "total_return_pct": -8.89,
+            "expectancy_per_trade": -0.123,
+            "compounded_100trades_pct": -11.5,
+            "sharpe": -0.02,
+            "sharpe_per_trade": -0.02,
+            "profit_factor": 0.95,
+            "max_drawdown_pct": -27.41,
+            "expectancy_pct": -0.123,
+            "avg_win_pct": 4.39,
+            "avg_loss_pct": -5.23
+          }
+        },
+        {
+          "fold": 4,
+          "params": {
+            "lookback": 20,
+            "z_entry": 2.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 222,
+            "win_rate_pct": 52.3,
+            "total_return_pct": -30.33,
+            "expectancy_per_trade": 0.015,
+            "compounded_100trades_pct": 1.5,
+            "sharpe": 0.0,
+            "sharpe_per_trade": 0.0,
+            "profit_factor": 1.01,
+            "max_drawdown_pct": -73.13,
+            "expectancy_pct": 0.015,
+            "avg_win_pct": 4.67,
+            "avg_loss_pct": -5.08
+          },
+          "test": {
+            "label": "test{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 43,
+            "win_rate_pct": 67.4,
+            "total_return_pct": 157.5,
+            "expectancy_per_trade": 2.585,
+            "compounded_100trades_pct": 1183.2,
+            "sharpe": 0.3,
+            "sharpe_per_trade": 0.3,
+            "profit_factor": 2.0,
+            "max_drawdown_pct": -26.51,
+            "expectancy_pct": 2.585,
+            "avg_win_pct": 7.68,
+            "avg_loss_pct": -7.97
+          }
+        },
+        {
+          "fold": 5,
+          "params": {
+            "lookback": 20,
+            "z_entry": 2.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 193,
+            "win_rate_pct": 53.9,
+            "total_return_pct": 19.64,
+            "expectancy_per_trade": 0.271,
+            "compounded_100trades_pct": 31.1,
+            "sharpe": 0.05,
+            "sharpe_per_trade": 0.05,
+            "profit_factor": 1.12,
+            "max_drawdown_pct": -62.32,
+            "expectancy_pct": 0.271,
+            "avg_win_pct": 4.74,
+            "avg_loss_pct": -4.95
+          },
+          "test": {
+            "label": "test{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 40,
+            "win_rate_pct": 40.0,
+            "total_return_pct": -50.42,
+            "expectancy_per_trade": -1.564,
+            "compounded_100trades_pct": -79.3,
+            "sharpe": -0.26,
+            "sharpe_per_trade": -0.26,
+            "profit_factor": 0.54,
+            "max_drawdown_pct": -57.32,
+            "expectancy_pct": -1.564,
+            "avg_win_pct": 4.5,
+            "avg_loss_pct": -5.61
+          }
+        },
+        {
+          "fold": 6,
+          "params": {
+            "lookback": 20,
+            "z_entry": 1.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 20, 'z_entry': 1.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 826,
+            "win_rate_pct": 55.4,
+            "total_return_pct": -89.46,
+            "expectancy_per_trade": -0.105,
+            "compounded_100trades_pct": -10.0,
+            "sharpe": -0.02,
+            "sharpe_per_trade": -0.02,
+            "profit_factor": 0.96,
+            "max_drawdown_pct": -94.86,
+            "expectancy_pct": -0.105,
+            "avg_win_pct": 4.03,
+            "avg_loss_pct": -5.25
+          },
+          "test": {
+            "label": "test{'lookback': 20, 'z_entry': 1.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 159,
+            "win_rate_pct": 44.7,
+            "total_return_pct": -79.49,
+            "expectancy_per_trade": -0.827,
+            "compounded_100trades_pct": -56.4,
+            "sharpe": -0.14,
+            "sharpe_per_trade": -0.14,
+            "profit_factor": 0.7,
+            "max_drawdown_pct": -86.43,
+            "expectancy_pct": -0.827,
+            "avg_win_pct": 4.34,
+            "avg_loss_pct": -5.0
+          }
+        },
+        {
+          "fold": 7,
+          "params": {
+            "lookback": 20,
+            "z_entry": 1.5,
+            "hold": 10,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 20, 'z_entry': 1.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 978,
+            "win_rate_pct": 49.6,
+            "total_return_pct": -100.0,
+            "expectancy_per_trade": -0.93,
+            "compounded_100trades_pct": -60.7,
+            "sharpe": -0.14,
+            "sharpe_per_trade": -0.14,
+            "profit_factor": 0.7,
+            "max_drawdown_pct": -100.0,
+            "expectancy_pct": -0.93,
+            "avg_win_pct": 4.37,
+            "avg_loss_pct": -6.14
+          },
+          "test": {
+            "label": "test{'lookback': 20, 'z_entry': 1.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 114,
+            "win_rate_pct": 52.6,
+            "total_return_pct": 14.85,
+            "expectancy_per_trade": 0.286,
+            "compounded_100trades_pct": 33.1,
+            "sharpe": 0.05,
+            "sharpe_per_trade": 0.05,
+            "profit_factor": 1.14,
+            "max_drawdown_pct": -39.41,
+            "expectancy_pct": 0.286,
+            "avg_win_pct": 4.31,
+            "avg_loss_pct": -4.19
+          }
+        },
+        {
+          "fold": 8,
+          "params": {
+            "lookback": 10,
+            "z_entry": 2.5,
+            "hold": 5,
+            "stop_atr": 2.5,
+            "target_atr": 3.0
+          },
+          "train": {
+            "label": "train{'lookback': 10, 'z_entry': 2.5, 'hold': 5, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 56,
+            "win_rate_pct": 46.4,
+            "total_return_pct": -49.96,
+            "expectancy_per_trade": -1.029,
+            "compounded_100trades_pct": -64.4,
+            "sharpe": -0.16,
+            "sharpe_per_trade": -0.16,
+            "profit_factor": 0.65,
+            "max_drawdown_pct": -61.59,
+            "expectancy_pct": -1.029,
+            "avg_win_pct": 4.04,
+            "avg_loss_pct": -5.43
+          },
+          "test": {
+            "label": "test{'lookback': 10, 'z_entry': 2.5, 'hold': 5, 'stop_atr': 2.5, 'target_atr': 3.0}",
+            "trades": 12,
+            "win_rate_pct": 25.0,
+            "total_return_pct": -33.95,
+            "expectancy_per_trade": -3.34,
+            "compounded_100trades_pct": -96.7,
+            "sharpe": -0.97,
+            "sharpe_per_trade": -0.97,
+            "profit_factor": 0.05,
+            "max_drawdown_pct": -33.95,
+            "expectancy_pct": -3.34,
+            "avg_win_pct": 0.73,
+            "avg_loss_pct": -4.7
+          }
+        }
+      ],
+      "param_picks": {
+        "{'lookback': 20, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}": 4,
+        "{'lookback': 10, 'z_entry': 2.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}": 1,
+        "{'lookback': 20, 'z_entry': 1.5, 'hold': 10, 'stop_atr': 2.5, 'target_atr': 3.0}": 2,
+        "{'lookback': 10, 'z_entry': 2.5, 'hold': 5, 'stop_atr': 2.5, 'target_atr': 3.0}": 1
+      },
+      "in_sample_avg": -29.38,
+      "oos": {
+        "trades": 449,
+        "expectancy_trade_weighted": -0.308,
+        "expectancy_fold_mean": -0.591,
+        "expectancy_fold_median": -0.814,
+        "profitable_folds": 2,
+        "folds_with_data": 8,
+        "avg_return_pct": -5.48,
+        "avg_sharpe": -0.18
+      }
+    }
+  ],
+  "fixed_sweep": [
+    {
+      "label": "baza (20, z2.0, h10, SL2.5, TP3.0)",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 741,
+      "expectancy_trade_weighted": -0.103,
+      "expectancy_median": -0.395,
+      "profitable_folds": "3/8",
+      "worst_fold": -1.031,
+      "gpw_expectancy": -0.624,
+      "us_expectancy": 0.727
+    },
+    {
+      "label": "lookback=15",
+      "params": {
+        "lookback": 15,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 846,
+      "expectancy_trade_weighted": -0.237,
+      "expectancy_median": -0.199,
+      "profitable_folds": "3/8",
+      "worst_fold": -1.054,
+      "gpw_expectancy": -0.586,
+      "us_expectancy": 0.266
+    },
+    {
+      "label": "lookback=30",
+      "params": {
+        "lookback": 30,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 579,
+      "expectancy_trade_weighted": 0.379,
+      "expectancy_median": 0.4,
+      "profitable_folds": "6/8",
+      "worst_fold": -1.456,
+      "gpw_expectancy": -0.244,
+      "us_expectancy": 1.353
+    },
+    {
+      "label": "z_entry=1.75",
+      "params": {
+        "lookback": 20,
+        "z_entry": 1.75,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 967,
+      "expectancy_trade_weighted": -0.174,
+      "expectancy_median": -0.145,
+      "profitable_folds": "3/8",
+      "worst_fold": -0.885,
+      "gpw_expectancy": -0.679,
+      "us_expectancy": 0.56
+    },
+    {
+      "label": "z_entry=2.25",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.25,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 513,
+      "expectancy_trade_weighted": -0.088,
+      "expectancy_median": -0.037,
+      "profitable_folds": "4/8",
+      "worst_fold": -1.795,
+      "gpw_expectancy": -0.775,
+      "us_expectancy": 0.979
+    },
+    {
+      "label": "hold=5",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 5,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 785,
+      "expectancy_trade_weighted": -0.412,
+      "expectancy_median": -0.59,
+      "profitable_folds": "2/8",
+      "worst_fold": -1.213,
+      "gpw_expectancy": -0.812,
+      "us_expectancy": 0.23
+    },
+    {
+      "label": "hold=15",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 15,
+        "stop_atr": 2.5,
+        "target_atr": 3.0
+      },
+      "trades": 726,
+      "expectancy_trade_weighted": -0.016,
+      "expectancy_median": -0.221,
+      "profitable_folds": "4/8",
+      "worst_fold": -1.03,
+      "gpw_expectancy": -0.609,
+      "us_expectancy": 0.919
+    },
+    {
+      "label": "stop_atr=2.0",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.0,
+        "target_atr": 3.0
+      },
+      "trades": 777,
+      "expectancy_trade_weighted": -0.176,
+      "expectancy_median": -0.331,
+      "profitable_folds": "3/8",
+      "worst_fold": -1.119,
+      "gpw_expectancy": -0.67,
+      "us_expectancy": 0.602
+    },
+    {
+      "label": "stop_atr=3.0",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 3.0,
+        "target_atr": 3.0
+      },
+      "trades": 720,
+      "expectancy_trade_weighted": -0.011,
+      "expectancy_median": -0.352,
+      "profitable_folds": "3/8",
+      "worst_fold": -0.92,
+      "gpw_expectancy": -0.518,
+      "us_expectancy": 0.78
+    },
+    {
+      "label": "target_atr=2.0",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 2.0
+      },
+      "trades": 750,
+      "expectancy_trade_weighted": -0.296,
+      "expectancy_median": -0.496,
+      "profitable_folds": "3/8",
+      "worst_fold": -1.24,
+      "gpw_expectancy": -0.806,
+      "us_expectancy": 0.5
+    },
+    {
+      "label": "target_atr=4.0",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 4.0
+      },
+      "trades": 738,
+      "expectancy_trade_weighted": -0.046,
+      "expectancy_median": -0.335,
+      "profitable_folds": "3/8",
+      "worst_fold": -0.928,
+      "gpw_expectancy": -0.619,
+      "us_expectancy": 0.859
+    },
+    {
+      "label": "koszty 1.5x (prowizja 0.52%, slip 0.15%)",
+      "params": {
+        "lookback": 20,
+        "z_entry": 2.0,
+        "hold": 10,
+        "stop_atr": 2.5,
+        "target_atr": 3.0,
+        "commission_pct": 0.00525,
+        "slippage_pct": 0.0015
+      },
+      "trades": 741,
+      "expectancy_trade_weighted": -0.551,
+      "expectancy_median": -0.842,
+      "profitable_folds": "2/8",
+      "worst_fold": -1.476,
+      "gpw_expectancy": -1.071,
+      "us_expectancy": 0.274
+    }
+  ]
+}

@@ -199,11 +199,16 @@ def _driver_sensitivity(df: pd.DataFrame, drivers: dict[str, pd.Series],
 # --- C. mean reversion on a short horizon ---------------------------------
 
 def _mean_reversion(df: pd.DataFrame, lookback: int, z_entry: float,
-                    hold: int) -> list[float]:
+                    hold: int, stop_atr: float = 2.5, target_atr: float = 3.0,
+                    commission_pct: float | None = None,
+                    slippage_pct: float | None = None) -> list[float]:
     """Buy oversold (close far below its own moving average), exit on the mean,
     stop, target or time limit. Delegated to reversion.simulate for full parity
     with live production execution."""
-    return reversion.simulate(df, lookback=lookback, z_entry=z_entry, hold=hold)
+    return reversion.simulate(df, lookback=lookback, z_entry=z_entry, hold=hold,
+                              stop_atr=stop_atr, target_atr=target_atr,
+                              commission_pct=commission_pct,
+                              slippage_pct=slippage_pct)
 
 
 # --- D. short-horizon momentum on liquid movers ---------------------------

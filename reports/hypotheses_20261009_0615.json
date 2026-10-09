@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-10-09 06:15:11",
+  "params": {
+    "folds": 8,
+    "train_years": 2.0,
+    "test_months": 5.0,
+    "families": [
+      "reversion"
+    ]
+  },
+  "costs": {
+    "commission_pct": 0.0035,
+    "slippage_pct": 0.001
+  },
+  "results": [
+    {
+      "family": "reversion",
+      "symbols": 52,
+      "folds": 0,
+      "grid_size": 12,
+      "results": [],
+      "param_picks": {},
+      "in_sample_avg": null,
+      "oos": {
+        "trades": 0,
+        "expectancy_trade_weighted": null,
+        "expectancy_fold_mean": null,
+        "expectancy_fold_median": null,
+        "profitable_folds": 0,
+        "folds_with_data": 0,
+        "avg_return_pct": null,
+        "avg_sharpe": null
+      }
+    }
+  ]
+}

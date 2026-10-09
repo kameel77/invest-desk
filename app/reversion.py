@@ -27,7 +27,7 @@ from .costs import net_return_pct
 # --- walk-forward-selected parameters ------------------------------------
 LOOKBACK = 20
 Z_ENTRY = 2.0
-HOLD_DAYS = 10
+HOLD_DAYS = config.REVERSION_HOLD_DAYS
 STOP_ATR = 2.5
 TARGET_ATR = 3.0
 
@@ -52,7 +52,9 @@ def round_trip_net_pct(entry_px: float, exit_px: float) -> float:
 def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTRY,
              hold: int = HOLD_DAYS, stop_atr: float = STOP_ATR,
              target_atr: float = TARGET_ATR, min_stretch_atr: float = 1.0,
-             as_trades: bool = False) -> list[Any]:
+             as_trades: bool = False,
+             commission_pct: float | None = None,
+             slippage_pct: float | None = None) -> list[Any]:
     """Pure simulation of the reversion strategy on historical bars.
 
     Returns net percentage returns per trade in chronological order (or Trade objects if as_trades=True).
@@ -153,7 +155,9 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
                 exit_raw = float(df["close"].iloc[exit_bar])
                 reason = "eod"
 
-        ret = net_return_pct(entry_open, exit_raw)
+        ret = net_return_pct(entry_open, exit_raw,
+                             commission_pct=commission_pct,
+                             slippage_pct=slippage_pct)
         trades.append(Trade(
             entry_bar=i + 1,
             exit_bar=exit_bar,

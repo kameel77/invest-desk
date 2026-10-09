@@ -10,6 +10,8 @@ Run:  .venv/bin/python -m tools.run_hypotheses
 from __future__ import annotations
 
 import argparse
+import asyncio
+import json
 from pathlib import Path
 import sys
 import time
@@ -22,7 +24,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app import backtest as bt
-from app import config, db, hypotheses as H
+from app import config, db, hypotheses as H, market
 
 DAY = 86400
 
@@ -59,12 +61,13 @@ def _grid(family: str) -> list[dict[str, Any]]:
             {"lookback": 60, "min_corr": 0.5, "hold": 20},
         ]
     if family == "reversion":
-        return [
-            {"lookback": 5, "z_entry": 1.5, "hold": 3},
-            {"lookback": 10, "z_entry": 1.5, "hold": 5},
-            {"lookback": 10, "z_entry": 2.0, "hold": 5},
-            {"lookback": 20, "z_entry": 2.0, "hold": 10},
-        ]
+        out = []
+        for lb in (10, 20):
+            for z in (1.5, 2.0, 2.5):
+                for h in (5, 10):
+                    out.append({"lookback": lb, "z_entry": z, "hold": h,
+                                "stop_atr": 2.5, "target_atr": 3.0})
+        return out
     if family == "momentum_short":
         return [
             {"lookback": 5, "hold": 3, "min_move": 3.0},
@@ -165,6 +168,87 @@ def run_family(family: str, symbols: list[str], folds: int = 8,
     }
 
 
+def run_fixed_sweep(symbols: list[str], folds: int = 8,
+                    test_months: float = 5.0) -> list[dict[str, Any]]:
+    """Etap B: wrażliwość przy stałych parametrach (bez selekcji) na tych samych oknach OOS."""
+    now = _anchor()
+    test_span = int(test_months * 30.4 * DAY)
+
+    variants = [
+        {"label": "baza (20, z2.0, h10, SL2.5, TP3.0)", "params": {"lookback": 20, "z_entry": 2.0, "hold": 10, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "lookback=15", "params": {"lookback": 15, "z_entry": 2.0, "hold": 10, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "lookback=30", "params": {"lookback": 30, "z_entry": 2.0, "hold": 10, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "z_entry=1.75", "params": {"lookback": 20, "z_entry": 1.75, "hold": 10, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "z_entry=2.25", "params": {"lookback": 20, "z_entry": 2.25, "hold": 10, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "hold=5", "params": {"lookback": 20, "z_entry": 2.0, "hold": 5, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "hold=15", "params": {"lookback": 20, "z_entry": 2.0, "hold": 15, "stop_atr": 2.5, "target_atr": 3.0}},
+        {"label": "stop_atr=2.0", "params": {"lookback": 20, "z_entry": 2.0, "hold": 10, "stop_atr": 2.0, "target_atr": 3.0}},
+        {"label": "stop_atr=3.0", "params": {"lookback": 20, "z_entry": 2.0, "hold": 10, "stop_atr": 3.0, "target_atr": 3.0}},
+        {"label": "target_atr=2.0", "params": {"lookback": 20, "z_entry": 2.0, "hold": 10, "stop_atr": 2.5, "target_atr": 2.0}},
+        {"label": "target_atr=4.0", "params": {"lookback": 20, "z_entry": 2.0, "hold": 10, "stop_atr": 2.5, "target_atr": 4.0}},
+        {"label": "koszty 1.5x (prowizja 0.52%, slip 0.15%)", "params": {"lookback": 20, "z_entry": 2.0, "hold": 10, "stop_atr": 2.5, "target_atr": 3.0, "commission_pct": config.COMMISSION_PCT * 1.5, "slippage_pct": config.SLIPPAGE_PCT * 1.5}},
+    ]
+
+    sweep_results = []
+    gpw_symbols = [s for s in symbols if s.endswith(".WA")]
+    us_symbols = [s for s in symbols if not s.endswith(".WA")]
+
+    print("\n=== ETAP B: Badanie wrażliwości bazy (Fixed Sweep OOS) ===")
+    print(f"{'Wariant':<42} | {'Trans':>5} | {'Exp OOS':>8} | {'Mediana':>7} | {'Fałdy >0':>8} | {'Najgorszy':>9} | {'GPW':>7} | {'US':>7}")
+    print("-" * 115)
+
+    for v in variants:
+        all_rets: list[float] = []
+        gpw_rets: list[float] = []
+        us_rets: list[float] = []
+        fold_exps: list[float] = []
+
+        for f in range(folds):
+            test_end = now - f * test_span
+            test_start = test_end - test_span
+            if test_start <= 0:
+                break
+            rets = H.evaluate("reversion", lambda d, **kw: H._mean_reversion(d, **kw),
+                              symbols, v["params"], test_start, test_end)
+            if rets:
+                all_rets.extend(rets)
+                fold_exps.append(float(np.mean(rets)))
+            else:
+                fold_exps.append(0.0)
+
+            if gpw_symbols:
+                g_rets = H.evaluate("reversion", lambda d, **kw: H._mean_reversion(d, **kw),
+                                    gpw_symbols, v["params"], test_start, test_end)
+                gpw_rets.extend(g_rets)
+            if us_symbols:
+                u_rets = H.evaluate("reversion", lambda d, **kw: H._mean_reversion(d, **kw),
+                                    us_symbols, v["params"], test_start, test_end)
+                us_rets.extend(u_rets)
+
+        tw = round(float(np.mean(all_rets)), 3) if all_rets else 0.0
+        med = round(float(np.median(fold_exps)), 3) if fold_exps else 0.0
+        prof = sum(1 for e in fold_exps if e > 0)
+        worst = round(float(min(fold_exps)), 3) if fold_exps else 0.0
+        gpw_tw = round(float(np.mean(gpw_rets)), 3) if gpw_rets else 0.0
+        us_tw = round(float(np.mean(us_rets)), 3) if us_rets else 0.0
+
+        print(f"{v['label']:<42} | {len(all_rets):>5} | {tw:>7.3f}% | {med:>6.3f}% | "
+              f"{f'{prof}/{len(fold_exps)}':>8} | {worst:>8.3f}% | {gpw_tw:>6.3f}% | {us_tw:>6.3f}%")
+
+        sweep_results.append({
+            "label": v["label"],
+            "params": v["params"],
+            "trades": len(all_rets),
+            "expectancy_trade_weighted": tw,
+            "expectancy_median": med,
+            "profitable_folds": f"{prof}/{len(fold_exps)}",
+            "worst_fold": worst,
+            "gpw_expectancy": gpw_tw,
+            "us_expectancy": us_tw,
+        })
+    return sweep_results
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Walk-forward analysis of strategy families.")
     parser.add_argument("--folds", type=int, default=8, help="Number of walk-forward folds (default: 8)")
@@ -172,11 +256,21 @@ def main() -> None:
     parser.add_argument("--test-months", type=float, default=5.0, help="Months in test window (default: 5.0)")
     parser.add_argument("--families", nargs="*", default=["ma", "driver", "reversion", "momentum_short"],
                         help="Families to test (default: all)")
+    parser.add_argument("--fetch", action="store_true", help="Pobierz świece z Yahoo Finance przed analizą")
+    parser.add_argument("--range", default="10y", help="Zakres danych do pobrania (np. 5y, 10y)")
+    parser.add_argument("--fixed-sweep", action="store_true", help="Uruchom badanie wrażliwości (Etap B) na sąsiadach bazy")
     args = parser.parse_args()
 
     db.init_db()
     started = time.time()
     symbols = db.get_watchlist()
+
+    # Automatyczne pobranie danych historycznych, jeśli baza świec jest pusta lub wymuszono flagą --fetch
+    candle_count = db.get_conn().execute("SELECT COUNT(*) c FROM candles").fetchone()["c"]
+    if args.fetch or candle_count < 1000:
+        print(f"Pobieram świece ({args.range}) dla {len(symbols)} spółek...")
+        asyncio.run(market.refresh_candles(symbols, rng=args.range))
+
     drivers = H.driver_series()
     print(f"Uniwersum: {len(symbols)} · sterowniki makro: {len(drivers)} "
           f"({', '.join(drivers)})")
@@ -208,6 +302,10 @@ def main() -> None:
                   f"test exp={te.get('expectancy_per_trade')}% "
                   f"sh={te.get('sharpe_per_trade', te.get('sharpe'))} n={te.get('trades')}")
 
+    fixed_sweep_results = []
+    if args.fixed_sweep or "reversion" in args.families:
+        fixed_sweep_results = run_fixed_sweep(symbols, folds=args.folds, test_months=args.test_months)
+
     print(f"\nŁączny czas: {round(time.time() - started, 1)}s")
 
     report_payload = {
@@ -223,6 +321,7 @@ def main() -> None:
             "slippage_pct": config.SLIPPAGE_PCT,
         },
         "results": out,
+        "fixed_sweep": fixed_sweep_results,
     }
 
     reports_dir = config.DATA_DIR.parent / "reports" if hasattr(config, "DATA_DIR") else Path("reports")

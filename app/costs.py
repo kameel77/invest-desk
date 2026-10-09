@@ -4,7 +4,9 @@ from __future__ import annotations
 from . import config
 
 
-def net_return_pct(entry_px: float, exit_px: float) -> float:
+def net_return_pct(entry_px: float, exit_px: float,
+                   commission_pct: float | None = None,
+                   slippage_pct: float | None = None) -> float:
     """Zwrot netto uwzględniający prowizję i poślizg po obu stronach transakcji.
 
     Wzór multiplikatywny:
@@ -14,8 +16,8 @@ def net_return_pct(entry_px: float, exit_px: float) -> float:
 
     Minimalna prowizja (COMMISSION_MIN) jest pomijana w symulacjach wieloletnich.
     """
-    comm = float(config.COMMISSION_PCT)
-    slip = float(config.SLIPPAGE_PCT)
+    comm = float(commission_pct if commission_pct is not None else config.COMMISSION_PCT)
+    slip = float(slippage_pct if slippage_pct is not None else config.SLIPPAGE_PCT)
     entry_eff = float(entry_px) * (1.0 + slip) * (1.0 + comm)
     exit_eff = float(exit_px) * (1.0 - slip) * (1.0 - comm)
     return float(((exit_eff / entry_eff) - 1.0) * 100.0)

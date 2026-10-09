@@ -110,14 +110,34 @@ liczby transakcji i myli).
 | Średnie kroczące (per-symbol) | 265 | -0,01% | 1/2 | -0,22 |
 | Momentum krótkie | 3 900 | -0,426% | 0/4 | -1,77 |
 
-**Rewersja potwierdzona na dłuższym horyzoncie** (8 fałdów, 2 lata treningu
-+ 5 mies. testu): **+0,67% expectancy na transakcję, 5/8 fałdów dodatnich**,
-a wybrane parametry stabilne (7/8 razy `lookback=20, z_entry=2.0, hold=10`).
-Kandydat do wdrożenia — ale z zastrzeżeniem, że przewaga zanika między
-treningiem a testem (train ~1,0% → test ~0,3%).
+### Weryfikacja hipotezy rewersji po parytecie z produkcją (stan na 2026-10-09)
 
-Momentum krótkie przegrywa wyraźnie: -0,426% na transakcję przy 3 900
-transakcjach, 0/4 fałdów zyskownych.
+Po wdrożeniu pełnego parytetu symulatora z regułami produkcyjnymi (ATR z True Range,
+SL 2.5 ATR, TP 3.0 ATR, filtr rozciągnięcia -1.0 ATR, priorytet stopu przed celem,
+obsługa luk na otwarciu, multiplikatywne koszty prowizji i poślizgu ~0,9% round-trip)
+przeprowadzono rzetelny walk-forward (8 fałdów, 2 lata treningu + 5 mies. testu, 52 instrumenty):
+
+| Badanie / Wariant | Transakcje OOS | Expectancy OOS (netto) | Zyskowne fałdy | GPW (netto) | US (netto) |
+|---|---|---|---|---|---|
+| **Etap A: Selekcja w siatce (12 wariantów)** | 449 | **-0,308%** | 2 / 8 | — | — |
+| **Baza (lookback=20, z=2.0, h=10, SL2.5, TP3.0)** | 741 | **-0,103%** | 3 / 8 | **-0,624%** | **+0,727%** |
+| Sąsiad: lookback=15 | 846 | -0,237% | 3 / 8 | -0,586% | +0,266% |
+| Sąsiad: lookback=30 | 579 | **+0,379%** | 6 / 8 | **-0,244%** | **+1,353%** |
+| Sąsiad: z_entry=1.75 | 967 | -0,174% | 3 / 8 | -0,679% | +0,560% |
+| Sąsiad: hold=5 | 785 | -0,412% | 2 / 8 | -0,812% | +0,230% |
+| Sąsiad: hold=15 | 726 | -0,016% | 4 / 8 | -0,609% | +0,919% |
+| Odporność: koszty 1,5× (prowizja 0,52%) | 741 | -0,551% | 2 / 8 | -1,071% | +0,274% |
+
+**Wnioski architektoniczne:**
+1. **GPW jest ujemne we wszystkich 12 wariantach (-0,24% do -0,81%):**
+   Koszty transakcyjne na GPW (0,35% + poślizg) przy niskiej zmienności i częstych
+   długotrwałych trendach spadkowych zjadają zysk z krótkiej rewersji.
+2. **Rynek US jest dodatni we wszystkich wariantach (+0,27% do +1,35%):**
+   Wyższa płynność i dynamika odbić technicznych na US tworzy autentyczną przewagę rynkową.
+3. **Decyzje dotyczące paper tradingu na żywo:**
+   - `TREND_ENABLED = False`: brak nowych wejść trendu (brak potwierdzonego edge'u OOS).
+   - `REVERSION_GPW_ENABLED = False`: sygnały rewersji na GPW są wyłącznie informacyjne (dla tradera manualnego);
+     automatyczne zlecenia paper tradingu są dopuszczone wyłącznie dla rynku US.
 
 ## Uruchomienie
 
@@ -146,6 +166,9 @@ export ALPACA_SECRET_KEY=...
 | `TD_SLIPPAGE_PCT` | `0.001` | Slippage |
 | `TD_MIN_TICKET` | `50` | Minimalny nominal zlecenia |
 | `TD_SCAN_INTERVAL` | `300` | Interwał automatycznego skanu (s) |
+| `TD_TREND_ENABLED` | `0` | Zezwalaj na nowe wejścia trendu (1/0) |
+| `TD_REVERSION_HOLD_DAYS` | `10` | Limit świec trzymania transzy rewersji |
+| `TD_REVERSION_GPW_ENABLED` | `0` | Zezwalaj na transakcje rewersji na GPW (1/0) |
 | `ALPACA_API_KEY` / `ALPACA_SECRET_KEY` | — | Włącza real-time US |
 
 ## Strategia (domyślna)
