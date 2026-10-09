@@ -61,6 +61,28 @@ def load_frame(symbol: str, limit: int = 500) -> Optional[pd.DataFrame]:
     return df if len(df) >= 30 else None
 
 
+def ensure_daily_bars(df: pd.DataFrame) -> pd.DataFrame:
+    """Keep only genuine daily bars, dropping monthly and intraday leftovers.
+
+    Yahoo (``range=max``) can append monthly bars (stamped ~05:00 UTC on the
+    1st) and stray intraday bars to the daily table. Daily bars share a small
+    set of UTC hours (13/14 for US depending on DST, one fixed hour for GPW);
+    the intruders do not. Steps: (a) keep bars whose UTC hour accounts for
+    >= 10% of the frame, (b) deduplicate by UTC date keeping the first bar,
+    (c) return the frame sorted by ``ts`` with a fresh index.
+    """
+    if df is None or df.empty or "ts" not in df.columns:
+        return df
+    out = df.sort_values("ts", kind="stable").reset_index(drop=True)
+    stamps = pd.to_datetime(out["ts"].astype("int64"), unit="s", utc=True)
+    hour_share = stamps.dt.hour.value_counts(normalize=True)
+    keep_hours = set(hour_share[hour_share >= 0.10].index)
+    out = out[stamps.dt.hour.isin(keep_hours).to_numpy()]
+    dates = pd.to_datetime(out["ts"].astype("int64"), unit="s", utc=True).dt.date
+    out = out[~dates.duplicated(keep="first").to_numpy()]
+    return out.reset_index(drop=True)
+
+
 def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     close, high, low = df["close"], df["high"], df["low"]
 

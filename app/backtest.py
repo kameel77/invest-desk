@@ -166,6 +166,7 @@ def _cached_frame(symbol: str, limit: int = 6000) -> Optional[pd.DataFrame]:
     df = signals.load_frame(symbol, limit=limit)
     if df is None:
         return None
+    df = signals.ensure_daily_bars(df)
     df = signals.compute_indicators(df)
     if len(_FRAME_CACHE) >= _FRAME_CACHE_MAX:
         _FRAME_CACHE.clear()

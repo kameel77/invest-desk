@@ -97,7 +97,7 @@ class PortfolioSimulator:
             df = bt._cached_frame(s)
             if df is None or len(df) < self.lookback + 2:
                 continue
-            df = df.sort_values("ts").reset_index(drop=True)
+            df = signals.ensure_daily_bars(df)
             if "atr" not in df.columns:
                 df = signals.compute_indicators(df)
             df = reversion.compute(df)

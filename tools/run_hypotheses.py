@@ -26,7 +26,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app import backtest as bt
-from app import config, costs, db, hypotheses as H, market, reversion
+from app import config, costs, db, hypotheses as H, market, reversion, signals
 from app.portfolio_sim import PortfolioSimulator
 
 DAY = 86400
@@ -504,12 +504,15 @@ def run_us_reversion_gate_v2(
         ts_max = int(df["ts"].max())
         dt_min = datetime.datetime.fromtimestamp(ts_min, tz=datetime.timezone.utc).strftime("%Y-%m-%d")
         dt_max = datetime.datetime.fromtimestamp(ts_max, tz=datetime.timezone.utc).strftime("%Y-%m-%d")
+        # Bary odrzucone przez ensure_daily_bars (miesięczne / śróddzienne / duplikaty dat)
+        raw_df = signals.load_frame(sym, limit=6000)
+        dropped_bars = max(0, len(raw_df) - len(signals.ensure_daily_bars(raw_df))) if raw_df is not None else 0
         first_bars_info.append({
             "symbol": sym, "bars": len(df), "min_ts": ts_min, "max_ts": ts_max,
-            "min_date": dt_min, "max_date": dt_max,
+            "min_date": dt_min, "max_date": dt_max, "dropped_bars": dropped_bars,
         })
         symbol_data[sym] = df
-        print(f"  {sym:6s}: {len(df):4d} barów | od {dt_min} do {dt_max}")
+        print(f"  {sym:6s}: {len(df):4d} barów | od {dt_min} do {dt_max} | odrzucone bary: {dropped_bars}")
 
     current_year = datetime.datetime.now(datetime.timezone.utc).year
     # Wyznaczenie roku początkowego: rok kwalifikuje się, gdy większość (>=50%)
