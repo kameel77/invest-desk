@@ -678,6 +678,7 @@ def run_us_reversion_gate_v2(
             y_rets = year_returns[y]
             n_y = len(y_rets)
             exp_y = round(float(np.mean(y_rets)), 3) if y_rets else 0.0
+            win_rate_y = round(sum(1 for r in y_rets if r > 0) / n_y * 100.0, 1) if n_y else 0.0
             is_prof = (n_y >= 25) and (exp_y > 0.0)
             if is_prof:
                 profitable_folds += 1
@@ -691,6 +692,7 @@ def run_us_reversion_gate_v2(
                 "year": y,
                 "trades": n_y,
                 "expectancy": exp_y,
+                "win_rate": win_rate_y,
                 "profitable": is_prof,
                 "etf_trades": len(etf_rets),
                 "etf_expectancy": etf_exp,
