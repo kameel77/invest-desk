@@ -256,7 +256,7 @@ def run_fixed_sweep(symbols: list[str], folds: int = 8,
 def run_us_reversion_gate(symbols: list[str], folds: int = 8,
                           test_months: float = 5.0,
                           target_profile: str = "IBKR_TIERED_USD",
-                          capital: float = 16000.0,
+                          capital: float = 1350.0,  # as in gate v2: notional per slot = capital / slots
                           slots: int = 8,
                           n_bootstrap: int = 2000) -> dict[str, Any]:
     """Faza 0: Rygorystyczna bramka walidacyjna OOS dla US Reversion z block bootstrapem."""
