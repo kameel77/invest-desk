@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS candles (
     symbol TEXT NOT NULL,
     ts     INTEGER NOT NULL,      -- epoch seconds, bar close time (UTC)
     open   REAL, high REAL, low REAL, close REAL, volume REAL,
+    adjclose REAL,
     PRIMARY KEY (symbol, ts)
 );
 CREATE INDEX IF NOT EXISTS idx_candles_symbol_ts ON candles(symbol, ts DESC);
@@ -168,6 +169,11 @@ def tx():
 def init_db() -> None:
     conn = get_conn()
     conn.executescript(SCHEMA)
+    # Ensure candles table has adjclose column if created earlier
+    try:
+        conn.execute("ALTER TABLE candles ADD COLUMN adjclose REAL")
+    except sqlite3.OperationalError:
+        pass
     # Ensure legacy lots/decisions with NULL hypothesis are migrated to 'trend'
     conn.execute("UPDATE lots SET hypothesis = 'trend' WHERE hypothesis IS NULL")
     conn.execute("UPDATE decisions SET hypothesis = 'trend' WHERE hypothesis IS NULL")
@@ -177,17 +183,24 @@ def init_db() -> None:
 # --- candles --------------------------------------------------------------
 
 def upsert_candles(symbol: str, rows: Iterable[tuple]) -> int:
-    """``rows`` = iterable of (ts, o, h, l, c, v). Returns rows written."""
-    payload = [(symbol, int(ts), o, h, l, c, v) for ts, o, h, l, c, v in rows]
+    """``rows`` = iterable of (ts, o, h, l, c, v) or (ts, o, h, l, c, v, adj_c). Returns rows written."""
+    payload = []
+    for r in rows:
+        if len(r) >= 7:
+            ts, o, h, l, c, v, adj_c = r[:7]
+        else:
+            ts, o, h, l, c, v = r[:6]
+            adj_c = c
+        payload.append((symbol, int(ts), o, h, l, c, v, adj_c))
     if not payload:
         return 0
     with tx() as conn:
         cur = conn.executemany(
-            "INSERT INTO candles(symbol, ts, open, high, low, close, volume) "
-            "VALUES (?,?,?,?,?,?,?) "
+            "INSERT INTO candles(symbol, ts, open, high, low, close, volume, adjclose) "
+            "VALUES (?,?,?,?,?,?,?,?) "
             "ON CONFLICT(symbol, ts) DO UPDATE SET "
             "open=excluded.open, high=excluded.high, low=excluded.low, "
-            "close=excluded.close, volume=excluded.volume",
+            "close=excluded.close, volume=excluded.volume, adjclose=excluded.adjclose",
             payload,
         )
     return cur.rowcount if cur.rowcount and cur.rowcount > 0 else len(payload)
@@ -195,7 +208,7 @@ def upsert_candles(symbol: str, rows: Iterable[tuple]) -> int:
 
 def get_candles(symbol: str, limit: int = 400) -> list[sqlite3.Row]:
     cur = get_conn().execute(
-        "SELECT ts, open, high, low, close, volume FROM candles "
+        "SELECT ts, open, high, low, close, volume, COALESCE(adjclose, close) AS adjclose FROM candles "
         "WHERE symbol=? ORDER BY ts DESC LIMIT ?",
         (symbol.upper(), limit),
     )

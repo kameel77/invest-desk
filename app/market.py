@@ -95,6 +95,7 @@ def _parse_yahoo(result: dict) -> tuple[list[tuple], dict]:
     meta = result.get("meta", {}) or {}
     ts_list = result.get("timestamp") or []
     quote = ((result.get("indicators") or {}).get("quote") or [{}])[0]
+    adjcloses = ((result.get("indicators") or {}).get("adjclose") or [{}])[0].get("adjclose") or []
     opens = quote.get("open") or []
     highs = quote.get("high") or []
     lows = quote.get("low") or []
@@ -110,12 +111,13 @@ def _parse_yahoo(result: dict) -> tuple[list[tuple], dict]:
         h = highs[i] if i < len(highs) else c
         l = lows[i] if i < len(lows) else c
         v = volumes[i] if i < len(volumes) else 0
+        adj_c = adjcloses[i] if i < len(adjcloses) and adjcloses[i] is not None else c
         # Yahoo occasionally returns sentinel zeros on illiquid bars
         if not h or h <= 0:
             h = max(o or c, c)
         if not l or l <= 0:
             l = min(o or c, c)
-        bars.append((int(ts), float(o or c), float(h), float(l), float(c), float(v or 0)))
+        bars.append((int(ts), float(o or c), float(h), float(l), float(c), float(v or 0), float(adj_c)))
 
     info = {
         "currency": meta.get("currency", ""),

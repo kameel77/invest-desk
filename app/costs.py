@@ -57,6 +57,13 @@ PROFILES: dict[str, BrokerProfile] = {
         slippage_pct=0.0005,
         fx_pct=0.0050,  # 0.5% each way = ~1.0% round trip
     ),
+    "XTB_USD": BrokerProfile(
+        name="XTB_USD",
+        commission_pct=0.0,
+        commission_min=0.0,
+        slippage_pct=0.0005,
+        fx_pct=0.0,
+    ),
     "CONSERVATIVE_US": BrokerProfile(
         name="CONSERVATIVE_US",
         commission_pct=0.0010,

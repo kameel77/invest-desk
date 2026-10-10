@@ -1,0 +1,4844 @@
+{
+  "start_date": "2006-10-10",
+  "end_date": "2026-10-09",
+  "years": 20.0,
+  "initial_cash": 10000.0,
+  "final_equity": 40633.44,
+  "total_return_pct": 306.33,
+  "cagr_pct": 7.26,
+  "max_drawdown_pct": -14.03,
+  "sharpe_rf0": 0.792,
+  "sortino": 1.037,
+  "annual_returns": {
+    "2006": 0.44,
+    "2007": 16.19,
+    "2008": 4.99,
+    "2009": 19.44,
+    "2010": 7.6,
+    "2011": 5.27,
+    "2012": -4.67,
+    "2013": 2.87,
+    "2014": 1.22,
+    "2015": -4.66,
+    "2016": 3.78,
+    "2017": 14.9,
+    "2018": -4.38,
+    "2019": 9.65,
+    "2020": 18.43,
+    "2021": 14.87,
+    "2022": -3.79,
+    "2023": 0.88,
+    "2024": 10.4,
+    "2025": 23.73,
+    "2026": 14.89
+  },
+  "spy_benchmark": {
+    "cagr_pct": 11.16,
+    "max_drawdown_pct": -55.19,
+    "sharpe": 0.643
+  },
+  "rebalances_count": 240,
+  "rebalance_log": [
+    {
+      "date": "2006-11-01",
+      "eom_signal_date": "2006-10-31",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10011.51
+    },
+    {
+      "date": "2006-12-01",
+      "eom_signal_date": "2006-11-30",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10027.96
+    },
+    {
+      "date": "2007-01-03",
+      "eom_signal_date": "2006-12-29",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10043.9
+    },
+    {
+      "date": "2007-02-01",
+      "eom_signal_date": "2007-01-31",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10062.06
+    },
+    {
+      "date": "2007-03-01",
+      "eom_signal_date": "2007-02-28",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10077.5
+    },
+    {
+      "date": "2007-04-02",
+      "eom_signal_date": "2007-03-30",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10094.07
+    },
+    {
+      "date": "2007-05-01",
+      "eom_signal_date": "2007-04-30",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10111.22
+    },
+    {
+      "date": "2007-06-01",
+      "eom_signal_date": "2007-05-31",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10128.39
+    },
+    {
+      "date": "2007-07-02",
+      "eom_signal_date": "2007-06-29",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 10144.49
+    },
+    {
+      "date": "2007-08-01",
+      "eom_signal_date": "2007-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1986,
+        "TLT": 0.2785,
+        "GLD": 0.2148,
+        "EEM": 0.1074,
+        "DBC": 0.2007
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 100.0,
+      "cost": 5.08,
+      "portfolio_value": 10157.2
+    },
+    {
+      "date": "2007-09-04",
+      "eom_signal_date": "2007-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1577,
+        "TLT": 0.2988,
+        "GLD": 0.2269,
+        "EEM": 0.0867,
+        "DBC": 0.2299
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 12.5,
+      "cost": 0.64,
+      "portfolio_value": 10275.36
+    },
+    {
+      "date": "2007-10-01",
+      "eom_signal_date": "2007-09-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1594,
+        "TLT": 0.2987,
+        "GLD": 0.2246,
+        "EEM": 0.0866,
+        "DBC": 0.2307
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 5.01,
+      "cost": 0.28,
+      "portfolio_value": 10998.04
+    },
+    {
+      "date": "2007-11-01",
+      "eom_signal_date": "2007-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1964,
+        "TLT": 0.3,
+        "GLD": 0.21,
+        "EEM": 0.0972,
+        "DBC": 0.1964
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 11.29,
+      "cost": 0.64,
+      "portfolio_value": 11418.77
+    },
+    {
+      "date": "2007-12-03",
+      "eom_signal_date": "2007-11-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2101,
+        "TLT": 0.3,
+        "GLD": 0.1926,
+        "EEM": 0.0975,
+        "DBC": 0.1998
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 6.02,
+      "cost": 0.35,
+      "portfolio_value": 11459.86
+    },
+    {
+      "date": "2008-01-02",
+      "eom_signal_date": "2007-12-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.2651,
+        "EEM": 0.1357,
+        "DBC": 0.2991
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 40.7,
+      "cost": 2.39,
+      "portfolio_value": 11758.24
+    },
+    {
+      "date": "2008-02-01",
+      "eom_signal_date": "2008-01-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 14.09,
+      "cost": 0.85,
+      "portfolio_value": 12050.66
+    },
+    {
+      "date": "2008-03-03",
+      "eom_signal_date": "2008-02-29",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 4.31,
+      "cost": 0.27,
+      "portfolio_value": 12729.83
+    },
+    {
+      "date": "2008-04-01",
+      "eom_signal_date": "2008-03-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 3.8,
+      "cost": 0.23,
+      "portfolio_value": 12246.84
+    },
+    {
+      "date": "2008-05-01",
+      "eom_signal_date": "2008-04-30",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.2673,
+        "EEM": 0.1841,
+        "DBC": 0.2487
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 27.5,
+      "cost": 1.69,
+      "portfolio_value": 12254.44
+    },
+    {
+      "date": "2008-06-02",
+      "eom_signal_date": "2008-05-30",
+      "active_symbols": [
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 46.42,
+      "cost": 2.92,
+      "portfolio_value": 12591.89
+    },
+    {
+      "date": "2008-07-01",
+      "eom_signal_date": "2008-06-30",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 60.18,
+      "cost": 3.86,
+      "portfolio_value": 12836.15
+    },
+    {
+      "date": "2008-08-01",
+      "eom_signal_date": "2008-07-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 4.34,
+      "cost": 0.26,
+      "portfolio_value": 12148.89
+    },
+    {
+      "date": "2008-09-02",
+      "eom_signal_date": "2008-08-29",
+      "active_symbols": [
+        "TLT",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 31.19,
+      "cost": 1.79,
+      "portfolio_value": 11477.82
+    },
+    {
+      "date": "2008-10-01",
+      "eom_signal_date": "2008-09-30",
+      "active_symbols": [
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 29.52,
+      "cost": 1.68,
+      "portfolio_value": 11359.54
+    },
+    {
+      "date": "2008-11-03",
+      "eom_signal_date": "2008-10-31",
+      "active_symbols": [
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.69,
+      "cost": 0.04,
+      "portfolio_value": 11268.37
+    },
+    {
+      "date": "2008-12-01",
+      "eom_signal_date": "2008-11-28",
+      "active_symbols": [
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 3.29,
+      "cost": 0.19,
+      "portfolio_value": 11841.5
+    },
+    {
+      "date": "2009-01-02",
+      "eom_signal_date": "2008-12-31",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 32.35,
+      "cost": 1.99,
+      "portfolio_value": 12273.29
+    },
+    {
+      "date": "2009-02-02",
+      "eom_signal_date": "2009-01-30",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 5.45,
+      "cost": 0.33,
+      "portfolio_value": 11967.43
+    },
+    {
+      "date": "2009-03-02",
+      "eom_signal_date": "2009-02-27",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.6,
+      "cost": 0.1,
+      "portfolio_value": 12062.95
+    },
+    {
+      "date": "2009-04-01",
+      "eom_signal_date": "2009-03-31",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.88,
+      "cost": 0.11,
+      "portfolio_value": 12140.31
+    },
+    {
+      "date": "2009-05-01",
+      "eom_signal_date": "2009-04-30",
+      "active_symbols": [
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 59.01,
+      "cost": 3.44,
+      "portfolio_value": 11663.07
+    },
+    {
+      "date": "2009-06-01",
+      "eom_signal_date": "2009-05-29",
+      "active_symbols": [
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 3.32,
+      "cost": 0.21,
+      "portfolio_value": 12738.7
+    },
+    {
+      "date": "2009-07-01",
+      "eom_signal_date": "2009-06-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.96,
+      "cost": 1.93,
+      "portfolio_value": 12461.31
+    },
+    {
+      "date": "2009-08-03",
+      "eom_signal_date": "2009-07-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2802,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.1811,
+        "DBC": 0.2388
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 40.91,
+      "cost": 2.72,
+      "portfolio_value": 13272.67
+    },
+    {
+      "date": "2009-09-01",
+      "eom_signal_date": "2009-08-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2897,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.1826,
+        "DBC": 0.2277
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 1.03,
+      "cost": 0.07,
+      "portfolio_value": 13051.81
+    },
+    {
+      "date": "2009-10-01",
+      "eom_signal_date": "2009-09-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.1881,
+        "DBC": 0.2119
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 3.44,
+      "cost": 0.23,
+      "portfolio_value": 13572.59
+    },
+    {
+      "date": "2009-11-02",
+      "eom_signal_date": "2009-10-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2921,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.1857,
+        "DBC": 0.2222
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 1.82,
+      "cost": 0.13,
+      "portfolio_value": 13938.93
+    },
+    {
+      "date": "2009-12-01",
+      "eom_signal_date": "2009-11-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2118,
+        "TLT": 0.2695,
+        "GLD": 0.2383,
+        "EEM": 0.1253,
+        "DBC": 0.1552
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 53.89,
+      "cost": 4.08,
+      "portfolio_value": 15150.43
+    },
+    {
+      "date": "2010-01-04",
+      "eom_signal_date": "2009-12-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2605,
+        "EEM": 0.1858,
+        "DBC": 0.2537
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 51.87,
+      "cost": 3.84,
+      "portfolio_value": 14815.49
+    },
+    {
+      "date": "2010-02-01",
+      "eom_signal_date": "2010-01-29",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 40.15,
+      "cost": 2.8,
+      "portfolio_value": 13953.55
+    },
+    {
+      "date": "2010-03-01",
+      "eom_signal_date": "2010-02-26",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2317,
+        "EEM": 0.2139,
+        "DBC": 0.2544
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 41.08,
+      "cost": 2.93,
+      "portfolio_value": 14267.88
+    },
+    {
+      "date": "2010-04-01",
+      "eom_signal_date": "2010-03-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.256,
+        "EEM": 0.2041,
+        "DBC": 0.24
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 6.38,
+      "cost": 0.47,
+      "portfolio_value": 14820.34
+    },
+    {
+      "date": "2010-05-03",
+      "eom_signal_date": "2010-04-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2585,
+        "EEM": 0.1946,
+        "DBC": 0.2468
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 1.56,
+      "cost": 0.12,
+      "portfolio_value": 15150.5
+    },
+    {
+      "date": "2010-06-01",
+      "eom_signal_date": "2010-05-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 74.31,
+      "cost": 5.25,
+      "portfolio_value": 14129.48
+    },
+    {
+      "date": "2010-07-01",
+      "eom_signal_date": "2010-06-30",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.02,
+      "cost": 2.13,
+      "portfolio_value": 14184.83
+    },
+    {
+      "date": "2010-08-02",
+      "eom_signal_date": "2010-07-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2289,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.1711,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 40.77,
+      "cost": 2.84,
+      "portfolio_value": 13938.57
+    },
+    {
+      "date": "2010-09-01",
+      "eom_signal_date": "2010-08-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 37.68,
+      "cost": 2.69,
+      "portfolio_value": 14265.8
+    },
+    {
+      "date": "2010-10-01",
+      "eom_signal_date": "2010-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.176,
+        "TLT": 0.1712,
+        "GLD": 0.2983,
+        "EEM": 0.1532,
+        "DBC": 0.2013
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 65.83,
+      "cost": 4.89,
+      "portfolio_value": 14837.0
+    },
+    {
+      "date": "2010-11-01",
+      "eom_signal_date": "2010-10-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2145,
+        "TLT": 0.1806,
+        "GLD": 0.2496,
+        "EEM": 0.1692,
+        "DBC": 0.1861
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 14.45,
+      "cost": 1.1,
+      "portfolio_value": 15257.09
+    },
+    {
+      "date": "2010-12-01",
+      "eom_signal_date": "2010-11-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2687,
+        "TLT": 0.1973,
+        "GLD": 0.1997,
+        "EEM": 0.1662,
+        "DBC": 0.1682
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 14.9,
+      "cost": 1.13,
+      "portfolio_value": 15212.07
+    },
+    {
+      "date": "2011-01-03",
+      "eom_signal_date": "2010-12-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2566,
+        "EEM": 0.2248,
+        "DBC": 0.2187
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 36.76,
+      "cost": 2.9,
+      "portfolio_value": 15795.51
+    },
+    {
+      "date": "2011-02-01",
+      "eom_signal_date": "2011-01-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2526,
+        "EEM": 0.2202,
+        "DBC": 0.2272
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.02,
+      "cost": 0.16,
+      "portfolio_value": 15626.03
+    },
+    {
+      "date": "2011-03-01",
+      "eom_signal_date": "2011-02-28",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.246,
+        "EEM": 0.2092,
+        "DBC": 0.2448
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 3.26,
+      "cost": 0.26,
+      "portfolio_value": 16165.26
+    },
+    {
+      "date": "2011-04-01",
+      "eom_signal_date": "2011-03-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2929,
+        "TLT": 0.0,
+        "GLD": 0.2938,
+        "EEM": 0.1929,
+        "DBC": 0.2204
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 10.54,
+      "cost": 0.87,
+      "portfolio_value": 16500.36
+    },
+    {
+      "date": "2011-05-02",
+      "eom_signal_date": "2011-04-29",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.295,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.192,
+        "DBC": 0.213
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.38,
+      "cost": 0.21,
+      "portfolio_value": 17284.56
+    },
+    {
+      "date": "2011-06-01",
+      "eom_signal_date": "2011-05-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2518,
+        "TLT": 0.2676,
+        "GLD": 0.2153,
+        "EEM": 0.1463,
+        "DBC": 0.1191
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 53.52,
+      "cost": 4.51,
+      "portfolio_value": 16833.07
+    },
+    {
+      "date": "2011-07-01",
+      "eom_signal_date": "2011-06-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.2216,
+        "DBC": 0.1784
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 53.44,
+      "cost": 4.39,
+      "portfolio_value": 16424.62
+    },
+    {
+      "date": "2011-08-01",
+      "eom_signal_date": "2011-07-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2199,
+        "TLT": 0.229,
+        "GLD": 0.2473,
+        "EEM": 0.167,
+        "DBC": 0.1367
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 45.81,
+      "cost": 3.9,
+      "portfolio_value": 17007.91
+    },
+    {
+      "date": "2011-09-01",
+      "eom_signal_date": "2011-08-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 59.62,
+      "cost": 5.18,
+      "portfolio_value": 17374.29
+    },
+    {
+      "date": "2011-10-03",
+      "eom_signal_date": "2011-09-30",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 33.24,
+      "cost": 2.79,
+      "portfolio_value": 16779.96
+    },
+    {
+      "date": "2011-11-01",
+      "eom_signal_date": "2011-10-31",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.25,
+      "cost": 0.11,
+      "portfolio_value": 16764.89
+    },
+    {
+      "date": "2011-12-01",
+      "eom_signal_date": "2011-11-30",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.59,
+      "cost": 0.13,
+      "portfolio_value": 16863.85
+    },
+    {
+      "date": "2012-01-03",
+      "eom_signal_date": "2011-12-30",
+      "active_symbols": [
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 29.24,
+      "cost": 2.42,
+      "portfolio_value": 16575.96
+    },
+    {
+      "date": "2012-02-01",
+      "eom_signal_date": "2012-01-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 60.07,
+      "cost": 4.99,
+      "portfolio_value": 16617.01
+    },
+    {
+      "date": "2012-03-01",
+      "eom_signal_date": "2012-02-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2632,
+        "TLT": 0.2067,
+        "GLD": 0.156,
+        "EEM": 0.1475,
+        "DBC": 0.2266
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 64.78,
+      "cost": 5.36,
+      "portfolio_value": 16558.26
+    },
+    {
+      "date": "2012-04-02",
+      "eom_signal_date": "2012-03-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2345,
+        "GLD": 0.0,
+        "EEM": 0.1771,
+        "DBC": 0.2884
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 30.81,
+      "cost": 2.52,
+      "portfolio_value": 16342.99
+    },
+    {
+      "date": "2012-05-01",
+      "eom_signal_date": "2012-04-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2327,
+        "GLD": 0.0,
+        "EEM": 0.1814,
+        "DBC": 0.2859
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.2,
+      "cost": 0.18,
+      "portfolio_value": 16383.04
+    },
+    {
+      "date": "2012-06-01",
+      "eom_signal_date": "2012-05-31",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 46.89,
+      "cost": 3.62,
+      "portfolio_value": 15452.89
+    },
+    {
+      "date": "2012-07-02",
+      "eom_signal_date": "2012-06-29",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 2.51,
+      "cost": 0.2,
+      "portfolio_value": 15627.81
+    },
+    {
+      "date": "2012-08-01",
+      "eom_signal_date": "2012-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 0.47,
+      "cost": 0.04,
+      "portfolio_value": 15840.23
+    },
+    {
+      "date": "2012-09-04",
+      "eom_signal_date": "2012-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2588,
+        "TLT": 0.2762,
+        "GLD": 0.2665,
+        "EEM": 0.0,
+        "DBC": 0.1985
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 53.03,
+      "cost": 4.21,
+      "portfolio_value": 15877.44
+    },
+    {
+      "date": "2012-10-01",
+      "eom_signal_date": "2012-09-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2371,
+        "TLT": 0.1998,
+        "GLD": 0.2324,
+        "EEM": 0.1452,
+        "DBC": 0.1854
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 29.04,
+      "cost": 2.34,
+      "portfolio_value": 16112.39
+    },
+    {
+      "date": "2012-11-01",
+      "eom_signal_date": "2012-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2206,
+        "GLD": 0.2719,
+        "EEM": 0.2075,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 36.38,
+      "cost": 2.86,
+      "portfolio_value": 15744.93
+    },
+    {
+      "date": "2012-12-03",
+      "eom_signal_date": "2012-11-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2186,
+        "TLT": 0.2032,
+        "GLD": 0.2227,
+        "EEM": 0.1676,
+        "DBC": 0.1879
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 37.57,
+      "cost": 2.97,
+      "portfolio_value": 15830.86
+    },
+    {
+      "date": "2013-01-02",
+      "eom_signal_date": "2012-12-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2444,
+        "TLT": 0.0,
+        "GLD": 0.2793,
+        "EEM": 0.2324,
+        "DBC": 0.2439
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 39.18,
+      "cost": 3.12,
+      "portfolio_value": 15929.31
+    },
+    {
+      "date": "2013-02-01",
+      "eom_signal_date": "2013-01-31",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 45.04,
+      "cost": 3.62,
+      "portfolio_value": 16077.68
+    },
+    {
+      "date": "2013-03-01",
+      "eom_signal_date": "2013-02-28",
+      "active_symbols": [
+        "SPY",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.05,
+      "cost": 2.35,
+      "portfolio_value": 15656.31
+    },
+    {
+      "date": "2013-04-01",
+      "eom_signal_date": "2013-03-28",
+      "active_symbols": [
+        "SPY",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.46,
+      "cost": 0.12,
+      "portfolio_value": 15820.26
+    },
+    {
+      "date": "2013-05-01",
+      "eom_signal_date": "2013-04-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.3,
+      "cost": 2.42,
+      "portfolio_value": 15967.89
+    },
+    {
+      "date": "2013-06-03",
+      "eom_signal_date": "2013-05-31",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 59.71,
+      "cost": 4.64,
+      "portfolio_value": 15534.57
+    },
+    {
+      "date": "2013-07-01",
+      "eom_signal_date": "2013-06-28",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.25,
+      "cost": 0.02,
+      "portfolio_value": 15502.4
+    },
+    {
+      "date": "2013-08-01",
+      "eom_signal_date": "2013-07-31",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 1.08,
+      "cost": 0.09,
+      "portfolio_value": 15773.72
+    },
+    {
+      "date": "2013-09-03",
+      "eom_signal_date": "2013-08-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.63,
+      "cost": 0.05,
+      "portfolio_value": 15659.31
+    },
+    {
+      "date": "2013-10-01",
+      "eom_signal_date": "2013-09-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.43,
+      "cost": 0.03,
+      "portfolio_value": 15783.94
+    },
+    {
+      "date": "2013-11-01",
+      "eom_signal_date": "2013-10-31",
+      "active_symbols": [
+        "SPY",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.93,
+      "cost": 2.48,
+      "portfolio_value": 16022.15
+    },
+    {
+      "date": "2013-12-02",
+      "eom_signal_date": "2013-11-29",
+      "active_symbols": [
+        "SPY",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.16,
+      "cost": 0.09,
+      "portfolio_value": 16122.19
+    },
+    {
+      "date": "2014-01-02",
+      "eom_signal_date": "2013-12-31",
+      "active_symbols": [
+        "SPY",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.23,
+      "cost": 0.1,
+      "portfolio_value": 16143.32
+    },
+    {
+      "date": "2014-02-03",
+      "eom_signal_date": "2014-01-31",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 58.64,
+      "cost": 4.58,
+      "portfolio_value": 15620.61
+    },
+    {
+      "date": "2014-03-03",
+      "eom_signal_date": "2014-02-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2346,
+        "TLT": 0.2894,
+        "GLD": 0.176,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 55.75,
+      "cost": 4.42,
+      "portfolio_value": 15860.55
+    },
+    {
+      "date": "2014-04-01",
+      "eom_signal_date": "2014-03-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2526,
+        "TLT": 0.2926,
+        "GLD": 0.0,
+        "EEM": 0.1548,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 33.83,
+      "cost": 2.66,
+      "portfolio_value": 15700.68
+    },
+    {
+      "date": "2014-05-01",
+      "eom_signal_date": "2014-04-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2537,
+        "TLT": 0.2801,
+        "GLD": 0.0,
+        "EEM": 0.1662,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 3.47,
+      "cost": 0.28,
+      "portfolio_value": 15853.95
+    },
+    {
+      "date": "2014-06-02",
+      "eom_signal_date": "2014-05-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2542,
+        "TLT": 0.2635,
+        "GLD": 0.0,
+        "EEM": 0.1823,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 4.02,
+      "cost": 0.32,
+      "portfolio_value": 16105.52
+    },
+    {
+      "date": "2014-07-01",
+      "eom_signal_date": "2014-06-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2043,
+        "TLT": 0.2009,
+        "GLD": 0.1529,
+        "EEM": 0.1717,
+        "DBC": 0.2703
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 30.58,
+      "cost": 2.5,
+      "portfolio_value": 16359.26
+    },
+    {
+      "date": "2014-08-01",
+      "eom_signal_date": "2014-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2596,
+        "GLD": 0.2044,
+        "EEM": 0.236,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 52.33,
+      "cost": 4.21,
+      "portfolio_value": 16078.17
+    },
+    {
+      "date": "2014-09-02",
+      "eom_signal_date": "2014-08-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2586,
+        "GLD": 0.2073,
+        "EEM": 0.2341,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.36,
+      "cost": 0.19,
+      "portfolio_value": 16461.59
+    },
+    {
+      "date": "2014-10-01",
+      "eom_signal_date": "2014-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 46.54,
+      "cost": 3.7,
+      "portfolio_value": 15904.61
+    },
+    {
+      "date": "2014-11-03",
+      "eom_signal_date": "2014-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.51,
+      "cost": 2.46,
+      "portfolio_value": 16133.46
+    },
+    {
+      "date": "2014-12-01",
+      "eom_signal_date": "2014-11-28",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.09,
+      "cost": 2.45,
+      "portfolio_value": 16295.46
+    },
+    {
+      "date": "2015-01-02",
+      "eom_signal_date": "2014-12-31",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 0.78,
+      "cost": 0.06,
+      "portfolio_value": 16488.2
+    },
+    {
+      "date": "2015-02-02",
+      "eom_signal_date": "2015-01-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 33.4,
+      "cost": 2.8,
+      "portfolio_value": 16763.08
+    },
+    {
+      "date": "2015-03-02",
+      "eom_signal_date": "2015-02-27",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 32.36,
+      "cost": 2.68,
+      "portfolio_value": 16538.29
+    },
+    {
+      "date": "2015-04-01",
+      "eom_signal_date": "2015-03-31",
+      "active_symbols": [
+        "SPY",
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 1.1,
+      "cost": 0.09,
+      "portfolio_value": 16568.34
+    },
+    {
+      "date": "2015-05-01",
+      "eom_signal_date": "2015-04-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 31.9,
+      "cost": 2.62,
+      "portfolio_value": 16409.0
+    },
+    {
+      "date": "2015-06-01",
+      "eom_signal_date": "2015-05-29",
+      "active_symbols": [
+        "SPY",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 31.64,
+      "cost": 2.56,
+      "portfolio_value": 16152.98
+    },
+    {
+      "date": "2015-07-01",
+      "eom_signal_date": "2015-06-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 29.72,
+      "cost": 2.37,
+      "portfolio_value": 15970.58
+    },
+    {
+      "date": "2015-08-03",
+      "eom_signal_date": "2015-07-31",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.24,
+      "cost": 0.02,
+      "portfolio_value": 16052.51
+    },
+    {
+      "date": "2015-09-01",
+      "eom_signal_date": "2015-08-31",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 28.19,
+      "cost": 2.21,
+      "portfolio_value": 15672.62
+    },
+    {
+      "date": "2015-10-01",
+      "eom_signal_date": "2015-09-30",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 15698.38
+    },
+    {
+      "date": "2015-11-02",
+      "eom_signal_date": "2015-10-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 30.0,
+      "cost": 2.36,
+      "portfolio_value": 15721.83
+    },
+    {
+      "date": "2015-12-01",
+      "eom_signal_date": "2015-11-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.08,
+      "cost": 0.01,
+      "portfolio_value": 15765.88
+    },
+    {
+      "date": "2016-01-04",
+      "eom_signal_date": "2015-12-31",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.82,
+      "cost": 0.06,
+      "portfolio_value": 15609.39
+    },
+    {
+      "date": "2016-02-01",
+      "eom_signal_date": "2016-01-29",
+      "active_symbols": [
+        "TLT"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 59.12,
+      "cost": 4.56,
+      "portfolio_value": 15436.27
+    },
+    {
+      "date": "2016-03-01",
+      "eom_signal_date": "2016-02-29",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.67,
+      "cost": 2.39,
+      "portfolio_value": 15608.49
+    },
+    {
+      "date": "2016-04-01",
+      "eom_signal_date": "2016-03-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2658,
+        "TLT": 0.3,
+        "GLD": 0.2503,
+        "EEM": 0.1839,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 49.67,
+      "cost": 3.86,
+      "portfolio_value": 15525.78
+    },
+    {
+      "date": "2016-05-02",
+      "eom_signal_date": "2016-04-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2387,
+        "TLT": 0.2689,
+        "GLD": 0.16,
+        "EEM": 0.1529,
+        "DBC": 0.1795
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 35.89,
+      "cost": 2.84,
+      "portfolio_value": 15833.42
+    },
+    {
+      "date": "2016-06-01",
+      "eom_signal_date": "2016-05-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.269,
+        "TLT": 0.2626,
+        "GLD": 0.1681,
+        "EEM": 0.1469,
+        "DBC": 0.1533
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 8.56,
+      "cost": 0.67,
+      "portfolio_value": 15704.28
+    },
+    {
+      "date": "2016-07-01",
+      "eom_signal_date": "2016-06-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2391,
+        "TLT": 0.2596,
+        "GLD": 0.1797,
+        "EEM": 0.1393,
+        "DBC": 0.1823
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 6.82,
+      "cost": 0.57,
+      "portfolio_value": 16587.07
+    },
+    {
+      "date": "2016-08-01",
+      "eom_signal_date": "2016-07-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2478,
+        "TLT": 0.2463,
+        "GLD": 0.1811,
+        "EEM": 0.1479,
+        "DBC": 0.1769
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.31,
+      "cost": 0.19,
+      "portfolio_value": 16606.32
+    },
+    {
+      "date": "2016-09-01",
+      "eom_signal_date": "2016-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2568,
+        "TLT": 0.2297,
+        "GLD": 0.1917,
+        "EEM": 0.1474,
+        "DBC": 0.1745
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 4.62,
+      "cost": 0.38,
+      "portfolio_value": 16538.9
+    },
+    {
+      "date": "2016-10-03",
+      "eom_signal_date": "2016-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2619,
+        "TLT": 0.2136,
+        "GLD": 0.2167,
+        "EEM": 0.1441,
+        "DBC": 0.1637
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 7.02,
+      "cost": 0.59,
+      "portfolio_value": 16738.18
+    },
+    {
+      "date": "2016-11-01",
+      "eom_signal_date": "2016-10-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2918,
+        "EEM": 0.1807,
+        "DBC": 0.2275
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 41.23,
+      "cost": 3.39,
+      "portfolio_value": 16423.78
+    },
+    {
+      "date": "2016-12-01",
+      "eom_signal_date": "2016-11-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 47.53,
+      "cost": 3.82,
+      "portfolio_value": 16066.06
+    },
+    {
+      "date": "2017-01-03",
+      "eom_signal_date": "2016-12-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 0.77,
+      "cost": 0.06,
+      "portfolio_value": 16404.44
+    },
+    {
+      "date": "2017-02-01",
+      "eom_signal_date": "2017-01-31",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 2.27,
+      "cost": 0.19,
+      "portfolio_value": 16701.22
+    },
+    {
+      "date": "2017-03-01",
+      "eom_signal_date": "2017-02-28",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 1.4,
+      "cost": 0.12,
+      "portfolio_value": 17054.23
+    },
+    {
+      "date": "2017-04-03",
+      "eom_signal_date": "2017-03-31",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 2.13,
+      "cost": 0.18,
+      "portfolio_value": 17003.8
+    },
+    {
+      "date": "2017-05-01",
+      "eom_signal_date": "2017-04-28",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 59.99,
+      "cost": 5.1,
+      "portfolio_value": 17010.68
+    },
+    {
+      "date": "2017-06-01",
+      "eom_signal_date": "2017-05-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 0.85,
+      "cost": 0.07,
+      "portfolio_value": 17218.02
+    },
+    {
+      "date": "2017-07-03",
+      "eom_signal_date": "2017-06-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 59.96,
+      "cost": 5.15,
+      "portfolio_value": 17167.26
+    },
+    {
+      "date": "2017-08-01",
+      "eom_signal_date": "2017-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2651,
+        "GLD": 0.2483,
+        "EEM": 0.1866,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 39.86,
+      "cost": 3.49,
+      "portfolio_value": 17494.36
+    },
+    {
+      "date": "2017-09-01",
+      "eom_signal_date": "2017-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2981,
+        "TLT": 0.2702,
+        "GLD": 0.2421,
+        "EEM": 0.1895,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.23,
+      "cost": 0.2,
+      "portfolio_value": 17945.11
+    },
+    {
+      "date": "2017-10-02",
+      "eom_signal_date": "2017-09-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2824,
+        "TLT": 0.2094,
+        "GLD": 0.1878,
+        "EEM": 0.1641,
+        "DBC": 0.1563
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 31.26,
+      "cost": 2.78,
+      "portfolio_value": 17778.7
+    },
+    {
+      "date": "2017-11-01",
+      "eom_signal_date": "2017-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2731,
+        "TLT": 0.221,
+        "GLD": 0.185,
+        "EEM": 0.1589,
+        "DBC": 0.162
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 3.73,
+      "cost": 0.34,
+      "portfolio_value": 18177.8
+    },
+    {
+      "date": "2017-12-01",
+      "eom_signal_date": "2017-11-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2023,
+        "GLD": 0.1844,
+        "EEM": 0.1452,
+        "DBC": 0.1681
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 5.93,
+      "cost": 0.54,
+      "portfolio_value": 18343.91
+    },
+    {
+      "date": "2018-01-02",
+      "eom_signal_date": "2017-12-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.1859,
+        "GLD": 0.2062,
+        "EEM": 0.1473,
+        "DBC": 0.1606
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 4.59,
+      "cost": 0.43,
+      "portfolio_value": 18794.02
+    },
+    {
+      "date": "2018-02-01",
+      "eom_signal_date": "2018-01-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2738,
+        "EEM": 0.1881,
+        "DBC": 0.2381
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 36.5,
+      "cost": 3.52,
+      "portfolio_value": 19284.89
+    },
+    {
+      "date": "2018-03-01",
+      "eom_signal_date": "2018-02-28",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2273,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.1727,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 17.16,
+      "cost": 1.6,
+      "portfolio_value": 18639.93
+    },
+    {
+      "date": "2018-04-02",
+      "eom_signal_date": "2018-03-29",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2205,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.1795,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.05,
+      "cost": 0.19,
+      "portfolio_value": 18744.65
+    },
+    {
+      "date": "2018-05-01",
+      "eom_signal_date": "2018-04-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.214,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.186,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 3.5,
+      "cost": 0.33,
+      "portfolio_value": 18727.02
+    },
+    {
+      "date": "2018-06-01",
+      "eom_signal_date": "2018-05-31",
+      "active_symbols": [
+        "SPY",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 56.23,
+      "cost": 5.32,
+      "portfolio_value": 18899.36
+    },
+    {
+      "date": "2018-07-02",
+      "eom_signal_date": "2018-06-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.49,
+      "cost": 2.86,
+      "portfolio_value": 18746.93
+    },
+    {
+      "date": "2018-08-01",
+      "eom_signal_date": "2018-07-31",
+      "active_symbols": [
+        "SPY",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 31.46,
+      "cost": 2.94,
+      "portfolio_value": 18697.66
+    },
+    {
+      "date": "2018-09-04",
+      "eom_signal_date": "2018-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.54,
+      "cost": 2.9,
+      "portfolio_value": 18984.21
+    },
+    {
+      "date": "2018-10-01",
+      "eom_signal_date": "2018-09-28",
+      "active_symbols": [
+        "SPY",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.05,
+      "cost": 2.87,
+      "portfolio_value": 19103.64
+    },
+    {
+      "date": "2018-11-01",
+      "eom_signal_date": "2018-10-31",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 58.42,
+      "cost": 5.38,
+      "portfolio_value": 18407.04
+    },
+    {
+      "date": "2018-12-03",
+      "eom_signal_date": "2018-11-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 30.0,
+      "cost": 2.77,
+      "portfolio_value": 18434.54
+    },
+    {
+      "date": "2019-01-02",
+      "eom_signal_date": "2018-12-31",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 87.41,
+      "cost": 7.78,
+      "portfolio_value": 17800.23
+    },
+    {
+      "date": "2019-02-01",
+      "eom_signal_date": "2019-01-31",
+      "active_symbols": [
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.84,
+      "cost": 2.77,
+      "portfolio_value": 17969.48
+    },
+    {
+      "date": "2019-03-01",
+      "eom_signal_date": "2019-02-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.1857,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.2143,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 27.72,
+      "cost": 2.47,
+      "portfolio_value": 17824.68
+    },
+    {
+      "date": "2019-04-01",
+      "eom_signal_date": "2019-03-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2242,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.1758,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 9.43,
+      "cost": 0.86,
+      "portfolio_value": 18185.88
+    },
+    {
+      "date": "2019-05-01",
+      "eom_signal_date": "2019-04-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2813,
+        "TLT": 0.2758,
+        "GLD": 0.2631,
+        "EEM": 0.1798,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 10.49,
+      "cost": 0.96,
+      "portfolio_value": 18246.47
+    },
+    {
+      "date": "2019-06-03",
+      "eom_signal_date": "2019-05-31",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 46.52,
+      "cost": 4.22,
+      "portfolio_value": 18150.51
+    },
+    {
+      "date": "2019-07-01",
+      "eom_signal_date": "2019-06-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2399,
+        "TLT": 0.3,
+        "GLD": 0.2812,
+        "EEM": 0.1789,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 45.32,
+      "cost": 4.2,
+      "portfolio_value": 18523.21
+    },
+    {
+      "date": "2019-08-01",
+      "eom_signal_date": "2019-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2587,
+        "TLT": 0.3,
+        "GLD": 0.2322,
+        "EEM": 0.2091,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 11.0,
+      "cost": 1.02,
+      "portfolio_value": 18469.94
+    },
+    {
+      "date": "2019-09-03",
+      "eom_signal_date": "2019-08-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 32.27,
+      "cost": 3.09,
+      "portfolio_value": 19150.46
+    },
+    {
+      "date": "2019-10-01",
+      "eom_signal_date": "2019-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 3.0,
+      "cost": 0.28,
+      "portfolio_value": 18831.26
+    },
+    {
+      "date": "2019-11-01",
+      "eom_signal_date": "2019-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2402,
+        "TLT": 0.2265,
+        "GLD": 0.2766,
+        "EEM": 0.2566,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 41.46,
+      "cost": 3.97,
+      "portfolio_value": 19124.74
+    },
+    {
+      "date": "2019-12-02",
+      "eom_signal_date": "2019-11-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.1988,
+        "GLD": 0.2528,
+        "EEM": 0.2484,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 10.04,
+      "cost": 0.95,
+      "portfolio_value": 18974.11
+    },
+    {
+      "date": "2020-01-02",
+      "eom_signal_date": "2019-12-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2562,
+        "TLT": 0.1543,
+        "GLD": 0.2206,
+        "EEM": 0.1798,
+        "DBC": 0.189
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 37.81,
+      "cost": 3.74,
+      "portfolio_value": 19762.79
+    },
+    {
+      "date": "2020-02-03",
+      "eom_signal_date": "2020-01-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2206,
+        "GLD": 0.3,
+        "EEM": 0.1794,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 34.7,
+      "cost": 3.38,
+      "portfolio_value": 19493.88
+    },
+    {
+      "date": "2020-03-02",
+      "eom_signal_date": "2020-02-28",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 52.11,
+      "cost": 5.02,
+      "portfolio_value": 19265.92
+    },
+    {
+      "date": "2020-04-01",
+      "eom_signal_date": "2020-03-31",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 2.89,
+      "cost": 0.28,
+      "portfolio_value": 19709.37
+    },
+    {
+      "date": "2020-05-01",
+      "eom_signal_date": "2020-04-30",
+      "active_symbols": [
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 2.08,
+      "cost": 0.21,
+      "portfolio_value": 20086.35
+    },
+    {
+      "date": "2020-06-01",
+      "eom_signal_date": "2020-05-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 31.86,
+      "cost": 3.2,
+      "portfolio_value": 20096.78
+    },
+    {
+      "date": "2020-07-01",
+      "eom_signal_date": "2020-06-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.1969,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.2031,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 31.42,
+      "cost": 3.21,
+      "portfolio_value": 20428.64
+    },
+    {
+      "date": "2020-08-03",
+      "eom_signal_date": "2020-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2141,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.1859,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 5.68,
+      "cost": 0.62,
+      "portfolio_value": 21915.46
+    },
+    {
+      "date": "2020-09-01",
+      "eom_signal_date": "2020-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1796,
+        "TLT": 0.2712,
+        "GLD": 0.1746,
+        "EEM": 0.1533,
+        "DBC": 0.2213
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 44.27,
+      "cost": 4.9,
+      "portfolio_value": 22150.41
+    },
+    {
+      "date": "2020-10-01",
+      "eom_signal_date": "2020-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1835,
+        "TLT": 0.2859,
+        "GLD": 0.1514,
+        "EEM": 0.1765,
+        "DBC": 0.2027
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 6.67,
+      "cost": 0.72,
+      "portfolio_value": 21624.84
+    },
+    {
+      "date": "2020-11-02",
+      "eom_signal_date": "2020-10-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 86.71,
+      "cost": 9.24,
+      "portfolio_value": 21313.12
+    },
+    {
+      "date": "2020-12-01",
+      "eom_signal_date": "2020-11-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 60.45,
+      "cost": 6.75,
+      "portfolio_value": 22341.91
+    },
+    {
+      "date": "2021-01-04",
+      "eom_signal_date": "2020-12-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2455,
+        "TLT": 0.0,
+        "GLD": 0.2345,
+        "EEM": 0.2356,
+        "DBC": 0.2844
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 37.36,
+      "cost": 4.38,
+      "portfolio_value": 23444.62
+    },
+    {
+      "date": "2021-02-01",
+      "eom_signal_date": "2021-01-29",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 34.71,
+      "cost": 4.11,
+      "portfolio_value": 23651.18
+    },
+    {
+      "date": "2021-03-01",
+      "eom_signal_date": "2021-02-26",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 2.6,
+      "cost": 0.32,
+      "portfolio_value": 24572.02
+    },
+    {
+      "date": "2021-04-01",
+      "eom_signal_date": "2021-03-31",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 1.66,
+      "cost": 0.21,
+      "portfolio_value": 24760.75
+    },
+    {
+      "date": "2021-05-03",
+      "eom_signal_date": "2021-04-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 2.71,
+      "cost": 0.35,
+      "portfolio_value": 25688.32
+    },
+    {
+      "date": "2021-06-01",
+      "eom_signal_date": "2021-05-28",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.2112,
+        "DBC": 0.1888
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 51.54,
+      "cost": 6.81,
+      "portfolio_value": 26432.56
+    },
+    {
+      "date": "2021-07-01",
+      "eom_signal_date": "2021-06-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 48.38,
+      "cost": 6.32,
+      "portfolio_value": 26125.4
+    },
+    {
+      "date": "2021-08-02",
+      "eom_signal_date": "2021-07-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2933,
+        "TLT": 0.2618,
+        "GLD": 0.2668,
+        "EEM": 0.0,
+        "DBC": 0.1781
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 95.58,
+      "cost": 12.35,
+      "portfolio_value": 25834.35
+    },
+    {
+      "date": "2021-09-01",
+      "eom_signal_date": "2021-08-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2663,
+        "GLD": 0.2634,
+        "EEM": 0.0,
+        "DBC": 0.1703
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 1.19,
+      "cost": 0.15,
+      "portfolio_value": 25964.55
+    },
+    {
+      "date": "2021-10-01",
+      "eom_signal_date": "2021-09-30",
+      "active_symbols": [
+        "SPY",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 64.62,
+      "cost": 8.23,
+      "portfolio_value": 25472.68
+    },
+    {
+      "date": "2021-11-01",
+      "eom_signal_date": "2021-10-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 31.47,
+      "cost": 4.17,
+      "portfolio_value": 26480.07
+    },
+    {
+      "date": "2021-12-01",
+      "eom_signal_date": "2021-11-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 4.0,
+      "cost": 0.52,
+      "portfolio_value": 26122.82
+    },
+    {
+      "date": "2022-01-03",
+      "eom_signal_date": "2021-12-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2776,
+        "TLT": 0.2387,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.1837
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 50.16,
+      "cost": 6.67,
+      "portfolio_value": 26578.89
+    },
+    {
+      "date": "2022-02-01",
+      "eom_signal_date": "2022-01-31",
+      "active_symbols": [
+        "SPY",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 67.14,
+      "cost": 8.86,
+      "portfolio_value": 26373.14
+    },
+    {
+      "date": "2022-03-01",
+      "eom_signal_date": "2022-02-28",
+      "active_symbols": [
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 60.68,
+      "cost": 8.15,
+      "portfolio_value": 26860.62
+    },
+    {
+      "date": "2022-04-01",
+      "eom_signal_date": "2022-03-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 31.86,
+      "cost": 4.37,
+      "portfolio_value": 27430.27
+    },
+    {
+      "date": "2022-05-02",
+      "eom_signal_date": "2022-04-29",
+      "active_symbols": [
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.32,
+      "cost": 4.06,
+      "portfolio_value": 26775.42
+    },
+    {
+      "date": "2022-06-01",
+      "eom_signal_date": "2022-05-31",
+      "active_symbols": [
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 30.64,
+      "cost": 4.18,
+      "portfolio_value": 27255.66
+    },
+    {
+      "date": "2022-07-01",
+      "eom_signal_date": "2022-06-30",
+      "active_symbols": [
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 1.55,
+      "cost": 0.21,
+      "portfolio_value": 26707.19
+    },
+    {
+      "date": "2022-08-01",
+      "eom_signal_date": "2022-07-29",
+      "active_symbols": [
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 1.26,
+      "cost": 0.17,
+      "portfolio_value": 26276.77
+    },
+    {
+      "date": "2022-09-01",
+      "eom_signal_date": "2022-08-31",
+      "active_symbols": [
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 0.12,
+      "cost": 0.02,
+      "portfolio_value": 26279.05
+    },
+    {
+      "date": "2022-10-03",
+      "eom_signal_date": "2022-09-30",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 29.21,
+      "cost": 3.8,
+      "portfolio_value": 26025.59
+    },
+    {
+      "date": "2022-11-01",
+      "eom_signal_date": "2022-10-31",
+      "active_symbols": [],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 1.0,
+      "turnover_pct": 0.0,
+      "cost": 0.0,
+      "portfolio_value": 26069.8
+    },
+    {
+      "date": "2022-12-01",
+      "eom_signal_date": "2022-11-30",
+      "active_symbols": [
+        "SPY"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 30.0,
+      "cost": 3.92,
+      "portfolio_value": 26108.75
+    },
+    {
+      "date": "2023-01-03",
+      "eom_signal_date": "2022-12-30",
+      "active_symbols": [
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.7,
+      "turnover_pct": 58.78,
+      "cost": 7.56,
+      "portfolio_value": 25697.52
+    },
+    {
+      "date": "2023-02-01",
+      "eom_signal_date": "2023-01-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 60.98,
+      "cost": 7.96,
+      "portfolio_value": 26100.44
+    },
+    {
+      "date": "2023-03-01",
+      "eom_signal_date": "2023-02-28",
+      "active_symbols": [
+        "SPY",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 30.2,
+      "cost": 3.79,
+      "portfolio_value": 25079.44
+    },
+    {
+      "date": "2023-04-03",
+      "eom_signal_date": "2023-03-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2521,
+        "TLT": 0.2229,
+        "GLD": 0.2583,
+        "EEM": 0.2667,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 59.2,
+      "cost": 7.68,
+      "portfolio_value": 25941.98
+    },
+    {
+      "date": "2023-05-01",
+      "eom_signal_date": "2023-04-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2621,
+        "TLT": 0.2266,
+        "GLD": 0.2454,
+        "EEM": 0.2659,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 3.03,
+      "cost": 0.39,
+      "portfolio_value": 26026.41
+    },
+    {
+      "date": "2023-06-01",
+      "eom_signal_date": "2023-05-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2709,
+        "TLT": 0.2207,
+        "GLD": 0.2404,
+        "EEM": 0.268,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 1.63,
+      "cost": 0.21,
+      "portfolio_value": 25734.04
+    },
+    {
+      "date": "2023-07-03",
+      "eom_signal_date": "2023-06-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2814,
+        "TLT": 0.2135,
+        "GLD": 0.2758,
+        "EEM": 0.2293,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 9.48,
+      "cost": 1.25,
+      "portfolio_value": 26397.02
+    },
+    {
+      "date": "2023-08-01",
+      "eom_signal_date": "2023-07-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2947,
+        "EEM": 0.2035,
+        "DBC": 0.2018
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 46.97,
+      "cost": 6.28,
+      "portfolio_value": 26743.62
+    },
+    {
+      "date": "2023-09-01",
+      "eom_signal_date": "2023-08-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 29.31,
+      "cost": 3.88,
+      "portfolio_value": 26504.99
+    },
+    {
+      "date": "2023-10-02",
+      "eom_signal_date": "2023-09-29",
+      "active_symbols": [
+        "SPY",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 31.07,
+      "cost": 3.98,
+      "portfolio_value": 25642.51
+    },
+    {
+      "date": "2023-11-01",
+      "eom_signal_date": "2023-10-31",
+      "active_symbols": [
+        "GLD",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 59.74,
+      "cost": 7.6,
+      "portfolio_value": 25451.32
+    },
+    {
+      "date": "2023-12-01",
+      "eom_signal_date": "2023-11-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2692,
+        "TLT": 0.0,
+        "GLD": 0.2782,
+        "EEM": 0.2356,
+        "DBC": 0.217
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 60.85,
+      "cost": 7.74,
+      "portfolio_value": 25416.96
+    },
+    {
+      "date": "2024-01-02",
+      "eom_signal_date": "2023-12-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.1786,
+        "GLD": 0.2659,
+        "EEM": 0.2555,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 43.79,
+      "cost": 5.65,
+      "portfolio_value": 25815.42
+    },
+    {
+      "date": "2024-02-01",
+      "eom_signal_date": "2024-01-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.3,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 41.48,
+      "cost": 5.34,
+      "portfolio_value": 25728.93
+    },
+    {
+      "date": "2024-03-01",
+      "eom_signal_date": "2024-02-29",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 60.14,
+      "cost": 7.77,
+      "portfolio_value": 25843.77
+    },
+    {
+      "date": "2024-04-01",
+      "eom_signal_date": "2024-03-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2173,
+        "TLT": 0.171,
+        "GLD": 0.2211,
+        "EEM": 0.1778,
+        "DBC": 0.2128
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 67.2,
+      "cost": 9.08,
+      "portfolio_value": 27028.46
+    },
+    {
+      "date": "2024-05-01",
+      "eom_signal_date": "2024-04-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2568,
+        "TLT": 0.0,
+        "GLD": 0.2154,
+        "EEM": 0.2278,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 35.59,
+      "cost": 4.75,
+      "portfolio_value": 26694.14
+    },
+    {
+      "date": "2024-06-03",
+      "eom_signal_date": "2024-05-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2797,
+        "TLT": 0.0,
+        "GLD": 0.199,
+        "EEM": 0.2497,
+        "DBC": 0.2716
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 7.13,
+      "cost": 0.98,
+      "portfolio_value": 27356.81
+    },
+    {
+      "date": "2024-07-01",
+      "eom_signal_date": "2024-06-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2491,
+        "TLT": 0.1844,
+        "GLD": 0.1494,
+        "EEM": 0.1981,
+        "DBC": 0.219
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 36.88,
+      "cost": 5.12,
+      "portfolio_value": 27767.14
+    },
+    {
+      "date": "2024-08-01",
+      "eom_signal_date": "2024-07-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2393,
+        "GLD": 0.1929,
+        "EEM": 0.2679,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 41.7,
+      "cost": 5.87,
+      "portfolio_value": 28133.74
+    },
+    {
+      "date": "2024-09-03",
+      "eom_signal_date": "2024-08-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2648,
+        "TLT": 0.2515,
+        "GLD": 0.2312,
+        "EEM": 0.2526,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 9.44,
+      "cost": 1.35,
+      "portfolio_value": 28563.8
+    },
+    {
+      "date": "2024-10-01",
+      "eom_signal_date": "2024-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2432,
+        "TLT": 0.2936,
+        "GLD": 0.264,
+        "EEM": 0.1992,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 15.47,
+      "cost": 2.31,
+      "portfolio_value": 29826.59
+    },
+    {
+      "date": "2024-11-01",
+      "eom_signal_date": "2024-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.2613,
+        "TLT": 0.3,
+        "GLD": 0.2593,
+        "EEM": 0.1795,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 7.15,
+      "cost": 1.05,
+      "portfolio_value": 29370.11
+    },
+    {
+      "date": "2024-12-02",
+      "eom_signal_date": "2024-11-29",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.2697,
+        "GLD": 0.2313,
+        "EEM": 0.199,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 10.18,
+      "cost": 1.5,
+      "portfolio_value": 29458.4
+    },
+    {
+      "date": "2025-01-02",
+      "eom_signal_date": "2024-12-31",
+      "active_symbols": [
+        "SPY",
+        "GLD"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.0,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 52.63,
+      "cost": 7.56,
+      "portfolio_value": 28731.46
+    },
+    {
+      "date": "2025-02-03",
+      "eom_signal_date": "2025-01-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2704,
+        "TLT": 0.0,
+        "GLD": 0.2195,
+        "EEM": 0.2397,
+        "DBC": 0.2703
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 62.79,
+      "cost": 9.21,
+      "portfolio_value": 29337.85
+    },
+    {
+      "date": "2025-03-03",
+      "eom_signal_date": "2025-02-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.1973,
+        "TLT": 0.206,
+        "GLD": 0.1973,
+        "EEM": 0.183,
+        "DBC": 0.2165
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 41.2,
+      "cost": 6.13,
+      "portfolio_value": 29758.82
+    },
+    {
+      "date": "2025-04-01",
+      "eom_signal_date": "2025-03-31",
+      "active_symbols": [
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 67.43,
+      "cost": 10.14,
+      "portfolio_value": 30072.87
+    },
+    {
+      "date": "2025-05-01",
+      "eom_signal_date": "2025-04-30",
+      "active_symbols": [
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.4,
+      "turnover_pct": 29.83,
+      "cost": 4.42,
+      "portfolio_value": 29616.44
+    },
+    {
+      "date": "2025-06-02",
+      "eom_signal_date": "2025-05-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.0
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 30.9,
+      "cost": 4.69,
+      "portfolio_value": 30339.71
+    },
+    {
+      "date": "2025-07-01",
+      "eom_signal_date": "2025-06-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2,
+        "TLT": 0.0,
+        "GLD": 0.2572,
+        "EEM": 0.2554,
+        "DBC": 0.2874
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 47.8,
+      "cost": 7.51,
+      "portfolio_value": 31412.54
+    },
+    {
+      "date": "2025-08-01",
+      "eom_signal_date": "2025-07-31",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.189,
+        "EEM": 0.299,
+        "DBC": 0.212
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 29.08,
+      "cost": 4.62,
+      "portfolio_value": 31767.65
+    },
+    {
+      "date": "2025-09-02",
+      "eom_signal_date": "2025-08-29",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2363,
+        "EEM": 0.2588,
+        "DBC": 0.2049
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 8.75,
+      "cost": 1.42,
+      "portfolio_value": 32364.46
+    },
+    {
+      "date": "2025-10-01",
+      "eom_signal_date": "2025-09-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2439,
+        "TLT": 0.2007,
+        "GLD": 0.1579,
+        "EEM": 0.2063,
+        "DBC": 0.1912
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 40.15,
+      "cost": 6.89,
+      "portfolio_value": 34307.16
+    },
+    {
+      "date": "2025-11-03",
+      "eom_signal_date": "2025-10-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2438,
+        "TLT": 0.2664,
+        "GLD": 0.1131,
+        "EEM": 0.17,
+        "DBC": 0.2067
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 17.14,
+      "cost": 3.02,
+      "portfolio_value": 35279.14
+    },
+    {
+      "date": "2025-12-01",
+      "eom_signal_date": "2025-11-28",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2159,
+        "TLT": 0.2941,
+        "GLD": 0.1129,
+        "EEM": 0.1696,
+        "DBC": 0.2075
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 6.64,
+      "cost": 1.17,
+      "portfolio_value": 35260.94
+    },
+    {
+      "date": "2026-01-02",
+      "eom_signal_date": "2025-12-31",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2115,
+        "TLT": 0.3,
+        "GLD": 0.1088,
+        "EEM": 0.1735,
+        "DBC": 0.2062
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 2.64,
+      "cost": 0.47,
+      "portfolio_value": 35634.34
+    },
+    {
+      "date": "2026-02-02",
+      "eom_signal_date": "2026-01-30",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2397,
+        "TLT": 0.3,
+        "GLD": 0.0909,
+        "EEM": 0.1895,
+        "DBC": 0.18
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 10.98,
+      "cost": 2.02,
+      "portfolio_value": 36696.17
+    },
+    {
+      "date": "2026-03-02",
+      "eom_signal_date": "2026-02-27",
+      "active_symbols": [
+        "SPY",
+        "TLT",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.2762,
+        "TLT": 0.3,
+        "GLD": 0.0803,
+        "EEM": 0.1906,
+        "DBC": 0.1529
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 10.79,
+      "cost": 2.06,
+      "portfolio_value": 38283.33
+    },
+    {
+      "date": "2026-04-01",
+      "eom_signal_date": "2026-03-31",
+      "active_symbols": [
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.0,
+        "TLT": 0.0,
+        "GLD": 0.3,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 103.87,
+      "cost": 19.4,
+      "portfolio_value": 37341.59
+    },
+    {
+      "date": "2026-05-01",
+      "eom_signal_date": "2026-04-30",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2047,
+        "EEM": 0.223,
+        "DBC": 0.2723
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 50.44,
+      "cost": 9.87,
+      "portfolio_value": 39128.65
+    },
+    {
+      "date": "2026-06-01",
+      "eom_signal_date": "2026-05-29",
+      "active_symbols": [
+        "SPY",
+        "GLD",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.2366,
+        "EEM": 0.2124,
+        "DBC": 0.2509
+      },
+      "cash_weight": 0.0,
+      "turnover_pct": 8.31,
+      "cost": 1.66,
+      "portfolio_value": 39930.09
+    },
+    {
+      "date": "2026-07-01",
+      "eom_signal_date": "2026-06-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 38.84,
+      "cost": 7.28,
+      "portfolio_value": 37484.4
+    },
+    {
+      "date": "2026-08-03",
+      "eom_signal_date": "2026-07-31",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 4.85,
+      "cost": 0.93,
+      "portfolio_value": 38196.01
+    },
+    {
+      "date": "2026-09-01",
+      "eom_signal_date": "2026-08-31",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 1.94,
+      "cost": 0.39,
+      "portfolio_value": 39857.88
+    },
+    {
+      "date": "2026-10-01",
+      "eom_signal_date": "2026-09-30",
+      "active_symbols": [
+        "SPY",
+        "EEM",
+        "DBC"
+      ],
+      "target_weights": {
+        "SPY": 0.3,
+        "TLT": 0.0,
+        "GLD": 0.0,
+        "EEM": 0.3,
+        "DBC": 0.3
+      },
+      "cash_weight": 0.1,
+      "turnover_pct": 0.97,
+      "cost": 0.2,
+      "portfolio_value": 40173.28
+    }
+  ]
+}
