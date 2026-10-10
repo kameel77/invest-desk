@@ -863,7 +863,7 @@ def run_us_reversion_gate_v2(
 
     reports_dir = config.DATA_DIR.parent / "reports" if hasattr(config, "DATA_DIR") else Path("reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
-    report_file = reports_dir / f"gate_v2_{time.strftime('%Y%m%d_%H%M%S')}_{target_profile}.json"
+    report_file = reports_dir / f"gate_v2_{time.strftime('%Y%m%d_%H%M%S')}_{target_profile}_{slots}slots.json"
     with open(report_file, "w") as f:
         json.dump(report, f, default=str, indent=2)
     print(f"Zapisano raport bramki v2: {report_file}\n")
