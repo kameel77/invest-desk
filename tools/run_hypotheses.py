@@ -631,6 +631,9 @@ def run_us_reversion_gate_v2(
         print(f"Filtr {regime_filter}: aktywny przez {regime_pct_active}% sesji | usunięto transakcji: {removed_trades_count} | expectancy usuniętych: {removed_trades_expectancy:+.3f}%")
 
     # 3. Ewaluacja profili kosztowych
+    profiles_to_test = [target_profile, "XTB_PLN", "CONSERVATIVE_US"]
+    seen = set()
+    test_profiles = [p for p in profiles_to_test if not (p in seen or seen.add(p))]
     profile_results = {}
     holdout_cutoff_ts = int(datetime.datetime(2021, 10, 1, tzinfo=datetime.timezone.utc).timestamp())
 

@@ -292,9 +292,9 @@ def test_missing_spy_bar_blocks_entry_and_records_regime_off(monkeypatch):
         regime_filter="spy200",
         spy_df=spy_df_missing,
     )
-    res = sim.run(all_trades=True)
+    res = sim.run()
     assert "error" not in res
-    assert len(res["all_closed_trades"]) == 0
+    assert len(res["closed_trades"]) == 0
     assert res["rejected_signals"]["regime_off"] == 1, "Expected exactly 1 rejection with reason 'regime_off'"
 
 
