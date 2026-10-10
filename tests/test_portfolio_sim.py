@@ -77,9 +77,9 @@ def test_portfolio_sim_reconciliation_with_reversion_simulate(monkeypatch, seed)
         max_slots=100,
         broker_profile="IBKR_TIERED_USD",
     )
-    res = sim.run(all_trades=True)
+    res = sim.run()
     assert "error" not in res
-    port_trades = res["all_closed_trades"]
+    port_trades = res["closed_trades"]
 
     assert len(port_trades) == len(single_trades), (
         f"Trade count mismatch for seed {seed}: port={len(port_trades)} vs single={len(single_trades)}"
@@ -125,7 +125,7 @@ def test_portfolio_sim_reconciliation_two_calendars(monkeypatch, seed):
         max_slots=100,
         broker_profile="IBKR_TIERED_USD",
     )
-    res = sim.run(all_trades=True)
+    res = sim.run()
     assert "error" not in res
 
     for sym, df in frames.items():

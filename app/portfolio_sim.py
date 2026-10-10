@@ -111,7 +111,6 @@ class PortfolioSimulator:
         self,
         start_ts: Optional[int] = None,
         end_ts: Optional[int] = None,
-        all_trades: bool = False,
     ) -> dict[str, Any]:
         """Execute the bar-by-bar simulation over the requested timestamp range."""
         timestamps, frames = self._prepare_data()
@@ -381,14 +380,13 @@ class PortfolioSimulator:
             })
 
         # Calculate performance statistics
-        return self._compute_performance(daily_snapshots, closed_trades, rejected_signals, all_trades=all_trades)
+        return self._compute_performance(daily_snapshots, closed_trades, rejected_signals)
 
     def _compute_performance(
         self,
         snapshots: list[dict[str, Any]],
         trades: list[SimulatedTrade],
         rejected: list[dict[str, Any]],
-        all_trades: bool = False,
     ) -> dict[str, Any]:
         """Compute comprehensive portfolio metrics from daily curve and trades."""
         if not snapshots:
@@ -509,8 +507,7 @@ class PortfolioSimulator:
                 "size_below_min": rejected_by_reason.get("size_below_min", 0),
                 "no_open_price": rejected_by_reason.get("no_open_price", 0),
             },
-            "closed_trades": formatted_trades if all_trades else formatted_trades[:100],
-            "all_closed_trades": formatted_trades,
+            "closed_trades": formatted_trades,
             "curve": [
                 {"ts": s["ts"], "equity": s["equity"], "cash": s["cash"], "pos_count": s["open_positions_count"]}
                 for s in snapshots
