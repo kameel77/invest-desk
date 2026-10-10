@@ -30,6 +30,7 @@ from app import config, costs, db, hypotheses as H, market, reversion, signals
 from app.portfolio_sim import PortfolioSimulator
 
 DAY = 86400
+GATE_V2_DEFAULT_PROFILE = "XTB_USD"  # --gate-v2 targets the XTB account; v1 keeps config.DEFAULT_BROKER_PROFILE_US
 
 
 def _now_ts() -> int:
@@ -479,7 +480,7 @@ def _run_reconciliation_test() -> bool:
 
 def run_us_reversion_gate_v2(
     symbols: list[str],
-    target_profile: str = "XTB_USD",
+    target_profile: str = GATE_V2_DEFAULT_PROFILE,
     capital: float = 1350.0,
     slots: int = 8,
     n_bootstrap: int = 2000,
@@ -883,8 +884,9 @@ def main() -> None:
     parser.add_argument("--fixed-sweep", action="store_true", help="Uruchom badanie wrażliwości (Etap B) na sąsiadach bazy")
     parser.add_argument("--gate", action="store_true", help="Uruchom bramkę walidacyjną Fazy 0 dla US Reversion")
     parser.add_argument("--gate-v2", action="store_true", help="Uruchom bramkę walidacyjną v2 dla US Reversion na 15+ latach")
-    parser.add_argument("--profile", default=config.DEFAULT_BROKER_PROFILE_US,
-                        help=f"Docelowy profil brokera dla bramki (domyślnie: {config.DEFAULT_BROKER_PROFILE_US})")
+    parser.add_argument("--profile", default=None,
+                        help=f"Docelowy profil brokera dla bramki (domyślnie: --gate -> {config.DEFAULT_BROKER_PROFILE_US}, "
+                             f"--gate-v2 -> {GATE_V2_DEFAULT_PROFILE})")
     parser.add_argument("--capital", type=float, default=None, help="Kapitał początkowy portfela/bramki (USD)")
     parser.add_argument("--slots", type=int, default=None, help="Liczba slotów w portfelu")
     args = parser.parse_args()
@@ -901,7 +903,7 @@ def main() -> None:
         asyncio.run(market.refresh_candles(symbols, rng=args.range))
 
     if args.gate_v2:
-        gate_v2_kwargs: dict[str, Any] = {"target_profile": args.profile}
+        gate_v2_kwargs: dict[str, Any] = {"target_profile": args.profile or GATE_V2_DEFAULT_PROFILE}
         if args.capital is not None:
             gate_v2_kwargs["capital"] = args.capital
         if args.slots is not None:
@@ -921,7 +923,7 @@ def main() -> None:
         gate_kwargs: dict[str, Any] = {
             "folds": args.folds,
             "test_months": args.test_months,
-            "target_profile": args.profile,
+            "target_profile": args.profile or config.DEFAULT_BROKER_PROFILE_US,
         }
         if args.capital is not None:
             gate_kwargs["capital"] = args.capital
