@@ -78,14 +78,12 @@ def check_bar_exit(
     target_px: float,
     bars_held: int,
     max_hold: int,
-    exit_on_open_z: bool = False,
-    next_open: float | None = None,
 ) -> tuple[float | None, str | None]:
     """Check exits for a single bar in strict priority order.
 
     Priority 1 (Stop-loss): if low_k <= stop_px -> exit at min(stop_px, open_k)
     Priority 2 (Take-profit): if high_k >= target_px -> exit at max(target_px, open_k)
-    Priority 3 (Mean reversion): if zk >= 0 -> exit at close_k (or next_open if exit_on_open_z)
+    Priority 3 (Mean reversion): if zk >= 0 -> exit at close_k
     Priority 4 (Time stop): if bars_held >= max_hold -> exit at close_k
     """
     if low_k <= stop_px:
@@ -93,8 +91,6 @@ def check_bar_exit(
     if high_k >= target_px:
         return max(target_px, open_k), "take-profit"
     if not pd.isna(zk) and zk >= 0:
-        if exit_on_open_z and next_open is not None and not pd.isna(next_open):
-            return float(next_open), "mean-reversion-open"
         return close_k, "mean-reversion"
     if bars_held >= max_hold:
         return close_k, "time-stop"
