@@ -192,7 +192,7 @@ python3 tools/run_portfolio_sim.py --slots 8 --profile IBKR_TIERED_USD
 
 ### Bramka v2
 
-Po audycie Fazy 0 i 1 przeprowadzono pełną walidację długoterminową (19 fałdów rocznych, 2008–2026) na uniwersum 22 symboli US (16 akcji + 6 ETF-ów) pod kątem odporności strategii na różne reżimy rynkowe, kryzysy (2008, 2020, 2022) oraz model kosztowy brokera detalicznego **XTB_USD** (0% prowizji, 0,05% poślizgu, brak narzutu FX, akcje ułamkowe, kapitał startowy \$1 350, 8 slotów). Dane: czysta baza 20-letnia (każdy z symboli bez odrzuconych barów, SPY: 5 031 barów, 2006-10-09 do 2026-10-08):
+Po audycie Fazy 0 i 1 przeprowadzono pełną walidację długoterminową (19 fałdów rocznych, 2008–2026) na uniwersum 22 symboli US (15 akcji + 7 ETF-ów) pod kątem odporności strategii na różne reżimy rynkowe, kryzysy (2008, 2020, 2022) oraz model kosztowy brokera detalicznego **XTB_USD** (0% prowizji, 0,05% poślizgu, brak narzutu FX, akcje ułamkowe, kapitał startowy \$1 350, 8 slotów). Dane: czysta baza 20-letnia (każdy z symboli bez odrzuconych barów, SPY: 5 031 barów, 2006-10-09 do 2026-10-08):
 
 ```bash
 python3 tools/run_hypotheses.py --gate-v2          # domyślny profil: XTB_USD
