@@ -97,6 +97,55 @@ def test_portfolio_sim_reconciliation_with_reversion_simulate(monkeypatch, seed)
         )
 
 
+@pytest.mark.parametrize("seed", [7, 21, 314])
+def test_portfolio_sim_reconciliation_two_calendars(monkeypatch, seed):
+    """Reconciliation on two symbols with different calendars.
+
+    Symbol B starts 40 bars later than A and has ~5% of its days removed (gaps).
+    With infinite slots and cash, the portfolio must reproduce reversion.simulate()
+    1:1 on each symbol separately: a missing bar neither advances the hold counter
+    nor triggers an exit or any other state change.
+    """
+    df_a = _synthetic_student_t_frame("SYM_A", n_bars=1500, seed=seed)
+    df_b = _synthetic_student_t_frame("SYM_B", n_bars=1460, seed=seed + 1000)
+    df_b["ts"] = df_b["ts"] + 40 * 86_400
+    rng = np.random.default_rng(seed)
+    gap_mask = rng.random(len(df_b)) < 0.05
+    gap_mask[:25] = False  # keep the warmup intact
+    df_b = df_b[~gap_mask].reset_index(drop=True)
+    assert len(df_b) < 1460 - 20
+
+    frames = {"SYM_A": df_a, "SYM_B": df_b}
+    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: frames.get(sym))
+
+    target_notional = 1e7
+    sim = PortfolioSimulator(
+        symbols=["SYM_A", "SYM_B"],
+        initial_cash=1e9,
+        max_slots=100,
+        broker_profile="IBKR_TIERED_USD",
+    )
+    res = sim.run(all_trades=True)
+    assert "error" not in res
+
+    for sym, df in frames.items():
+        single = reversion.simulate(
+            df, as_trades=True, broker_profile="IBKR_TIERED_USD", notional=target_notional,
+        )
+        # simulate() force-closes a position still open on the last bar ("eod"); the
+        # portfolio keeps it open (marked to market), so that trailing trade is not comparable.
+        single = [t for t in single if t.reason != "eod"]
+        port = [t for t in res["closed_trades"] if t["symbol"] == sym]
+        assert len(single) >= 10, f"{sym}: too few trades ({len(single)})"
+        assert len(port) == len(single), f"{sym}: port={len(port)} vs single={len(single)}"
+        for i, (ts_, tp) in enumerate(zip(single, port)):
+            assert tp["entry_ts"] == ts_.entry_ts, f"{sym} trade {i} entry_ts"
+            assert tp["exit_ts"] == ts_.exit_ts, f"{sym} trade {i} exit_ts"
+            assert tp["reason"] == ts_.reason, f"{sym} trade {i} reason"
+            assert pytest.approx(tp["exit_px"], abs=1e-4) == ts_.exit_px, f"{sym} trade {i} exit_px"
+            assert abs(tp["net_ret"] - ts_.ret_pct) < 1e-3, f"{sym} trade {i} net_ret"
+
+
 def test_deterministic_priority_and_slot_limit(monkeypatch):
     """When more signals occur than available slots, lowest z-score wins,
 

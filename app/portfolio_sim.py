@@ -131,6 +131,8 @@ class PortfolioSimulator:
         data_by_sym_ts: dict[str, dict[int, dict[str, Any]]] = {}
         for sym, df in frames.items():
             records = df.to_dict("records")
+            for bar_idx, r in enumerate(records):
+                r["_bar_idx"] = bar_idx
             data_by_sym_ts[sym] = {int(r["ts"]): r for r in records}
 
         cash = self.initial_cash
@@ -146,10 +148,17 @@ class PortfolioSimulator:
             # -------------------------------------------------------------
             # Step 1: Morning Execution of Queued Orders on Open(t)
             # -------------------------------------------------------------
+            deferred_buys: list[dict[str, Any]] = []
             for q in queued_buys:
                 sym = q["symbol"]
                 bar_t = data_by_sym_ts.get(sym, {}).get(t_ts)
-                if bar_t is None or pd.isna(bar_t.get("open")) or float(bar_t["open"]) <= 0:
+                if bar_t is None:
+                    # Symbol has no bar on this day (calendar gap): the order waits
+                    # for the symbol's next bar, like reversion.simulate() entering
+                    # at the next available open.
+                    deferred_buys.append(q)
+                    continue
+                if pd.isna(bar_t.get("open")) or float(bar_t["open"]) <= 0:
                     rejected_signals.append({
                         "ts": t_ts, "symbol": sym, "reason": "no_open_price"
                     })
@@ -216,7 +225,7 @@ class PortfolioSimulator:
                     bars_held=0,
                 )
 
-            queued_buys.clear()
+            queued_buys = deferred_buys
 
             # -------------------------------------------------------------
             # Step 2: Intraday Bar Evaluation for Open Positions
@@ -226,8 +235,8 @@ class PortfolioSimulator:
             for sym, slot in list(open_slots.items()):
                 bar_t = data_by_sym_ts.get(sym, {}).get(t_ts)
                 if bar_t is None:
-                    # Missing bar on this day: position continues, hold count increases
-                    slot.bars_held += 1
+                    # Missing bar on this day: no exit and no state change;
+                    # bars_held counts only bars the symbol actually has.
                     continue
 
                 last_known_close[sym] = float(bar_t["close"])
@@ -309,6 +318,9 @@ class PortfolioSimulator:
                     continue
                 bar_t = data_by_sym_ts.get(sym, {}).get(t_ts)
                 if bar_t is None:
+                    continue
+                # Same warmup as reversion.simulate(): first signal bar is index `lookback`
+                if bar_t["_bar_idx"] < self.lookback:
                     continue
 
                 z_val = bar_t.get("rv_z")
