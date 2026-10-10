@@ -188,24 +188,31 @@ python3 tools/run_portfolio_sim.py --slots 8 --profile IBKR_TIERED_USD
 2. **Konto w PLN z narzutem FX przynosi stratę portfela -20,73%**: 500 transakcji obciążonych 1% FX round-trip
    niszczy krzywą kapitału. Rachunek musi być prowadzony w USD.
 
+*Uwaga: tabele Fazy 0 i Fazy 1 powyżej to wyniki historyczne z 2026-10-09 (baza 5-letnia), sprzed poprawek silnika portfelowego (liczenie dni trzymania po barach symbolu, odroczone wejścia, warmup sygnału) i nie zostały przeliczone. Aktualne liczby portfela są w sekcji Bramka v2.*
+
 ### Bramka v2
 
-Po audycie Fazy 0 i 1 przeprowadzono pełną walidację długoterminową (19 fałdów rocznych, 2008–2026; rok kwalifikuje się, gdy większość, tj. ≥50% symboli US, posiada ≥60 barów historii przed 1 stycznia danego roku) na uniwersum 22 symboli US (16 akcji + 6 ETF-ów) pod kątem odporności strategii na różne reżimy rynkowe, kryzysy (2008, 2020, 2022) oraz model kosztowy brokera detalicznego **XTB_USD** (0% prowizji, 0,05% poślizgu, brak narzutu FX, akcje ułamkowe, kapitał startowy \$1 350, 8 slotów):
+Po audycie Fazy 0 i 1 przeprowadzono pełną walidację długoterminową (19 fałdów rocznych, 2008–2026) na uniwersum 22 symboli US (16 akcji + 6 ETF-ów) pod kątem odporności strategii na różne reżimy rynkowe, kryzysy (2008, 2020, 2022) oraz model kosztowy brokera detalicznego **XTB_USD** (0% prowizji, 0,05% poślizgu, brak narzutu FX, akcje ułamkowe, kapitał startowy \$1 350, 8 slotów). Dane: czysta baza 20-letnia (każdy z symboli bez odrzuconych barów, SPY: 5 031 barów, 2006-10-09 do 2026-10-08):
 
 ```bash
-python3 tools/run_hypotheses.py --gate-v2 --profile XTB_USD
+python3 tools/run_hypotheses.py --gate-v2          # domyślny profil: XTB_USD
+python3 tools/run_portfolio_sim.py --slots 8 --profile XTB_USD
 ```
+
+Raporty: `reports/gate_v2_20261010_102637_XTB_USD_8slots.json` i `reports/portfolio_us_sim_20261010_102643_XTB_USD_8slots.json`.
+
+**Survivorship bias.** Uniwersum to dzisiejsza watchlista 22 instrumentów (m.in. NVDA, TSLA, META, AVGO, LLY), czyli spółki, które przetrwały i urosły; spółki wycofane z obrotu lub te, które nie dotrwały do dziś, w próbie nie występują. Wynik na akcjach jest przez to zawyżony. ETF-y (SPY, QQQ, IWM, EEM, EFA, EWZ, VGK) nie mają tego problemu w takim stopniu i są bardziej wiarygodną częścią próby.
 
 #### 1. Podsumowanie 6 Kryteriów Bramki v2
 
 | # | Kryterium Bramki v2 | Wartość zmierzona | Wymóg | Werdykt |
 |---|---|---|---|---|
-| **1** | **Pełny okres (2008–2026): 90% CI dolna (block bootstrap)** | **+0,092%** | > +0,10% | **FAILED** |
-| **2** | **Holdout (< 2021-10-01): Expectancy / 90% CI dolna** | **+0,335% / -0,127%** | exp > 0, CI_min > -0,25% | **PASSED** |
+| **1** | **Pełny okres (2008–2026): 90% CI dolna (block bootstrap)** | **+0,046%** | > +0,10% | **FAILED** |
+| **2** | **Holdout (< 2021-10-01): Expectancy / 90% CI dolna** | **+0,277% / -0,192%** | exp > 0, CI_min > -0,25% | **PASSED** |
 | **3** | **Zyskowne fałdy roczne (N ≥ 25 transakcji)** | **14 / 19 (73,7%)** | ≥ 60,0% | **PASSED** |
-| **4** | **Stress test kosztowy (`CONSERVATIVE_US`)** | **-1,793%** | ≥ 0,00% | **FAILED** |
-| **5** | **Symulacja portfela: najgorszy pełny rok kalendarzowy** | **-33,92% (rok 2008)** | ≥ -15,0% | **FAILED** |
-| **6** | **Test uzgodnienia silnika (`simulate()` ↔ `PortfolioSim`)** | **Zgodność 1:1 (błąd < 1e-3 pp na 3 seedach w pytest)** | Zielony test jednostkowy | **PASSED** |
+| **4** | **Stress test kosztowy (`CONSERVATIVE_US`)** | **-1,823%** | ≥ 0,00% | **FAILED** |
+| **5** | **Symulacja portfela: najgorszy pełny rok kalendarzowy** | **-35,60% (rok 2008)** | ≥ -15,0% | **FAILED** |
+| **6** | **Test uzgodnienia silnika (`simulate()` ↔ `PortfolioSim`)** | **Zgodność 1:1 (błąd < 1e-3 pp; pytest: 3 seedy na jednym symbolu + 3 seedy na dwóch symbolach z różnymi kalendarzami)** | Zielony test jednostkowy | **PASSED** |
 | **—** | **WERDYKT KOŃCOWY BRAMKI v2** | **3 z 6 kryteriów spełnione** | Wszystkie 6 | **NO-GO** |
 
 ---
@@ -213,42 +220,45 @@ python3 tools/run_hypotheses.py --gate-v2 --profile XTB_USD
 #### 2. Tabela Rocznych Wyników (2008–2026)
 
 Poniższa tabela przedstawia szczegółowe rozbicie wyników z podziałem na ETF-y i pojedyncze akcje oraz porównanie zachowania
-całego portfela 8-slotowego (\$1 350 kapitału startowego, akcje ułamkowe) z rynkowym benchmarkiem **SPY Buy & Hold**:
+całego portfela 8-slotowego (\$1 350 kapitału startowego, akcje ułamkowe) z rynkowym benchmarkiem **SPY Buy & Hold**.
+Reguła roku startowego: fałdy roczne obejmują każdy rok od pierwszego, w którym co najmniej jeden symbol ma ≥ 60 barów przed 1 stycznia, a transakcje danego symbolu liczą się dopiero od roku, w którym ten symbol sam spełnia ten warunek.
 
 | Rok | N transakcji | Win Rate | Expectancy (XTB_USD) | ETF-y (N / Exp.) | Akcje (N / Exp.) | Portfel PnL (\$) | Portfel Zwrot % | SPY B&H % |
 |---|---|---|---|---|---|---|---|---|
-| **2008** | 152 | 32,2% | -2,279% | 64 / -2,294% | 88 / -2,268% | -\$457,25 | **-33,92%** | **-34,31%** |
-| **2009** | 78 | 67,9% | +2,174% | 27 / +1,069% | 51 / +2,759% | +\$214,08 | +24,03% | +34,54% |
-| **2010** | 89 | 43,8% | -0,637% | 31 / -2,513% | 58 / +0,365% | +\$28,30 | +2,56% | +17,10% |
-| **2011** | 132 | 59,1% | +1,034% | 49 / +0,379% | 83 / +1,420% | +\$127,14 | +11,22% | -2,47% |
-| **2012** | 103 | 49,5% | -0,480% | 36 / +0,068% | 67 / -0,774% | -\$85,44 | -6,78% | +8,45% |
-| **2013** | 96 | 68,8% | +1,014% | 40 / +0,681% | 56 / +1,252% | +\$128,43 | +10,93% | +23,37% |
-| **2014** | 134 | 56,7% | +0,781% | 56 / +0,240% | 78 / +1,170% | +\$113,97 | +8,74% | +15,36% |
-| **2015** | 135 | 65,2% | +1,169% | 63 / +0,460% | 72 / +1,788% | +\$94,64 | +6,68% | +2,22% |
-| **2016** | 130 | 56,2% | +0,359% | 42 / +1,251% | 88 / -0,066% | +\$54,18 | +3,58% | +15,39% |
-| **2017** | 74 | 78,4% | +1,002% | 28 / +1,102% | 46 / +0,941% | +\$147,53 | +9,42% | +17,29% |
-| **2018** | 147 | 56,5% | +1,160% | 57 / +0,002% | 90 / +1,893% | +\$99,19 | +5,79% | -11,34% |
-| **2019** | 89 | 52,8% | +0,337% | 34 / +0,267% | 55 / +0,381% | -\$42,05 | -2,32% | +19,24% |
-| **2020** | 119 | 51,3% | -0,261% | 41 / -2,750% | 78 / +1,047% | -\$12,16 | -0,69% | +16,21% |
-| **2021** | 117 | 59,8% | +0,633% | 50 / +0,675% | 67 / +0,602% | +\$104,85 | +5,96% | +28,34% |
-| **2022** | 162 | 48,1% | -0,358% | 58 / +0,189% | 104 / -0,664% | -\$248,27 | **-13,32%** | **-15,00%** |
-| **2023** | 86 | 66,3% | +1,538% | 33 / +0,581% | 53 / +2,134% | +\$206,40 | +12,78% | +16,93% |
-| **2024** | 102 | 62,7% | +0,967% | 40 / +0,364% | 62 / +1,356% | +\$178,93 | +9,82% | +21,37% |
-| **2025** | 103 | 58,3% | +1,640% | 30 / +1,149% | 73 / +1,841% | +\$282,61 | +14,13% | +13,31% |
-| **2026** | 97 | 58,8% | +0,997% | 30 / +0,319% | 67 / +1,300% | +\$238,94 | +10,47% | +11,84% |
-| **Suma / Śr.** | **2 145** | **56,3%** (portfel: **55,3%**) | **+0,474%** | **809 / -0,003%** | **1 336 / +0,763%** | **+\$1 172,16** | **+86,83%** | **+288,24%** |
+| **2008** | 149 | 30,2% | -2,344% | 65 / -2,668% | 84 / -2,093% | -\$492,21 | **-35,60%** | **-37,74%** |
+| **2009** | 74 | 64,9% | +1,819% | 25 / +0,010% | 49 / +2,742% | +\$164,89 | +18,52% | +19,88% |
+| **2010** | 87 | 40,2% | -1,013% | 31 / -2,786% | 56 / -0,031% | +\$11,08 | +1,05% | +10,96% |
+| **2011** | 132 | 59,1% | +0,951% | 49 / +0,157% | 83 / +1,420% | +\$131,44 | +12,33% | -1,22% |
+| **2012** | 99 | 48,5% | -0,364% | 36 / -0,155% | 63 / -0,483% | -\$87,29 | -7,29% | +11,69% |
+| **2013** | 97 | 68,0% | +0,999% | 41 / +0,655% | 56 / +1,252% | +\$135,79 | +12,23% | +26,45% |
+| **2014** | 133 | 56,4% | +0,771% | 55 / +0,206% | 78 / +1,170% | +\$135,55 | +10,88% | +12,37% |
+| **2015** | 133 | 65,4% | +1,088% | 61 / +0,262% | 72 / +1,788% | +\$197,98 | +14,33% | -0,76% |
+| **2016** | 130 | 56,2% | +0,378% | 42 / +1,308% | 88 / -0,066% | +\$41,56 | +2,63% | +11,20% |
+| **2017** | 74 | 78,4% | +0,964% | 28 / +1,003% | 46 / +0,941% | +\$137,54 | +8,48% | +18,48% |
+| **2018** | 148 | 57,4% | +1,147% | 58 / -0,010% | 90 / +1,893% | +\$106,22 | +6,04% | -7,01% |
+| **2019** | 90 | 53,3% | +0,354% | 35 / +0,313% | 55 / +0,381% | +\$10,81 | +0,58% | +28,65% |
+| **2020** | 119 | 50,4% | -0,330% | 41 / -2,949% | 78 / +1,047% | -\$21,88 | -1,17% | +15,09% |
+| **2021** | 115 | 59,1% | +0,567% | 48 / +0,518% | 67 / +0,602% | +\$118,69 | +6,40% | +28,79% |
+| **2022** | 162 | 48,1% | -0,304% | 58 / +0,342% | 104 / -0,664% | -\$249,66 | **-12,66%** | **-19,95%** |
+| **2023** | 85 | 67,1% | +1,570% | 32 / +0,637% | 53 / +2,134% | +\$207,11 | +12,02% | +24,81% |
+| **2024** | 100 | 63,0% | +0,908% | 38 / +0,176% | 62 / +1,356% | +\$236,51 | +12,25% | +24,00% |
+| **2025** | 105 | 59,0% | +1,662% | 32 / +1,252% | 73 / +1,841% | +\$301,08 | +13,90% | +16,64% |
+| **2026** | 97 | 57,7% | +0,940% | 30 / +0,136% | 67 / +1,300% | +\$187,42 | +7,59% | +13,29% |
+| **Suma / Śr.** | **2 129** | **55,9%** (portfel: **55,5%**) | **+0,432%** | **805 / -0,143%** | **1 324 / +0,782%** | **+\$1 272,63** | **+92,05%** | **+392,78%** |
 
-*Uwaga: Statystyki per transakcja pochodzą z `simulate()`, natomiast PnL (\$) i Portfel % z pełnej symulacji portfela `PortfolioSim`.*
+*Uwaga: Statystyki per transakcja (N, Win Rate, Expectancy) pochodzą z `simulate()`, natomiast PnL (\$) i Portfel % z pełnej symulacji portfela `PortfolioSim`. Wiersz sumaryczny: PnL i zwroty portfela liczone od początku 2008 (kapitał \$1 382,51) do \$2 655,14; SPY B&H to złożenie rocznych zwrotów z tabeli (rok 2026 niepełny, do 2026-10-08). Win Rate w sumie to średnia ważona liczbą transakcji.*
+
+*Portfel w całym okresie 2006-10-09 – 2026-10-08: +96,68% (SPY B&H +472,90%), CAGR +3,45% (SPY +9,14%), Max Drawdown -43,83% (SPY -56,47%), 1 882 transakcje, Win Rate 55,5%, Profit Factor 1,17.*
 
 ---
 
 #### 3. Podział: ETF vs Pojedyncze Akcje
 
 1. **Przewaga akcji nad ETF-ami w fazach normalnych:**
-   - Na przestrzeni 19 lat pojedyncze akcje osiągnęły średnie expectancy **+0,763%** wobec **-0,003%** dla ETF-ów.
-   - Akcje wykazują znacznie większą dynamikę odbić po skrajnych wyprzedaniach (z-score ≤ -2.0).
+   - Na przestrzeni 19 lat pojedyncze akcje osiągnęły średnie expectancy **+0,782%** wobec **-0,143%** dla ETF-ów.
+   - Akcje wykazują znacznie większą dynamikę odbić po skrajnych wyprzedaniach (z-score ≤ -2.0). Wynik na akcjach jest jednak zawyżony przez survivorship bias (patrz wyżej), więc to ETF-y są tu wiarygodniejszym punktem odniesienia.
 2. **Zachowanie ETF-ów w czasie załamań rynkowych (2008, 2010, 2020):**
-   - Podczas krachów rynkowych ETF-y zaliczały dotkliwe serie strat (np. 2008: expectancy **-2,294%**, 2010: **-2,513%**, 2020: **-2,750%**).
+   - Podczas krachów rynkowych ETF-y zaliczały dotkliwe serie strat (np. 2008: expectancy **-2,668%**, 2010: **-2,786%**, 2020: **-2,949%**).
    - Mechanizm rewersji na ETF-ach w silnym trendzie spadkowym prowadzi do łapania "spadających noży" — ETF-y indeksowe nie odbijają natychmiastowo, lecz osuwają się przez wiele sesji z rzędu, wybijając kolejne stop-lossy.
 
 ---
@@ -257,13 +267,13 @@ całego portfela 8-slotowego (\$1 350 kapitału startowego, akcje ułamkowe) z r
 
 Strategia uzyskała werdykt **NO-GO** z trzech kluczowych powodów:
 
-1. **Brak ochrony przed głęboką bessą (Kryterium 5: strata -33,92% w 2008 r.):**
-   - Dopuszczalny próg rocznego drawdownu portfela wynosił -15,0%. W 2008 roku portfel stracił aż -33,92%, a w 2022 roku -13,32%.
-   - Łączny Max Drawdown w ujęciu długoterminowym wyniósł **-42,53%**.
+1. **Brak ochrony przed głęboką bessą (Kryterium 5: strata -35,60% w 2008 r.):**
+   - Dopuszczalny próg rocznego drawdownu portfela wynosił -15,0%. W 2008 roku portfel stracił aż -35,60%, a w 2022 roku -12,66%.
+   - Łączny Max Drawdown w ujęciu długoterminowym wyniósł **-43,83%**.
    - **Przyczyna:** Strategia nie posiada obecnie aktywnego filtru reżimu rynkowego (np. 200-dniowa średnia na indeksie SPY lub filtr zmienności VIX), przez co otwiera pozycje długie nawet w trakcie globalnych załamań płynnościowych.
-2. **Niewystarczający margines statystyczny na pełnej próbie (Kryterium 1: CI dolna +0,092% vs próg +0,10%):**
-   - Chociaż wartość oczekiwana netto wynosi +0,474%, miesięczny block bootstrap (uwzględniający autokorelację) wykazuje, że dolny 90% przedział ufności schodzi do +0,092%, co nie daje wystarczającego bufora bezpieczeństwa.
-3. **Ekstremalna wrażliwość na koszty (Kryterium 4: stress test CONSERVATIVE_US = -1,793%):**
+2. **Niewystarczający margines statystyczny na pełnej próbie (Kryterium 1: CI dolna +0,046% vs próg +0,10%):**
+   - Chociaż wartość oczekiwana netto wynosi +0,432%, miesięczny block bootstrap (uwzględniający autokorelację) wykazuje, że dolny 90% przedział ufności schodzi do +0,046%, co nie daje wystarczającego bufora bezpieczeństwa.
+3. **Ekstremalna wrażliwość na koszty (Kryterium 4: stress test CONSERVATIVE_US = -1,823%):**
    - Strategia generuje edge wyłącznie przy zerowych prowizjach (`XTB_USD`).
    - Wprowadzenie realnych opłat giełdowych lub minimalnych biletów brokerskich (np. IBKR Tiered \$0,35 / \$1,00 na pozycję przy kapitale \$168/slot) zamienia wynik w wyraźną stratę.
 
