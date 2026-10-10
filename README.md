@@ -316,7 +316,9 @@ python3 tools/run_hypotheses.py --gate-v2 --profile XTB_USD --regime-filter spy2
 #### 2. Wpływ Filtra na Statystyki i Ryzyko Portfela
 
 - **Aktywność reżimu rynkowego:** Filtr był włączony (`SPY > SMA200`) przez **76,7%** sesji w latach 2008–2026.
-- **Usunięte transakcje:** Filtr wyeliminował **772** transakcje o średnim expectancy +0,376% (odcięcie wejść pod prąd załamań rynkowych).
+- **Usunięte transakcje:** Filtr wyeliminował **772** transakcje o średnim expectancy **+0,376%**. 
+  - **Ważny wniosek:** usunięte transakcje miały *dodatnie* expectancy netto w normalnych warunkach, co oznacza, że filtr odcina część potencjalnych zysków. 
+  - **Kluczowa korzyść:** eliminacja ta odbywa się kosztem odcięcia katastrofalnych wejść w okresach załamań rynkowych (np. w 2008 roku usunięto 152 transakcje o skrajnie ujemnym expectancy -2,28%), co radykalnie poprawiło profil ryzyka portfela.
 - **Kluczowe metryki portfela (\$1 350, 8 slotów, `XTB_USD`, akcje ułamkowe):**
   - **Max Drawdown (MDD):** redukcja z **-42,53%** do zaledwie **-15,92%** (wobec rynkowego SPY MDD -56,47%).
   - **Win Rate:** wzrost z **55,3%** do **57,4%**.
@@ -325,13 +327,29 @@ python3 tools/run_hypotheses.py --gate-v2 --profile XTB_USD --regime-filter spy2
 
 ---
 
-#### 3. Zachowanie Portfela w Kluczowych Kryzysach Rynkowych
+#### 3. Roczne Wyniki Portfela Rok po Roku (2008–2026: Bez Filtra vs Z Filtrem SPY > SMA200 vs SPY B&H)
 
-| Rok kryzysowy | Zwrot SPY B&H | Portfel Bez Filtra | Portfel Z Filtrem `spy200` | Komentarz rynkowy |
+| Rok | Portfel Bez Filtra | Portfel Z Filtrem `spy200` | SPY B&H | Wpływ filtra / Komentarz |
 |---|---|---|---|---|
-| **2008 (Wielki Kryzys Finansowy)** | **-34,31%** | **-33,92%** (152 trans.) | **0,00% (0 transakcji)** | **Perfekcyjna ochrona:** portfel pozostał w 100% w gotówce przez cały rok krachu. |
-| **2020 (Krach Covidowy)** | +16,21% | -0,69% (119 trans.) | **+4,89%** (69 trans.) | Odcięcie marcowej paniki pozwoliło wygenerować dodatni wynik roczny. |
-| **2022 (Bessa inflacyjna)** | **-15,00%** | **-13,32%** (162 trans.) | **-7,58%** (21 trans.) | Redukcja ekspozycji o 87%, spadek rocznej straty o niemal połowę. |
+| **2008** | **-33,92%** (152 trans.) | **0,00% (0 trans.)** | **-34,31%** | **Perfekcyjna ochrona:** portfel w 100% w gotówce przez cały rok krachu. |
+| **2009** | +24,03% | +16,47% | +34,54% | Późniejsze wznowienie wejść po powrocie SPY nad SMA200. |
+| **2010** | +2,56% | -9,27% | +17,10% | Krótkotrwałe wyjścia/wejścia wokół SMA200 (Flash Crash). |
+| **2011** | +11,22% | +5,34% | -2,47% | Ograniczenie ekspozycji w czasie obniżenia ratingu USA. |
+| **2012** | -6,78% | **-9,85%** | +8,45% | Najgorszy pełny rok portfela (zgodny z wymogiem ≤ -15%). |
+| **2013** | +10,93% | +10,93% | +23,37% | Pełna zgodność w silnym rynku byka. |
+| **2014** | +8,74% | +2,53% | +15,36% | Kilkukrotne naruszenia SMA200 odcięły część wejść. |
+| **2015** | +6,68% | +10,69% | +2,22% | Poprawa wyniku dzięki ominięciu korekty sierpniowej. |
+| **2016** | +3,58% | +6,51% | +15,39% | Odcięcie spadków z początku roku. |
+| **2017** | +9,42% | +9,42% | +17,29% | Pełna zgodność w stabilnym trendzie wzrostowym. |
+| **2018** | +5,79% | +3,87% | -11,34% | Ominięcie korekty z IV kwartału 2018 r. |
+| **2019** | -2,32% | -6,23% | +19,24% | Płaski rok po grudniowym dołku 2018. |
+| **2020** | -0,69% (119 trans.) | **+4,89%** (69 trans.) | +16,21% | **Ochrona przed krachem Covid:** odcięcie paniki z marca. |
+| **2021** | +5,96% | +5,96% | +28,34% | Identyczny wynik w stabilnym rynku byka. |
+| **2022** | **-13,32%** (162 trans.) | **-7,58%** (21 trans.) | **-15,00%** | **Redukcja straty niemal o połowę** w czasie bessy inflacyjnej. |
+| **2023** | +12,78% | +5,48% | +16,93% | Wejścia odblokowane po powrocie SPY nad SMA200. |
+| **2024** | +9,82% | +9,82% | +21,37% | Zgodność w stabilnym trendzie. |
+| **2025** | +14,13% | +7,36% | +13,31% | Spokojny wzrost z mniejszą liczbą transz. |
+| **2026** | +10,47% | +6,24% | +11,84% | Stabilny dodatni wynik w bieżącym okresie. |
 
 ---
 

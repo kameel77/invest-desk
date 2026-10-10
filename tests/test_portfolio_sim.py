@@ -217,6 +217,87 @@ def test_portfolio_sim_reconciliation_with_regime_filter(monkeypatch, seed):
         )
 
 
+def test_missing_spy_bar_blocks_entry_and_records_regime_off(monkeypatch):
+    """When a symbol generates a signal on a day where SPY has no candle (missing bar),
+
+    reversion.simulate() must NOT enter a trade, and PortfolioSimulator must
+    record the rejection with reason 'regime_off'.
+    """
+    from app import regime
+
+    # Generate synthetic symbol with 230 bars and an intentional single dip at bar 205
+    prices = [100.0] * 205 + [92.0] + [100.0] * 24
+    n_bars = len(prices)
+    timestamps = [1_000_000 + i * 86400 for i in range(n_bars)]
+    sym_df = pd.DataFrame({
+        "ts": timestamps,
+        "open": prices,
+        "high": [p * 1.01 for p in prices],
+        "low": [p * 0.99 for p in prices],
+        "close": prices,
+        "volume": [1_000_000] * n_bars,
+    })
+
+    # Full SPY in bull market (above SMA200 for all timestamps after warmup)
+    spy_prices = [100.0] * 200 + [120.0] * (n_bars - 200)
+    spy_df_full = pd.DataFrame({
+        "ts": timestamps,
+        "open": spy_prices,
+        "high": [p * 1.01 for p in spy_prices],
+        "low": [p * 0.99 for p in spy_prices],
+        "close": spy_prices,
+        "volume": [10_000_000] * n_bars,
+    })
+
+    # 1. Base case: full SPY allows the trade to enter
+    regime_ok_full = regime.spy_above_sma(spy_df_full, window=200)
+    trades_full = reversion.simulate(
+        sym_df,
+        as_trades=True,
+        broker_profile="IBKR_TIERED_USD",
+        notional=10000,
+        regime_ok=regime_ok_full,
+    )
+    assert len(trades_full) == 1, "Base scenario should have entered exactly 1 trade"
+    entry_ts = trades_full[0].entry_ts
+    sig_idx = timestamps.index(entry_ts) - 1
+    sig_ts = timestamps[sig_idx]
+
+    # 2. Missing SPY bar scenario: omit the signal timestamp from SPY frame
+    spy_df_missing = spy_df_full[spy_df_full["ts"] != sig_ts].reset_index(drop=True)
+    regime_ok_missing = regime.spy_above_sma(spy_df_missing, window=200)
+    assert sig_ts not in regime_ok_missing
+    assert regime_ok_missing.get(sig_ts, False) is False
+
+    # Verify simulate() does not enter the trade
+    trades_missing = reversion.simulate(
+        sym_df,
+        as_trades=True,
+        broker_profile="IBKR_TIERED_USD",
+        notional=10000,
+        regime_ok=regime_ok_missing,
+    )
+    assert len(trades_missing) == 0, "Trade must not enter when SPY bar is missing on signal date"
+
+    # Verify PortfolioSimulator rejects candidate and records reason as 'regime_off'
+    monkeypatch.setattr(
+        "app.backtest._cached_frame",
+        lambda s: sym_df if s == "SYNTH_MISSING" else (spy_df_missing if s == "SPY" else None)
+    )
+    sim = PortfolioSimulator(
+        symbols=["SYNTH_MISSING"],
+        initial_cash=100_000.0,
+        max_slots=10,
+        broker_profile="IBKR_TIERED_USD",
+        regime_filter="spy200",
+        spy_df=spy_df_missing,
+    )
+    res = sim.run(all_trades=True)
+    assert "error" not in res
+    assert len(res["all_closed_trades"]) == 0
+    assert res["rejected_signals"]["regime_off"] == 1, "Expected exactly 1 rejection with reason 'regime_off'"
+
+
 def test_deterministic_priority_and_slot_limit(monkeypatch):
     """When more signals occur than available slots, lowest z-score wins,
 
