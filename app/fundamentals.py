@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import math
 import time
 from typing import Any, Optional
 
@@ -106,7 +107,8 @@ def _num(v: Any) -> Optional[float]:
     if v is None or isinstance(v, bool):
         return None
     if isinstance(v, (int, float)):
-        return float(v)
+        f = float(v)
+        return None if (math.isnan(f) or math.isinf(f)) else f
     if isinstance(v, dict):
         return _num(v.get("raw"))
     if isinstance(v, str):
@@ -116,7 +118,8 @@ def _num(v: Any) -> Optional[float]:
             mult = {"T": 1e12, "B": 1e9, "M": 1e6, "K": 1e3}[s[-1]]
             s = s[:-1]
         try:
-            return float(s) * mult
+            f = float(s) * mult
+            return None if (math.isnan(f) or math.isinf(f)) else f
         except ValueError:
             return None
     return None
@@ -273,10 +276,21 @@ async def fetch_fundamentals(symbol: str, force: bool = False) -> dict[str, Any]
     # Derived: distance to the 52-week high, and % under/over the mean target.
     lo52, hi52 = out["fifty_two_week_low"], out["fifty_two_week_high"]
     p = out["price"]
-    out["pct_from_52w_high"] = round(((p / hi52) - 1) * 100, 1) if p and hi52 else None
-    out["pct_above_52w_low"] = round(((p / lo52) - 1) * 100, 1) if p and lo52 else None
+    out["pct_from_52w_high"] = None
+    if p and hi52 and hi52 > 0 and not math.isnan(p) and not math.isnan(hi52):
+        val = ((p / hi52) - 1) * 100
+        out["pct_from_52w_high"] = round(val, 1) if not (math.isnan(val) or math.isinf(val)) else None
+
+    out["pct_above_52w_low"] = None
+    if p and lo52 and lo52 > 0 and not math.isnan(p) and not math.isnan(lo52):
+        val = ((p / lo52) - 1) * 100
+        out["pct_above_52w_low"] = round(val, 1) if not (math.isnan(val) or math.isinf(val)) else None
+
     tgt = out["target_mean"]
-    out["pct_to_target"] = round(((tgt / p) - 1) * 100, 1) if p and tgt else None
+    out["pct_to_target"] = None
+    if p and tgt and p > 0 and not math.isnan(p) and not math.isnan(tgt):
+        val = ((tgt / p) - 1) * 100
+        out["pct_to_target"] = round(val, 1) if not (math.isnan(val) or math.isinf(val)) else None
     _ = earn  # quarterly trend, not surfaced in v1
 
     _fund_cache[symbol] = (time.time(), out)
@@ -301,25 +315,40 @@ async def fetch_many(symbols: list[str], force: bool = False) -> dict[str, dict]
 
 async def save_fundamentals(data: dict[str, Any]) -> None:
     """Persist the flat, JSON-friendly part of a fundamentals payload."""
-    with db.tx() as c:
-        c.execute(
-            "CREATE TABLE IF NOT EXISTS fundamentals ("
-            "symbol TEXT PRIMARY KEY, fetched_ts INTEGER, payload TEXT)")
-        c.execute(
-            "INSERT INTO fundamentals(symbol, fetched_ts, payload) VALUES (?,?,?) "
-            "ON CONFLICT(symbol) DO UPDATE SET fetched_ts=excluded.fetched_ts, "
-            "payload=excluded.payload",
-            (data["symbol"], int(data.get("fetched_ts") or time.time()),
-             json.dumps(data, ensure_ascii=False)),
-        )
+    try:
+        with db.tx() as c:
+            c.execute(
+                "CREATE TABLE IF NOT EXISTS fundamentals ("
+                "symbol TEXT PRIMARY KEY, fetched_ts INTEGER, payload TEXT)")
+            c.execute(
+                "INSERT INTO fundamentals(symbol, fetched_ts, payload) VALUES (?,?,?) "
+                "ON CONFLICT(symbol) DO UPDATE SET fetched_ts=excluded.fetched_ts, "
+                "payload=excluded.payload",
+                (data["symbol"], int(data.get("fetched_ts") or time.time()),
+                 json.dumps(data, ensure_ascii=False)),
+            )
+    except Exception as exc:
+        log.warning("save_fundamentals %s failed: %s", data.get("symbol"), exc)
 
 
 def get_cached_fundamentals(symbol: str) -> Optional[dict]:
-    row = db.get_conn().execute(
-        "SELECT payload FROM fundamentals WHERE symbol=?", (symbol.upper(),)).fetchone()
-    if not row:
-        return None
     try:
-        return json.loads(row["payload"])
-    except Exception:
+        row = db.get_conn().execute(
+            "SELECT payload FROM fundamentals WHERE symbol=?", (symbol.upper(),)).fetchone()
+        if not row:
+            return None
+        payload = json.loads(row["payload"])
+
+        def _clean(val: Any) -> Any:
+            if isinstance(val, float) and (math.isnan(val) or math.isinf(val)):
+                return None
+            if isinstance(val, dict):
+                return {k: _clean(v) for k, v in val.items()}
+            if isinstance(val, list):
+                return [_clean(x) for x in val]
+            return val
+
+        return _clean(payload)
+    except Exception as exc:
+        log.debug("get_cached_fundamentals %s failed: %s", symbol, exc)
         return None

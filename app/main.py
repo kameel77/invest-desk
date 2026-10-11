@@ -253,29 +253,46 @@ async def fundamentals_for(symbol: str, refresh: bool = False) -> dict[str, Any]
     this endpoint needs a cookie+crumb handshake and is easy to rate-limit.
     """
     symbol = symbol.upper()
-    if not refresh:
-        cached = fundamentals.get_cached_fundamentals(symbol)
-        if cached and (time.time() - int(cached.get("fetched_ts") or 0)) < fundamentals.FUND_TTL:
-            return cached
-    data = await fundamentals.fetch_fundamentals(symbol, force=refresh)
-    if data.get("available"):
-        await fundamentals.save_fundamentals(data)
-    else:
-        cached = fundamentals.get_cached_fundamentals(symbol)
-        if cached:
-            cached = dict(cached)
-            cached["stale"] = True
-            cached["error"] = data.get("error")
-            return cached
-    return data
+    try:
+        if not refresh:
+            cached = fundamentals.get_cached_fundamentals(symbol)
+            if cached and (time.time() - int(cached.get("fetched_ts") or 0)) < fundamentals.FUND_TTL:
+                return cached
+        data = await fundamentals.fetch_fundamentals(symbol, force=refresh)
+        if data.get("available"):
+            await fundamentals.save_fundamentals(data)
+        else:
+            cached = fundamentals.get_cached_fundamentals(symbol)
+            if cached:
+                cached = dict(cached)
+                cached["stale"] = True
+                cached["error"] = data.get("error")
+                return cached
+        return data
+    except Exception as exc:
+        log.warning("fundamentals_for %s failed: %s", symbol, exc)
+        return {"symbol": symbol, "available": False, "error": str(exc)}
 
 
 @app.get("/api/fundamentals")
 async def fundamentals_all(symbols: Optional[str] = None) -> dict[str, Any]:
     """Fundamentals for the whole watchlist (or a comma-separated subset)."""
-    universe = ([s.strip().upper() for s in symbols.split(",") if s.strip()]
-                if symbols else db.get_watchlist())
-    return {"fundamentals": await fundamentals.fetch_many(universe)}
+    try:
+        universe = ([s.strip().upper() for s in symbols.split(",") if s.strip()]
+                    if symbols else db.get_watchlist())
+        return {"fundamentals": await fundamentals.fetch_many(universe)}
+    except Exception as exc:
+        log.warning("fundamentals_all failed: %s", exc)
+        return {"fundamentals": {}, "error": str(exc)}
+
+
+@app.get("/api/scan/latest")
+async def scan_latest() -> JSONResponse:
+    """Return the cached results from the most recent scan without running a new one."""
+    res = scanner.get_last_scan()
+    if res is None:
+        return JSONResponse({"status": "empty", "analyzed": 0, "results": [], "signals": [], "skipped": []})
+    return JSONResponse(res)
 
 
 @app.get("/api/scan")

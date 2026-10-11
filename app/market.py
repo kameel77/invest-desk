@@ -158,6 +158,68 @@ async def _alpaca_quote(symbol: str) -> Optional[dict]:
         return None
 
 
+async def _reconcile_gpw_bars_from_60m(symbol: str, bars_1d: list[tuple]) -> list[tuple]:
+    """When Yahoo's daily feed fails to aggregate recent sessions for GPW (.WA),
+    it generates flat dummy bars with volume=0. Yahoo's 60m feed, however,
+    continues to record real intraday bars. This helper downloads recent 60m
+    bars, aggregates them into daily OHLCV bars, and replaces any flat zero-volume
+    daily bars.
+    """
+    try:
+        res_60m = await _yahoo_chart(symbol, "1mo", "60m")
+        if not res_60m:
+            return bars_1d
+        bars_60m, _ = _parse_yahoo(res_60m)
+        if not bars_60m:
+            return bars_1d
+
+        import datetime
+        from collections import defaultdict
+
+        # Group 60m bars by calendar date (UTC date matches market open date)
+        days_60m = defaultdict(list)
+        for b in bars_60m:
+            dt = datetime.datetime.fromtimestamp(b[0], tz=datetime.timezone.utc).date()
+            days_60m[dt].append(b)
+
+        agg_daily = {}
+        for d, d_bars in days_60m.items():
+            first_ts = d_bars[0][0]
+            o = d_bars[0][1]
+            h = max(x[2] for x in d_bars)
+            l = min(x[3] for x in d_bars)
+            c = d_bars[-1][4]
+            v = sum(x[5] for x in d_bars)
+            adj_c = d_bars[-1][6] if len(d_bars[-1]) > 6 else c
+            agg_daily[d] = (first_ts, o, h, l, c, v, adj_c)
+
+        reconciled = []
+        replaced_count = 0
+        existing_dates = set()
+        for b in bars_1d:
+            d = datetime.datetime.fromtimestamp(b[0], tz=datetime.timezone.utc).date()
+            existing_dates.add(d)
+            if b[5] == 0 and d in agg_daily and agg_daily[d][5] > 0:
+                reconciled.append((b[0], agg_daily[d][1], agg_daily[d][2], agg_daily[d][3],
+                                   agg_daily[d][4], agg_daily[d][5], agg_daily[d][6]))
+                replaced_count += 1
+            else:
+                reconciled.append(b)
+
+        for d, agg_b in agg_daily.items():
+            if d not in existing_dates and agg_b[5] > 0:
+                reconciled.append(agg_b)
+                replaced_count += 1
+
+        if replaced_count > 0:
+            reconciled.sort(key=lambda x: x[0])
+            log.info("reconciled %d flat/missing GPW bars for %s from 60m feed", replaced_count, symbol)
+            return reconciled
+    except Exception as exc:
+        log.warning("failed to reconcile 60m bars for %s: %s", symbol, exc)
+    return bars_1d
+
+
 # --- public API -----------------------------------------------------------
 
 async def fetch_candles(symbol: str, rng: str = "2y", interval: str = "1d",
@@ -178,6 +240,8 @@ async def fetch_candles(symbol: str, rng: str = "2y", interval: str = "1d",
     bars, _info = _parse_yahoo(result)
     if not bars:
         return 0
+    if interval == "1d" and is_gpw(symbol) and any(b[5] == 0 for b in bars[-5:]):
+        bars = await _reconcile_gpw_bars_from_60m(symbol, bars)
     written = db.upsert_candles(symbol, bars)
     _candle_cache[symbol] = (time.time(), len(bars))
     return written

@@ -582,10 +582,85 @@ function initChartHover() {
   });
 }
 
+function notifyScanResult(scan) {
+  if (!scan) return;
+  const sigs = scan.signals || [];
+  const skipped = scan.skipped || [];
+  if (sigs.length > 0) {
+    const syms = sigs.map((s) => `${s.symbol} (${s.side})`).join(", ");
+    toast(`Skan: wygenerowano ${sigs.length} nowych sygnałów: ${syms}.`);
+  } else if (skipped.length > 0) {
+    const dedup = skipped.filter((s) => s.reason && s.reason.includes("Deduplikacja"));
+    const other = skipped.filter((s) => !s.reason || !s.reason.includes("Deduplikacja"));
+    let parts = [];
+    if (dedup.length > 0) {
+      const symList = dedup.slice(0, 3).map((x) => x.symbol).join(", ");
+      parts.push(`${dedup.length} przez deduplikację 12h (${symList}${dedup.length > 3 ? "…" : ""})`);
+    }
+    if (other.length > 0) {
+      const otherList = other.slice(0, 2).map((x) => `${x.symbol}: ${x.reason}`).join("; ");
+      parts.push(`${other.length} przez filtry ryzyka/płynności (${otherList})`);
+    }
+    toast(`Skan: 0 nowych sygnałów (${scan.analyzed || 0} zbadanych). Odrzucono: ${parts.join(" · ")}.`);
+  } else {
+    toast(`Skan: ${scan.analyzed || 0} zbadanych instrumentów. 0 sygnałów spełniających kryteria wejścia.`);
+  }
+}
+
+function renderScanStatus(scan) {
+  const banner = $("#scanStatusBanner");
+  if (!banner || !scan) return;
+  const sigCount = (scan.signals || []).length;
+  const skipped = scan.skipped || [];
+  const timeStr = scan.ts ? ts2date(scan.ts) : "—";
+
+  let skippedHtml = "";
+  if (skipped.length > 0) {
+    const items = skipped.map((s) => `<li><b>${s.symbol}</b> (${s.side || "BUY"}, ${s.hypothesis || "trend"}): ${s.reason}</li>`).join("");
+    skippedHtml = `
+      <details style="margin-top:8px;font-size:12px;color:#8b98a5;cursor:pointer">
+        <summary><b>Pominięte / odrzucone kandydaty (${skipped.length})</b> — kliknij, aby zobaczyć powody</summary>
+        <ul style="margin:6px 0 0 16px;padding:0;line-height:1.5">
+          ${items}
+        </ul>
+      </details>
+    `;
+  }
+
+  banner.innerHTML = `
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:6px;padding:10px 14px;font-size:13px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div>
+          <b>Ostatni skan:</b> ${timeStr} · Przeanalizowano: <b>${scan.analyzed || 0}</b> instrumentów
+          · Nowe sygnały: <b style="color:${sigCount > 0 ? '#3fb950' : '#8b98a5'}">${sigCount}</b>
+        </div>
+        <div class="muted">Czas skanu: ${scan.duration ? `${scan.duration}s` : "—"}</div>
+      </div>
+      ${skippedHtml}
+    </div>
+  `;
+}
+
 async function loadAnalysis() {
-  const scan = lastScan || (await api("/api/scan"));
-  if (scan.status === "busy") { toast("Skan w toku…", true); return; }
-  lastScan = scan;
+  let scan = lastScan;
+  if (!scan) {
+    const latest = await api("/api/scan/latest").catch(() => null);
+    if (latest && latest.results && latest.results.length > 0) {
+      scan = latest;
+      lastScan = latest;
+    }
+  }
+  if (!scan) {
+    scan = await api("/api/scan").catch(() => null);
+    if (scan && scan.status === "busy") { toast("Skan w toku…", true); return; }
+    lastScan = scan;
+  }
+  if (!scan || !scan.results || !scan.results.length) {
+    const banner = $("#scanStatusBanner");
+    if (banner) banner.innerHTML = '<p class="muted">Brak danych ostatniego skanu. Kliknij „Pełny skan”, aby przeanalizować watchlistę.</p>';
+    return;
+  }
+
   const rows = scan.results || [];
   table($("#analysisTable"), [
     { label: "Symbol", render: (a) => `<b>${a.symbol}</b> <span class="pill">${a.market}</span>` },
@@ -603,7 +678,8 @@ async function loadAnalysis() {
     { label: "Cel", num: true, render: (a) => fmt(a.suggested_target) },
     { label: "Akcja", render: (a) => `<button class="btn sm" onclick="buySym('${a.symbol}')">Kup</button>` },
   ], rows, { onRow: showChart });
-  toast(`Skan: ${scan.analyzed} instrumentów, ${(scan.signals || []).length} sygnałów`);
+
+  renderScanStatus(scan);
 }
 
 window.buySym = async (sym) => {
@@ -618,6 +694,8 @@ function switchView(name) {
   $$(".tab").forEach((t) => t.classList.toggle("active", t.dataset.view === name));
   $$(".view").forEach((v) => v.classList.toggle("active", v.id === `view-${name}`));
   if (name === "decisions") loadDecisions();
+  if (name === "scanner") loadAnalysis();
+  if (name === "signals") loadSignals();
 }
 
 $$(".tab").forEach((t) => (t.onclick = () => switchView(t.dataset.view)));
@@ -650,14 +728,22 @@ window.addEventListener("resize", () => {
 
 $("#btnScanNow").onclick = async () => {
   const b = $("#btnScanNow"); b.disabled = true; b.textContent = "Skanuję…";
-  try { lastScan = await api("/api/scan"); await refreshAll(); }
+  try {
+    lastScan = await api("/api/scan");
+    notifyScanResult(lastScan);
+    await refreshAll();
+  }
   catch (e) { toast(e.message, true); }
   finally { b.disabled = false; b.textContent = "Uruchom skan"; }
 };
 
 $("#btnRunFullScan").onclick = async () => {
   const b = $("#btnRunFullScan"); b.disabled = true; b.textContent = "Skanuję…";
-  try { lastScan = await api(`/api/scan?execute=${$("#autoExecute").checked}`); await refreshAll(); }
+  try {
+    lastScan = await api(`/api/scan?execute=${$("#autoExecute").checked}`);
+    notifyScanResult(lastScan);
+    await refreshAll();
+  }
   catch (e) { toast(e.message, true); }
   finally { b.disabled = false; b.textContent = "Pełny skan"; }
 };
@@ -675,14 +761,16 @@ $("#btnAddSymbol").onclick = async () => {
   try {
     await api("/api/watchlist", { method: "POST", body: JSON.stringify({ symbol: v }) });
     $("#newSymbol").value = "";
-    await api("/api/scan?symbols=" + encodeURIComponent(v));
+    const scan = await api("/api/scan?symbols=" + encodeURIComponent(v));
+    notifyScanResult(scan);
     await loadMarket();
+    await refreshAll();
     toast(`${v.toUpperCase()} dodany`);
   } catch (e) { toast(e.message, true); }
 };
 
 async function refreshAll() {
-  await Promise.allSettled([loadAccount(), loadEquity(), loadSignals(), loadPositions(), loadMarket(), loadAnalytics()]);
+  await Promise.allSettled([loadAccount(), loadEquity(), loadSignals(), loadPositions(), loadMarket(), loadAnalytics(), loadAnalysis()]);
 }
 
 (async function init() {
@@ -695,7 +783,7 @@ async function refreshAll() {
       $$("#colorSeg .seg-btn").forEach((x) => x.classList.toggle("active", x.dataset.color === saved));
     } catch (e) { /* localStorage unavailable */ }
     await loadAccount();
-    await Promise.allSettled([loadEquity(), loadSignals(), loadPositions(), loadMarket(), loadAnalytics()]);
+    await Promise.allSettled([loadEquity(), loadSignals(), loadPositions(), loadMarket(), loadAnalytics(), loadAnalysis()]);
   } catch (e) { toast("Błąd startu: " + e.message, true); }
   setInterval(() => { loadAccount().catch(() => {}); }, 30000);
   setInterval(() => { if ($("#view-market").classList.contains("active")) loadMarket().catch(() => {}); }, 60000);

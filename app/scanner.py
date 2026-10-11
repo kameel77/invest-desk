@@ -16,6 +16,12 @@ from . import config, db, execution, market, reversion, signals
 log = logging.getLogger("trading.scanner")
 
 _last_scan: dict[str, Any] = {"ts": 0, "count": 0, "duration": 0.0}
+_last_scan_payload: dict[str, Any] | None = None
+
+
+def get_last_scan() -> dict[str, Any] | None:
+    """Return the cached payload of the most recent scan."""
+    return _last_scan_payload
 
 # The context gate is OFF for live signals by default. Walk-forward is what
 # decides whether regime/RS/VIX earn their keep; until that says so, blocking
@@ -88,6 +94,7 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
     held_reversion = {r["symbol"] for r in db.open_lots(hypothesis=reversion.HYPOTHESIS)}
     results: list[dict[str, Any]] = []
     new_signals: list[dict[str, Any]] = []
+    skipped_signals: list[dict[str, Any]] = []
 
     def _work(sym: str) -> dict[str, Any] | None:
         try:
@@ -111,6 +118,14 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
                 log.info("sygnał %s odrzucony przez kontekst: %s",
                          analysis["symbol"], "; ".join(ctx_reasons))
                 analysis["context_blocked"] = ctx_reasons
+                skipped_signals.append({
+                    "symbol": analysis["symbol"],
+                    "side": sig["side"],
+                    "hypothesis": hyp,
+                    "reason": f"Filtr kontekstu: {'; '.join(ctx_reasons)}",
+                    "price": sig.get("price"),
+                    "score": sig.get("score"),
+                })
                 return
             analysis["context_notes"] = ctx_reasons
         # One signal per symbol+side+hypothesis per 12h. Keying on the
@@ -126,6 +141,15 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
             except Exception:
                 prev = "trend"
             if prev == hyp and (sig["ts"] - int(row["ts"])) < 12 * 3600:
+                hours_ago = round((sig["ts"] - int(row["ts"])) / 3600, 1)
+                skipped_signals.append({
+                    "symbol": analysis["symbol"],
+                    "side": sig["side"],
+                    "hypothesis": hyp,
+                    "reason": f"Deduplikacja 12h: sygnał już zarejestrowany ({hours_ago}h temu)",
+                    "price": sig.get("price"),
+                    "score": sig.get("score"),
+                })
                 return
         sig["id"] = db.add_signal(sig)
         new_signals.append(sig)
@@ -146,6 +170,29 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
 
     for analysis in analyses:
         results.append(analysis)
+        # Also check if trend candidate was rejected before reaching _record
+        if analysis["symbol"] not in held_trend and float(analysis.get("score", 0)) >= signals.BUY_THRESHOLD:
+            if not analysis.get("liquidity_ok"):
+                skipped_signals.append({
+                    "symbol": analysis["symbol"],
+                    "side": "BUY",
+                    "hypothesis": "trend",
+                    "reason": f"Zbyt niska płynność (ADV {analysis.get('adv', 0):,.0f})",
+                    "price": analysis.get("price"),
+                    "score": analysis.get("score"),
+                })
+            else:
+                sz = signals.size_position(analysis, db.get_cash())
+                if sz["qty"] <= 0:
+                    skipped_signals.append({
+                        "symbol": analysis["symbol"],
+                        "side": "BUY",
+                        "hypothesis": "trend",
+                        "reason": "Brak wolnej gotówki na minimalną pozycję (qty <= 0)",
+                        "price": analysis.get("price"),
+                        "score": analysis.get("score"),
+                    })
+
         for sig in (_generate_signal(analysis, analysis["symbol"] in held_trend),
                     rv.get(analysis["symbol"])):
             if sig is None:
@@ -162,17 +209,21 @@ async def scan(symbols: list[str] | None = None, auto_execute: bool = False) -> 
                        "duration": round(time.time() - started, 2)})
 
     results.sort(key=lambda a: a["score"], reverse=True)
-    return {
+    payload = {
         "ts": int(started),
         "universe_size": len(universe),
         "analyzed": len(results),
         "signals": sorted(new_signals, key=lambda s: -abs(float(s["score"]))),
+        "skipped": skipped_signals,
         "executed": executed,
         "stop_triggers": triggers,
         "equity": snapshot,
         "results": results,
         "duration": _last_scan["duration"],
     }
+    global _last_scan_payload
+    _last_scan_payload = payload
+    return payload
 
 
 def _run_analyses(universe: list[str], worker) -> list[dict[str, Any]]:

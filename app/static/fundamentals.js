@@ -33,8 +33,9 @@ async function loadFundamentals() {
     const d = await api(`/api/fundamentals/${encodeURIComponent(chartSymbol)}`);
     if (!d.available) {
       if (sub) sub.textContent = "brak danych fundamentalnych";
-      body.innerHTML = `<p class="muted">Brak danych fundamentalnych dla ${chartSymbol}.`
-        + (d.stale ? " (pokazuję ostatnie zapisane)" : "") + "</p>";
+      const errNote = d.error ? `<br><span class="muted" style="font-size:12px">Źródło: ${d.error}</span>` : "";
+      body.innerHTML = `<p class="muted">Brak danych fundamentalnych dla ${chartSymbol}.${errNote}`
+        + (d.stale ? "<br>(pokazuję ostatnie zapisane)" : "") + "</p>";
       return;
     }
     if (sub) sub.textContent = (d.stale ? "cache · " : "")
@@ -109,7 +110,8 @@ async function loadFundamentals() {
     body.innerHTML = profile + boxes.join("")
       + (d.description ? `<p class="fund-desc">${d.description}</p>` : "");
   } catch (e) {
-    if (sub) sub.textContent = "błąd wczytywania danych";
-    body.innerHTML = `<p class="muted">Błąd wczytywania danych: ${e.message}</p>`;
+    if (sub) sub.textContent = "brak danych";
+    body.innerHTML = `<p class="muted">Brak dostępnych danych fundamentalnych dla ${chartSymbol}.<br>`
+      + `<span class="muted" style="font-size:12px">Komunikat: ${e.message || "Błąd sieci lub brak danych u dostawcy"}</span></p>`;
   }
 }
