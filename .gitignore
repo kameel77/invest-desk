@@ -31,3 +31,6 @@ nohup.out
 .env.*
 *.pem
 *.key
+
+# --- graphify (lokalny graf kodu, generowany) ---
+graphify-out/
