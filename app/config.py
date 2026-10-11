@@ -43,8 +43,9 @@ TREND_ENABLED = os.getenv("TD_TREND_ENABLED", "0") == "1"
 # Mean reversion hold period (bars) — single source of truth across modules.
 REVERSION_HOLD_DAYS = int(os.getenv("TD_REVERSION_HOLD_DAYS", "10"))
 
-# Mean reversion on GPW showed consistent negative OOS expectancy (-0.62%)
-# across all 12 tested parameter variants due to transaction costs (0.9% round-trip).
+# Mean reversion on GPW showed consistent negative OOS expectancy (base variant
+# -0.62%; all 12 fixed-sweep variants between -0.24% and -0.81%, -1.07% with 1.5x
+# costs) due to transaction costs (0.9% round-trip).
 # By default, paper trade execution for reversion is disabled on GPW (0).
 REVERSION_GPW_ENABLED = os.getenv("TD_REVERSION_GPW_ENABLED", "0") == "1"
 

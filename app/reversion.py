@@ -1,11 +1,15 @@
 """Mean-reversion hypothesis.
 
 The trend+momentum system lost money out-of-sample (-2.02% walk-forward).
-Mean reversion is the mirror image and the only family that cleared the bar:
-+0.67% expectancy per trade over 8 folds, positive in 5 of 8.
+Mean reversion is the mirror image of it.
 
-Parameters are the ones walk-forward kept choosing (7 of 8 folds):
+Parameters 20/2.0/10/2.5/3.0 are the fixed base from the 2026-09 study:
     lookback=20, z_entry=2.0, hold=10, stop=2.5xATR, target=3.0xATR
+After the backtest/live parity fix (2026-10-08) the grid-selected walk-forward
+gives -0.31%/trade, 2/8 folds positive. On the 20-year US gate v2 (2026-10-10)
+it gives +0.43%/trade but the verdict is NO-GO (3/6 criteria); ETF-only is
+-0.14%. See README sections "Weryfikacja hipotezy rewersji po parytecie" and
+"Bramka v2". GPW entries are disabled (`config.REVERSION_GPW_ENABLED`).
 
 It lives beside the trend engine, not instead of it. Both feed the same signal
 table and the same paper account, each tagged with its hypothesis, so the live
@@ -14,7 +18,7 @@ comparison is the real test of which one the backtest was right about.
 from __future__ import annotations
 
 import math
-from typing import Any, Optional
+from typing import Any, Mapping, Optional
 
 import numpy as np
 import pandas as pd
@@ -106,13 +110,15 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
              broker_profile: Any = None,
              shares: float | None = None,
              notional: float | None = None,
-             symbol: str = "") -> list[Any]:
+             symbol: str = "",
+             regime_ok: Mapping[int, bool] | None = None) -> list[Any]:
     """Pure simulation of the reversion strategy on historical bars.
 
     Returns net percentage returns per trade in chronological order (or Trade objects if as_trades=True).
     Matches live execution rules:
       - indicators computed if missing (True Range ATR, z-score, ATR stretch)
       - entry signal at bar i via evaluate_entry_signal()
+      - regime filter: if regime_ok provided, skips signals on bars where regime_ok.get(ts_i, False) is False
       - warmup guard: no entry if ATR is NaN or non-positive
       - entry fill at open[i+1] * (1 + slip_rate)
       - risk levels anchored to entry fill:
@@ -152,6 +158,12 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
         if not evaluate_entry_signal(z.iloc[i], stretch.iloc[i], atr.iloc[i], z_entry, min_stretch_atr):
             i += 1
             continue
+
+        if regime_ok is not None:
+            ts_i = int(df["ts"].iloc[i]) if "ts" in df.columns else int(df.index[i])
+            if not regime_ok.get(ts_i, False):
+                i += 1
+                continue
 
         if i + 1 >= n:
             break

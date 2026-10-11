@@ -1,0 +1,1137 @@
+{
+  "timestamp": "2026-10-10 12:33:27",
+  "target_profile": "XTB_USD",
+  "capital": 1350.0,
+  "slots": 8,
+  "notional": 168.75,
+  "regime_filter": "spy250",
+  "regime_pct_active": 77.5,
+  "removed_trades_count": 691,
+  "removed_trades_expectancy": 0.236,
+  "gate_decision": "NO-GO",
+  "criteria": {
+    "1_full_period_ci_lower_above_010": {
+      "value": 0.167,
+      "passed": true
+    },
+    "2_holdout_exp_positive_and_ci_lower_above_minus025": {
+      "expectancy": 0.439,
+      "ci_lower": 0.009,
+      "passed": true
+    },
+    "3_profitable_annual_folds_pct": {
+      "profitable": 14,
+      "total": 19,
+      "pct": 73.68421052631578,
+      "passed": true
+    },
+    "4_conservative_exp_above_0": {
+      "value": -1.734,
+      "passed": false
+    },
+    "5_portfolio_worst_full_year_above_minus15": {
+      "worst_full_year_return": -8.5664524358534,
+      "passed": true
+    },
+    "6_reconciliation_test_passed": {
+      "passed": true
+    }
+  },
+  "profiles": {
+    "XTB_USD": {
+      "profile": "XTB_USD",
+      "trades": 1451,
+      "expectancy": 0.525,
+      "median_return": 1.282,
+      "ci_90_monthly": [
+        0.167,
+        0.899
+      ],
+      "ci_90_weekly": [
+        0.181,
+        0.867
+      ],
+      "holdout": {
+        "trades": 1062,
+        "expectancy": 0.439,
+        "ci_90_monthly": [
+          0.009,
+          0.863
+        ]
+      },
+      "profitable_annual_folds": 14,
+      "total_annual_folds": 19,
+      "annual_stats": [
+        {
+          "year": 2008,
+          "trades": 0,
+          "expectancy": 0.0,
+          "win_rate": 0.0,
+          "profitable": false,
+          "etf_trades": 0,
+          "etf_expectancy": 0.0,
+          "stock_trades": 0,
+          "stock_expectancy": 0.0
+        },
+        {
+          "year": 2009,
+          "trades": 22,
+          "expectancy": 3.032,
+          "win_rate": 81.8,
+          "profitable": false,
+          "etf_trades": 7,
+          "etf_expectancy": 4.556,
+          "stock_trades": 15,
+          "stock_expectancy": 2.32
+        },
+        {
+          "year": 2010,
+          "trades": 67,
+          "expectancy": -2.459,
+          "win_rate": 28.4,
+          "profitable": false,
+          "etf_trades": 26,
+          "etf_expectancy": -4.195,
+          "stock_trades": 41,
+          "stock_expectancy": -1.358
+        },
+        {
+          "year": 2011,
+          "trades": 68,
+          "expectancy": 0.055,
+          "win_rate": 57.4,
+          "profitable": true,
+          "etf_trades": 27,
+          "etf_expectancy": -0.675,
+          "stock_trades": 41,
+          "stock_expectancy": 0.536
+        },
+        {
+          "year": 2012,
+          "trades": 97,
+          "expectancy": -0.445,
+          "win_rate": 47.4,
+          "profitable": false,
+          "etf_trades": 35,
+          "etf_expectancy": -0.238,
+          "stock_trades": 62,
+          "stock_expectancy": -0.562
+        },
+        {
+          "year": 2013,
+          "trades": 97,
+          "expectancy": 0.999,
+          "win_rate": 68.0,
+          "profitable": true,
+          "etf_trades": 41,
+          "etf_expectancy": 0.655,
+          "stock_trades": 56,
+          "stock_expectancy": 1.252
+        },
+        {
+          "year": 2014,
+          "trades": 126,
+          "expectancy": 0.579,
+          "win_rate": 54.0,
+          "profitable": true,
+          "etf_trades": 54,
+          "etf_expectancy": 0.156,
+          "stock_trades": 72,
+          "stock_expectancy": 0.897
+        },
+        {
+          "year": 2015,
+          "trades": 80,
+          "expectancy": 1.154,
+          "win_rate": 66.2,
+          "profitable": true,
+          "etf_trades": 37,
+          "etf_expectancy": 0.239,
+          "stock_trades": 43,
+          "stock_expectancy": 1.942
+        },
+        {
+          "year": 2016,
+          "trades": 83,
+          "expectancy": 1.134,
+          "win_rate": 63.9,
+          "profitable": true,
+          "etf_trades": 30,
+          "etf_expectancy": 2.244,
+          "stock_trades": 53,
+          "stock_expectancy": 0.506
+        },
+        {
+          "year": 2017,
+          "trades": 74,
+          "expectancy": 0.964,
+          "win_rate": 78.4,
+          "profitable": true,
+          "etf_trades": 28,
+          "etf_expectancy": 1.003,
+          "stock_trades": 46,
+          "stock_expectancy": 0.941
+        },
+        {
+          "year": 2018,
+          "trades": 104,
+          "expectancy": 0.68,
+          "win_rate": 53.8,
+          "profitable": true,
+          "etf_trades": 42,
+          "etf_expectancy": -0.511,
+          "stock_trades": 62,
+          "stock_expectancy": 1.487
+        },
+        {
+          "year": 2019,
+          "trades": 86,
+          "expectancy": 0.147,
+          "win_rate": 51.2,
+          "profitable": true,
+          "etf_trades": 33,
+          "etf_expectancy": 0.102,
+          "stock_trades": 53,
+          "stock_expectancy": 0.175
+        },
+        {
+          "year": 2020,
+          "trades": 70,
+          "expectancy": 1.088,
+          "win_rate": 60.0,
+          "profitable": true,
+          "etf_trades": 27,
+          "etf_expectancy": 0.319,
+          "stock_trades": 43,
+          "stock_expectancy": 1.571
+        },
+        {
+          "year": 2021,
+          "trades": 115,
+          "expectancy": 0.567,
+          "win_rate": 59.1,
+          "profitable": true,
+          "etf_trades": 48,
+          "etf_expectancy": 0.518,
+          "stock_trades": 67,
+          "stock_expectancy": 0.602
+        },
+        {
+          "year": 2022,
+          "trades": 33,
+          "expectancy": -1.857,
+          "win_rate": 39.4,
+          "profitable": false,
+          "etf_trades": 8,
+          "etf_expectancy": -0.479,
+          "stock_trades": 25,
+          "stock_expectancy": -2.298
+        },
+        {
+          "year": 2023,
+          "trades": 59,
+          "expectancy": 1.702,
+          "win_rate": 67.8,
+          "profitable": true,
+          "etf_trades": 22,
+          "etf_expectancy": 0.356,
+          "stock_trades": 37,
+          "stock_expectancy": 2.503
+        },
+        {
+          "year": 2024,
+          "trades": 100,
+          "expectancy": 0.908,
+          "win_rate": 63.0,
+          "profitable": true,
+          "etf_trades": 38,
+          "etf_expectancy": 0.176,
+          "stock_trades": 62,
+          "stock_expectancy": 1.356
+        },
+        {
+          "year": 2025,
+          "trades": 80,
+          "expectancy": 0.908,
+          "win_rate": 57.5,
+          "profitable": true,
+          "etf_trades": 21,
+          "etf_expectancy": 1.399,
+          "stock_trades": 59,
+          "stock_expectancy": 0.733
+        },
+        {
+          "year": 2026,
+          "trades": 90,
+          "expectancy": 0.489,
+          "win_rate": 54.4,
+          "profitable": true,
+          "etf_trades": 27,
+          "etf_expectancy": -0.26,
+          "stock_trades": 63,
+          "stock_expectancy": 0.81
+        }
+      ]
+    },
+    "XTB_PLN": {
+      "profile": "XTB_PLN",
+      "trades": 1451,
+      "expectancy": -0.475,
+      "median_return": 0.274,
+      "ci_90_monthly": [
+        -0.83,
+        -0.105
+      ],
+      "ci_90_weekly": [
+        -0.816,
+        -0.136
+      ],
+      "holdout": {
+        "trades": 1062,
+        "expectancy": -0.561,
+        "ci_90_monthly": [
+          -0.986,
+          -0.14
+        ]
+      },
+      "profitable_annual_folds": 4,
+      "total_annual_folds": 19,
+      "annual_stats": [
+        {
+          "year": 2008,
+          "trades": 0,
+          "expectancy": 0.0,
+          "win_rate": 0.0,
+          "profitable": false,
+          "etf_trades": 0,
+          "etf_expectancy": 0.0,
+          "stock_trades": 0,
+          "stock_expectancy": 0.0
+        },
+        {
+          "year": 2009,
+          "trades": 22,
+          "expectancy": 2.007,
+          "win_rate": 77.3,
+          "profitable": false,
+          "etf_trades": 7,
+          "etf_expectancy": 3.516,
+          "stock_trades": 15,
+          "stock_expectancy": 1.302
+        },
+        {
+          "year": 2010,
+          "trades": 67,
+          "expectancy": -3.429,
+          "win_rate": 25.4,
+          "profitable": false,
+          "etf_trades": 26,
+          "etf_expectancy": -5.148,
+          "stock_trades": 41,
+          "stock_expectancy": -2.339
+        },
+        {
+          "year": 2011,
+          "trades": 68,
+          "expectancy": -0.941,
+          "win_rate": 50.0,
+          "profitable": false,
+          "etf_trades": 27,
+          "etf_expectancy": -1.664,
+          "stock_trades": 41,
+          "stock_expectancy": -0.464
+        },
+        {
+          "year": 2012,
+          "trades": 97,
+          "expectancy": -1.435,
+          "win_rate": 41.2,
+          "profitable": false,
+          "etf_trades": 35,
+          "etf_expectancy": -1.23,
+          "stock_trades": 62,
+          "stock_expectancy": -1.551
+        },
+        {
+          "year": 2013,
+          "trades": 97,
+          "expectancy": -0.005,
+          "win_rate": 59.8,
+          "profitable": false,
+          "etf_trades": 41,
+          "etf_expectancy": -0.347,
+          "stock_trades": 56,
+          "stock_expectancy": 0.244
+        },
+        {
+          "year": 2014,
+          "trades": 126,
+          "expectancy": -0.422,
+          "win_rate": 46.8,
+          "profitable": false,
+          "etf_trades": 54,
+          "etf_expectancy": -0.84,
+          "stock_trades": 72,
+          "stock_expectancy": -0.107
+        },
+        {
+          "year": 2015,
+          "trades": 80,
+          "expectancy": 0.148,
+          "win_rate": 60.0,
+          "profitable": true,
+          "etf_trades": 37,
+          "etf_expectancy": -0.758,
+          "stock_trades": 43,
+          "stock_expectancy": 0.928
+        },
+        {
+          "year": 2016,
+          "trades": 83,
+          "expectancy": 0.128,
+          "win_rate": 61.4,
+          "profitable": true,
+          "etf_trades": 30,
+          "etf_expectancy": 1.226,
+          "stock_trades": 53,
+          "stock_expectancy": -0.494
+        },
+        {
+          "year": 2017,
+          "trades": 74,
+          "expectancy": -0.04,
+          "win_rate": 54.1,
+          "profitable": false,
+          "etf_trades": 28,
+          "etf_expectancy": -0.002,
+          "stock_trades": 46,
+          "stock_expectancy": -0.064
+        },
+        {
+          "year": 2018,
+          "trades": 104,
+          "expectancy": -0.321,
+          "win_rate": 50.0,
+          "profitable": false,
+          "etf_trades": 42,
+          "etf_expectancy": -1.501,
+          "stock_trades": 62,
+          "stock_expectancy": 0.478
+        },
+        {
+          "year": 2019,
+          "trades": 86,
+          "expectancy": -0.849,
+          "win_rate": 46.5,
+          "profitable": false,
+          "etf_trades": 33,
+          "etf_expectancy": -0.894,
+          "stock_trades": 53,
+          "stock_expectancy": -0.821
+        },
+        {
+          "year": 2020,
+          "trades": 70,
+          "expectancy": 0.082,
+          "win_rate": 54.3,
+          "profitable": true,
+          "etf_trades": 27,
+          "etf_expectancy": -0.679,
+          "stock_trades": 43,
+          "stock_expectancy": 0.56
+        },
+        {
+          "year": 2021,
+          "trades": 115,
+          "expectancy": -0.434,
+          "win_rate": 55.7,
+          "profitable": false,
+          "etf_trades": 48,
+          "etf_expectancy": -0.482,
+          "stock_trades": 67,
+          "stock_expectancy": -0.399
+        },
+        {
+          "year": 2022,
+          "trades": 33,
+          "expectancy": -2.834,
+          "win_rate": 33.3,
+          "profitable": false,
+          "etf_trades": 8,
+          "etf_expectancy": -1.469,
+          "stock_trades": 25,
+          "stock_expectancy": -3.271
+        },
+        {
+          "year": 2023,
+          "trades": 59,
+          "expectancy": 0.69,
+          "win_rate": 64.4,
+          "profitable": true,
+          "etf_trades": 22,
+          "etf_expectancy": -0.643,
+          "stock_trades": 37,
+          "stock_expectancy": 1.483
+        },
+        {
+          "year": 2024,
+          "trades": 100,
+          "expectancy": -0.096,
+          "win_rate": 58.0,
+          "profitable": false,
+          "etf_trades": 38,
+          "etf_expectancy": -0.821,
+          "stock_trades": 62,
+          "stock_expectancy": 0.348
+        },
+        {
+          "year": 2025,
+          "trades": 80,
+          "expectancy": -0.096,
+          "win_rate": 53.8,
+          "profitable": false,
+          "etf_trades": 21,
+          "etf_expectancy": 0.39,
+          "stock_trades": 59,
+          "stock_expectancy": -0.269
+        },
+        {
+          "year": 2026,
+          "trades": 90,
+          "expectancy": -0.511,
+          "win_rate": 51.1,
+          "profitable": false,
+          "etf_trades": 27,
+          "etf_expectancy": -1.252,
+          "stock_trades": 63,
+          "stock_expectancy": -0.193
+        }
+      ]
+    },
+    "CONSERVATIVE_US": {
+      "profile": "CONSERVATIVE_US",
+      "trades": 1454,
+      "expectancy": -1.734,
+      "median_return": -1.007,
+      "ci_90_monthly": [
+        -2.084,
+        -1.37
+      ],
+      "ci_90_weekly": [
+        -2.071,
+        -1.399
+      ],
+      "holdout": {
+        "trades": 1065,
+        "expectancy": -1.816,
+        "ci_90_monthly": [
+          -2.237,
+          -1.407
+        ]
+      },
+      "profitable_annual_folds": 0,
+      "total_annual_folds": 19,
+      "annual_stats": [
+        {
+          "year": 2008,
+          "trades": 0,
+          "expectancy": 0.0,
+          "win_rate": 0.0,
+          "profitable": false,
+          "etf_trades": 0,
+          "etf_expectancy": 0.0,
+          "stock_trades": 0,
+          "stock_expectancy": 0.0
+        },
+        {
+          "year": 2009,
+          "trades": 22,
+          "expectancy": 0.699,
+          "win_rate": 72.7,
+          "profitable": false,
+          "etf_trades": 7,
+          "etf_expectancy": 2.135,
+          "stock_trades": 15,
+          "stock_expectancy": 0.029
+        },
+        {
+          "year": 2010,
+          "trades": 67,
+          "expectancy": -4.578,
+          "win_rate": 17.9,
+          "profitable": false,
+          "etf_trades": 26,
+          "etf_expectancy": -6.349,
+          "stock_trades": 41,
+          "stock_expectancy": -3.455
+        },
+        {
+          "year": 2011,
+          "trades": 68,
+          "expectancy": -2.192,
+          "win_rate": 33.8,
+          "profitable": false,
+          "etf_trades": 27,
+          "etf_expectancy": -2.907,
+          "stock_trades": 41,
+          "stock_expectancy": -1.721
+        },
+        {
+          "year": 2012,
+          "trades": 97,
+          "expectancy": -2.685,
+          "win_rate": 28.9,
+          "profitable": false,
+          "etf_trades": 35,
+          "etf_expectancy": -2.481,
+          "stock_trades": 62,
+          "stock_expectancy": -2.799
+        },
+        {
+          "year": 2013,
+          "trades": 97,
+          "expectancy": -1.269,
+          "win_rate": 38.1,
+          "profitable": false,
+          "etf_trades": 41,
+          "etf_expectancy": -1.608,
+          "stock_trades": 56,
+          "stock_expectancy": -1.021
+        },
+        {
+          "year": 2014,
+          "trades": 126,
+          "expectancy": -1.666,
+          "win_rate": 35.7,
+          "profitable": false,
+          "etf_trades": 54,
+          "etf_expectancy": -2.071,
+          "stock_trades": 72,
+          "stock_expectancy": -1.363
+        },
+        {
+          "year": 2015,
+          "trades": 80,
+          "expectancy": -1.11,
+          "win_rate": 38.8,
+          "profitable": false,
+          "etf_trades": 37,
+          "etf_expectancy": -2.007,
+          "stock_trades": 43,
+          "stock_expectancy": -0.339
+        },
+        {
+          "year": 2016,
+          "trades": 85,
+          "expectancy": -1.127,
+          "win_rate": 44.7,
+          "profitable": false,
+          "etf_trades": 30,
+          "etf_expectancy": -0.057,
+          "stock_trades": 55,
+          "stock_expectancy": -1.71
+        },
+        {
+          "year": 2017,
+          "trades": 74,
+          "expectancy": -1.301,
+          "win_rate": 29.7,
+          "profitable": false,
+          "etf_trades": 28,
+          "etf_expectancy": -1.259,
+          "stock_trades": 46,
+          "stock_expectancy": -1.326
+        },
+        {
+          "year": 2018,
+          "trades": 105,
+          "expectancy": -1.608,
+          "win_rate": 41.0,
+          "profitable": false,
+          "etf_trades": 43,
+          "etf_expectancy": -2.801,
+          "stock_trades": 62,
+          "stock_expectancy": -0.78
+        },
+        {
+          "year": 2019,
+          "trades": 86,
+          "expectancy": -2.169,
+          "win_rate": 32.6,
+          "profitable": false,
+          "etf_trades": 33,
+          "etf_expectancy": -2.144,
+          "stock_trades": 53,
+          "stock_expectancy": -2.184
+        },
+        {
+          "year": 2020,
+          "trades": 70,
+          "expectancy": -1.172,
+          "win_rate": 45.7,
+          "profitable": false,
+          "etf_trades": 27,
+          "etf_expectancy": -1.928,
+          "stock_trades": 43,
+          "stock_expectancy": -0.698
+        },
+        {
+          "year": 2021,
+          "trades": 115,
+          "expectancy": -1.688,
+          "win_rate": 41.7,
+          "profitable": false,
+          "etf_trades": 48,
+          "etf_expectancy": -1.729,
+          "stock_trades": 67,
+          "stock_expectancy": -1.658
+        },
+        {
+          "year": 2022,
+          "trades": 33,
+          "expectancy": -4.063,
+          "win_rate": 30.3,
+          "profitable": false,
+          "etf_trades": 8,
+          "etf_expectancy": -2.717,
+          "stock_trades": 25,
+          "stock_expectancy": -4.494
+        },
+        {
+          "year": 2023,
+          "trades": 59,
+          "expectancy": -0.573,
+          "win_rate": 44.1,
+          "profitable": false,
+          "etf_trades": 22,
+          "etf_expectancy": -1.898,
+          "stock_trades": 37,
+          "stock_expectancy": 0.215
+        },
+        {
+          "year": 2024,
+          "trades": 100,
+          "expectancy": -1.411,
+          "win_rate": 40.0,
+          "profitable": false,
+          "etf_trades": 38,
+          "etf_expectancy": -2.056,
+          "stock_trades": 62,
+          "stock_expectancy": -1.015
+        },
+        {
+          "year": 2025,
+          "trades": 80,
+          "expectancy": -1.361,
+          "win_rate": 45.0,
+          "profitable": false,
+          "etf_trades": 21,
+          "etf_expectancy": -0.874,
+          "stock_trades": 59,
+          "stock_expectancy": -1.534
+        },
+        {
+          "year": 2026,
+          "trades": 90,
+          "expectancy": -1.755,
+          "win_rate": 34.4,
+          "profitable": false,
+          "etf_trades": 27,
+          "etf_expectancy": -2.503,
+          "stock_trades": 63,
+          "stock_expectancy": -1.434
+        }
+      ]
+    }
+  },
+  "portfolio_annual_returns": {
+    "2006": {
+      "year": 2006,
+      "start_equity": 1350.0,
+      "end_equity": 1350.0,
+      "return_pct": 0.0,
+      "spy_return_pct": 4.83,
+      "is_full_year": true
+    },
+    "2007": {
+      "year": 2007,
+      "start_equity": 1350.0,
+      "end_equity": 1288.19,
+      "return_pct": -4.58,
+      "spy_return_pct": 3.42,
+      "is_full_year": true
+    },
+    "2008": {
+      "year": 2008,
+      "start_equity": 1288.19,
+      "end_equity": 1288.19,
+      "return_pct": 0.0,
+      "spy_return_pct": -37.74,
+      "is_full_year": true
+    },
+    "2009": {
+      "year": 2009,
+      "start_equity": 1288.19,
+      "end_equity": 1403.35,
+      "return_pct": 8.94,
+      "spy_return_pct": 19.88,
+      "is_full_year": true
+    },
+    "2010": {
+      "year": 2010,
+      "start_equity": 1403.35,
+      "end_equity": 1290.08,
+      "return_pct": -8.07,
+      "spy_return_pct": 10.96,
+      "is_full_year": true
+    },
+    "2011": {
+      "year": 2011,
+      "start_equity": 1290.08,
+      "end_equity": 1305.76,
+      "return_pct": 1.22,
+      "spy_return_pct": -1.22,
+      "is_full_year": true
+    },
+    "2012": {
+      "year": 2012,
+      "start_equity": 1305.76,
+      "end_equity": 1200.25,
+      "return_pct": -8.08,
+      "spy_return_pct": 11.69,
+      "is_full_year": true
+    },
+    "2013": {
+      "year": 2013,
+      "start_equity": 1200.25,
+      "end_equity": 1347.03,
+      "return_pct": 12.23,
+      "spy_return_pct": 26.45,
+      "is_full_year": true
+    },
+    "2014": {
+      "year": 2014,
+      "start_equity": 1347.03,
+      "end_equity": 1461.03,
+      "return_pct": 8.46,
+      "spy_return_pct": 12.37,
+      "is_full_year": true
+    },
+    "2015": {
+      "year": 2015,
+      "start_equity": 1461.03,
+      "end_equity": 1601.69,
+      "return_pct": 9.63,
+      "spy_return_pct": -0.76,
+      "is_full_year": true
+    },
+    "2016": {
+      "year": 2016,
+      "start_equity": 1601.69,
+      "end_equity": 1693.48,
+      "return_pct": 5.73,
+      "spy_return_pct": 11.2,
+      "is_full_year": true
+    },
+    "2017": {
+      "year": 2017,
+      "start_equity": 1693.48,
+      "end_equity": 1837.15,
+      "return_pct": 8.48,
+      "spy_return_pct": 18.48,
+      "is_full_year": true
+    },
+    "2018": {
+      "year": 2018,
+      "start_equity": 1837.15,
+      "end_equity": 1884.68,
+      "return_pct": 2.59,
+      "spy_return_pct": -7.01,
+      "is_full_year": true
+    },
+    "2019": {
+      "year": 2019,
+      "start_equity": 1884.68,
+      "end_equity": 1809.13,
+      "return_pct": -4.01,
+      "spy_return_pct": 28.65,
+      "is_full_year": true
+    },
+    "2020": {
+      "year": 2020,
+      "start_equity": 1809.13,
+      "end_equity": 1915.65,
+      "return_pct": 5.89,
+      "spy_return_pct": 15.09,
+      "is_full_year": true
+    },
+    "2021": {
+      "year": 2021,
+      "start_equity": 1915.65,
+      "end_equity": 2038.3,
+      "return_pct": 6.4,
+      "spy_return_pct": 28.79,
+      "is_full_year": true
+    },
+    "2022": {
+      "year": 2022,
+      "start_equity": 2038.3,
+      "end_equity": 1863.69,
+      "return_pct": -8.57,
+      "spy_return_pct": -19.95,
+      "is_full_year": true
+    },
+    "2023": {
+      "year": 2023,
+      "start_equity": 1863.69,
+      "end_equity": 2036.21,
+      "return_pct": 9.26,
+      "spy_return_pct": 24.81,
+      "is_full_year": true
+    },
+    "2024": {
+      "year": 2024,
+      "start_equity": 2036.21,
+      "end_equity": 2285.71,
+      "return_pct": 12.25,
+      "spy_return_pct": 24.0,
+      "is_full_year": true
+    },
+    "2025": {
+      "year": 2025,
+      "start_equity": 2285.71,
+      "end_equity": 2486.68,
+      "return_pct": 8.79,
+      "spy_return_pct": 16.64,
+      "is_full_year": true
+    },
+    "2026": {
+      "year": 2026,
+      "start_equity": 2486.68,
+      "end_equity": 2574.81,
+      "return_pct": 3.54,
+      "spy_return_pct": 13.29,
+      "is_full_year": false
+    }
+  },
+  "portfolio_summary": {
+    "initial_cash": 1350.0,
+    "final_equity": 2574.81,
+    "total_return_pct": 90.727,
+    "cagr": 3.29,
+    "max_drawdown_pct": -18.59,
+    "sharpe_rf0": 0.459,
+    "win_rate": 57.4,
+    "profit_factor": 1.27,
+    "expectancy_per_trade": 0.441,
+    "rejected_signals": {
+      "total": 2005,
+      "slot_full": 326,
+      "cash_exhausted": 0,
+      "cash_exhausted_comm": 0,
+      "size_below_min": 0,
+      "no_open_price": 0,
+      "regime_off": 1679
+    }
+  },
+  "first_bars_info": [
+    {
+      "symbol": "AAPL",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "AMZN",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "AVGO",
+      "bars": 4320,
+      "min_ts": 1249565400,
+      "max_ts": 1791466200,
+      "min_date": "2009-08-06",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "COST",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "EEM",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "EFA",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "EWZ",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "GOOGL",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "IWM",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "JPM",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "LLY",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "META",
+      "bars": 3618,
+      "min_ts": 1337347800,
+      "max_ts": 1791466200,
+      "min_date": "2012-05-18",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "MSFT",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "NFLX",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "NVDA",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "QQQ",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "SPY",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 241
+    },
+    {
+      "symbol": "TSLA",
+      "bars": 4095,
+      "min_ts": 1277818200,
+      "max_ts": 1791466200,
+      "min_date": "2010-06-29",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "UNH",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "V",
+      "bars": 4669,
+      "min_ts": 1205933400,
+      "max_ts": 1791466200,
+      "min_date": "2008-03-19",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "VGK",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    },
+    {
+      "symbol": "XOM",
+      "bars": 5031,
+      "min_ts": 1160400600,
+      "max_ts": 1791466200,
+      "min_date": "2006-10-09",
+      "max_date": "2026-10-08",
+      "dropped_bars": 0
+    }
+  ]
+}

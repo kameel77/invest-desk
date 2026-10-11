@@ -29,18 +29,18 @@ skalowanym pod małe tickety.
 
 ## Wynik testów strategii (stan na 2026-09-29)
 
-Backtest na 52 instrumentach, 10 lat świec dziennych (141 468 świec).
+Backtest na 52 instrumentach, 5 lat świec dziennych dla 52 instrumentów (ok. 65 tys. świec; dla 22 instrumentów US dodatkowo 20 lat na potrzeby bramki v2).
 
 | Metryka | Obecna strategia | Najlepsza z 19 wariantów |
 |---|---|---|
-| Konfiguracja | wej≥35, SL2.0, TP3.0, H20 | wej≥35, **SL3.0, TP4.5**, H20 |
+| Konfiguracja | wej≥35, SL2.0, TP4.0, H20 | wej≥35, **SL3.0, TP4.5**, H20 |
 | Zwrot (in-sample) | **-11,65%** | **+13,97%** |
 | Sharpe | -0,14 | 0,44 |
 | Profit factor | 0,97 | 1,06 |
 | Transakcje | 1 005 | 844 |
 
 **Wniosek:** za ciasne stopy zabijają tę strategię. Przy SL1,5/TP2,0 zwrot
-spada do -81,65%. Wyższy próg wejścia (≥55) również pogarsza wynik. Wagi
+spada do -118,61% (1 505 transakcji) wg `reports/latest.json`. Wyższy próg wejścia (≥55) również pogarsza wynik. Wagi
 komponentów mają znaczenie drugorzędne.
 
 > **Te liczby są z tych samych danych, na których konfiguracja była wybierana.**
@@ -99,16 +99,23 @@ hipotezy, nie optymalizacji.
 
 ### Test innych hipotez (`python -m tools.run_hypotheses`)
 
-Przetestowane cztery rodziny, każda przez ten sam walk-forward. Miarą
-porównawczą jest **expectancy na transakcję** (zwrot skumulowany zależy od
-liczby transakcji i myli).
+Miarą porównawczą jest **expectancy na transakcję** (zwrot skumulowany zależy
+od liczby transakcji i myli).
 
-| Rodzina | OOS transakcje | Expectancy | Zyskowna fałdy | Sharpe |
+| Rodzina | OOS transakcje | Expectancy | Zyskowne fałdy | Sharpe |
 |---|---|---|---|---|
-| **Rewersja do średniej** | 590 | **+0,467%** | **3/4** | **1,13** |
-| Surowce/FX (driver) | 1 776 | +0,116% | 1/4 | 0,23 |
-| Średnie kroczące (per-symbol) | 265 | -0,01% | 1/2 | -0,22 |
-| Momentum krótkie | 3 900 | -0,426% | 0/4 | -1,77 |
+| **Rewersja do średniej** (po parytecie 2026-10-08) | 449 | **-0,308%** | **2/8** | — |
+| Surowce/FX (driver) | kod badawczy, nietestowany poprawnie | | | |
+| Średnie kroczące (per-symbol) | kod badawczy, nietestowany poprawnie | | | |
+| Momentum krótkie | kod badawczy, nietestowany poprawnie | | | |
+
+Wiersz rewersji pochodzi z `reports/hypotheses_20261009_0617.json` (po parytecie
+2026-10-08; wcześniejszy wynik +0,467% pochodził z kodu sprzed poprawki).
+Pozostałych trzech rodzin nie należy cytować, bo implementacja ma błędy:
+
+- `ma` (`app/hypotheses.py`) nie ma wyjścia na przecięcie w dół, mimo że docstring je opisuje.
+- `driver` nie sprawdza znaku korelacji ani kierunku sterownika, a w bazie brak świec dla GC=F/CL=F/HG=F/NG=F i par PLN.
+- `momentum_short` wchodzi na |ROC| bez kierunku (kupuje też krachy).
 
 ### Weryfikacja hipotezy rewersji po parytecie z produkcją (stan na 2026-10-09)
 
@@ -140,6 +147,8 @@ przeprowadzono rzetelny walk-forward (8 fałdów, 2 lata treningu + 5 mies. test
      automatyczne zlecenia paper tradingu są dopuszczone wyłącznie dla rynku US.
 
 ### Wyniki Bramki Walidacyjnej Fazy 0 dla US Reversion (2026-10-09)
+
+*Werdykt GO z 2026-10-09 był przedwczesny: okno 8×5 mies. obejmuje 2023-06..2026-10 i pomija 2022, a w okresie 2021-10..2023-06 expectancy wynosi -0,001%. Zastąpiła go bramka v2 na 20 latach (NO-GO), patrz sekcja „Bramka v2".*
 
 Zgodnie z wymogami ilościowymi (konsultacja Claude Opus 5.5), przed wdrożeniem silnika portfelowego
 przeprowadzono badanie wrażliwości strategii na profile kosztowe brokerów oraz test istotności statystycznej
@@ -285,6 +294,97 @@ Przed dopuszczeniem strategii do realnego tradingu wymagane są następujące us
 - **Filtr Reżimu Indeksu (Trend/Vol Filter):** Blokada otwierania nowych transz długich, gdy SPY znajduje się poniżej SMA200 lub gdy 10-dniowy wskaźnik zmienności przekracza poziomy paniki.
 - **Dynamiczne zarządzanie slotami / Circuit Breakers:** Wstrzymanie alokacji kapitału przy skumulowanym drawdownie bieżącego miesiąca przekraczającym 5%.
 - **Optymalizacja wyjść:** Zastąpienie sztywnego stopu czasowego (10 barów) dynamicznym powrotem do średniej (np. wyjście na SMA20 lub przecięciu z-score = 0).
+
+---
+
+### Bramka v2: Hipoteza Filtra Bessy (SPY > SMA200) — KAM-91
+
+Zgodnie z rekomendacjami z audytu Fazy 1 przetestowano jedną, z góry zadeklarowaną hipotezę:
+**Strategia US mean-reversion otwiera nowe pozycje wyłącznie wtedy, gdy indeks SPY znajduje się powyżej swojej 200-sesyjnej średniej kroczącej (`Close(t) > SMA200(Close)(t)`).**
+
+Filtr jest w pełni wolny od efektu lookahead (decyzja zapada na zamknięciu słupka sygnału \(t\), wejście następuje na otwarciu \(t+1\); pierwsze 199 sesji traktowane jest jako faza rozgrzewki = brak wejść). Filtr blokuje wyłącznie **nowe wejścia** — otwarte wcześniej pozycje są zamykane normalnymi regułami wyjścia.
+
+```bash
+python3 tools/run_hypotheses.py --gate-v2 --profile XTB_USD --regime-filter spy200
+```
+
+#### 1. Zestawienie 6 Kryteriów Bramki v2 (Bez Filtra vs Z Filtrem SPY > SMA200)
+
+| # | Kryterium Bramki v2 | Bez Filtra (KAM-90) | Z Filtrem `spy200` (KAM-91) | Wymóg Formalny | Wpływ Filtra |
+|---|---|---|---|---|:---:|
+| **1** | **Pełny okres: 90% CI dolna (block bootstrap)** | +0,046% (FAILED) | **+0,147% (PASSED)** | > +0,10% | ✅ **ZALICZONE** |
+| **2** | **Holdout (< 2021-10-01): Exp / 90% CI dolna** | +0,277% / -0,192% (PASSED) | **+0,483% / +0,048% (PASSED)** | exp > 0, CI_min > -0,25% | ✅ **ZNACZNY WZROST** |
+| **3** | **Zyskowne fałdy roczne (N ≥ 25)** | 14 / 19 (73,7%) (PASSED) | **15 / 19 (78,9%) (PASSED)** | ≥ 60,0% | ✅ **WZROST (15/19)** |
+| **4** | **Stress test kosztowy (`CONSERVATIVE_US`)** | -1,823% (FAILED) | **-1,739% (FAILED)** | ≥ 0,00% | ❌ **FAILED** |
+| **5** | **Portfel: najgorszy pełny rok kalendarzowy** | -35,60% [rok 2008] (FAILED) | **-9,53% [rok 2012] (PASSED)** | ≥ -15,0% | ✅ **ZALICZONE (2008: 0,00%)** |
+| **6** | **Test uzgodnienia silnika (`simulate` ↔ `PortfolioSim`)** | Zgodność 1:1 na 3 seedach (PASSED) | **Zgodność 1:1 na 3 seedach (PASSED)** | Zielony test jednostkowy | ✅ **PASSED** |
+| **—** | **WERDYKT BRAMKI V2** | **NO-GO (3 z 6 zaliczone)** | **NO-GO (5 z 6 zaliczonych)** | Wszystkie 6 = PASSED | **NO-GO** |
+
+---
+
+#### 2. Wpływ Filtra na Statystyki i Ryzyko Portfela
+
+- **Aktywność reżimu rynkowego:** Filtr był włączony (`SPY > SMA200`) przez **76,9%** sesji w latach 2008–2026.
+- **Usunięte transakcje:** Filtr wyeliminował **749** transakcji o średnim expectancy **+0,329%**. 
+  - **Ważny wniosek:** usunięte transakcje miały *dodatnie* expectancy netto w normalnych warunkach, co oznacza, że filtr odcina część potencjalnych zysków w hossie. 
+  - **Kluczowa korzyść:** eliminacja ta odbywa się kosztem odcięcia katastrofalnych wejść w okresach załamań rynkowych (np. w 2008 roku portfel uniknął obsunięcia -35,60%, osiągając 0,00% przy 0 transakcjach, a w 2022 roku strata zmniejszyła się z -12,66% do -7,35%), co radykalnie poprawiło profil ryzyka portfela.
+- **Kluczowe metryki portfela (\$1 350, 8 slotów, `XTB_USD`, akcje ułamkowe):**
+  - **Max Drawdown (MDD):** redukcja z **-43,83%** do zaledwie **-16,19%** (wobec rynkowego SPY MDD -56,47%).
+  - **Win Rate:** wzrost z **55,5%** do **57,2%**.
+  - **Profit Factor:** wzrost z **1,17** do **1,27**.
+  - **Sharpe Ratio (rf=0%):** wzrost z **0,320** do **0,464**.
+  - **Liczba zamkniętych transakcji:** **1 243** (vs 1 882 bez filtra).
+  - **Odrzucone sygnały:** **2 093** (regime_off: 1 810, slot_full: 283, no_open_price: 0).
+
+---
+
+#### 3. Roczne Wyniki Portfela Rok po Roku (2008–2026: Bez Filtra vs Z Filtrem SPY > SMA200 vs SPY B&H)
+
+| Rok | Portfel Bez Filtra | Portfel Z Filtrem `spy200` | SPY B&H | Wpływ filtra / Komentarz |
+|---|---|---|---|---|
+| **2008** | **-35,60%** (131 trans.) | **0,00% (0 trans.)** | **-37,74%** | **Perfekcyjna ochrona:** portfel w 100% w gotówce przez cały rok krachu. |
+| **2009** | +18,52% (73 trans.) | +12,39% (28 trans.) | +19,88% | Wznowienie wejść po powrocie SPY nad SMA200. |
+| **2010** | +1,05% (75 trans.) | -8,98% (49 trans.) | +10,96% | Krótkotrwałe spadki wokół SMA200 (Flash Crash). |
+| **2011** | +12,33% (99 trans.) | +4,20% (54 trans.) | -1,22% | Ograniczenie ekspozycji w czasie obniżenia ratingu USA. |
+| **2012** | -7,29% (92 trans.) | **-9,53% (83 trans.)** | +11,69% | Najgorszy pełny rok portfela (zgodny z wymogiem ≤ -15%). |
+| **2013** | +12,23% (95 trans.) | +12,23% (95 trans.) | +26,45% | Pełna zgodność w silnym rynku byka. |
+| **2014** | +10,88% (110 trans.) | +4,19% (100 trans.) | +12,37% | Kilkukrotne naruszenia SMA200 odcięły część wejść. |
+| **2015** | +14,33% (105 trans.) | +9,80% (69 trans.) | -0,76% | Ograniczenie liczby pozycji w czasie korekt. |
+| **2016** | +2,63% (103 trans.) | +5,02% (69 trans.) | +11,20% | Odcięcie spadków z początku roku. |
+| **2017** | +8,48% (73 trans.) | +8,48% (73 trans.) | +18,48% | Pełna zgodność w stabilnym trendzie wzrostowym. |
+| **2018** | +6,04% (101 trans.) | +4,04% (73 trans.) | -7,01% | Ominięcie korekty z IV kwartału 2018 r. |
+| **2019** | +0,58% (79 trans.) | -4,01% (68 trans.) | +28,65% | Płaski rok po grudniowym dołku 2018. |
+| **2020** | -1,17% (93 trans.) | **+6,12% (56 trans.)** | +15,09% | **Ochrona przed krachem Covid:** odcięcie paniki z marca. |
+| **2021** | +6,40% (98 trans.) | +6,40% (98 trans.) | +28,79% | Identyczny wynik w stabilnym rynku byka. |
+| **2022** | **-12,66%** (123 trans.) | **-7,35% (15 trans.)** | **-19,95%** | **Redukcja straty niemal o połowę** w czasie bessy inflacyjnej. |
+| **2023** | +12,02% (78 trans.) | +5,66% (57 trans.) | +24,81% | Wejścia odblokowane po powrocie SPY nad SMA200. |
+| **2024** | +12,25% (88 trans.) | +12,25% (88 trans.) | +24,00% | Zgodność w stabilnym trendzie. |
+| **2025** | +13,90% (95 trans.) | +5,89% (73 trans.) | +16,64% | Mniejsza liczba transz w podwyższonej zmienności. |
+| **2026** | +7,59% (89 trans.) | +4,51% (78 trans.) | +13,29% | Stabilny dodatni wynik w bieżącym okresie. |
+
+---
+
+#### 4. Badanie Wrażliwości Długości Średniej (Informacyjnie: SMA150, SMA200, SMA250)
+
+Aby zweryfikować, czy skuteczność filtra nie wynika z przypadkowego dopasowania do okna 200 sesji, przeprowadzono identyczną procedurę dla sąsiadujących parametrów **SMA150** oraz **SMA250**:
+
+| Parametr filtra | Aktywność % | Transakcje | Expectancy (netto) | 90% CI dolna (mies.) | Holdout CI dolna | Najgorszy rok portfela | Zwrot 2008 r. | Max Drawdown | Kryteria zaliczone |
+|---|---|---|---|---|---|---|---|---|:---:|
+| **`spy150`** | 76,1% | 1 309 | +0,595% | +0,232% | +0,117% | -10,24% (2012) | -0,63% (1 trans.) | -15,44% | **5 / 6** |
+| **`spy200` (baza)** | 76,9% | 1 391 | +0,518% | +0,147% | +0,048% | -9,53% (2012) | **0,00% (0 trans.)** | **-16,19%** | **5 / 6** |
+| **`spy250`** | 77,5% | 1 451 | +0,525% | +0,167% | +0,009% | -8,57% (2012) | **0,00% (0 trans.)** | -18,59% | **5 / 6** |
+
+**Wniosek z badania wrażliwości:**
+Wyniki w całym paśmie 150–250 sesji są niemal identyczne — w każdym wariancie zaliczone jest dokładnie 5 z 6 kryteriów, a obsunięcie portfela w 2008 roku zostaje zredukowane praktycznie do zera. Potwierdza to strukturalną odporność hipotezy na wybór parametru.
+
+---
+
+#### 5. Uzasadnienie Werdyktu NO-GO
+
+Mimo że filtr `SPY > SMA200` rozwiązał fundamentalne problemy strategii (zaliczył kryterium dolnego CI +0,147% oraz zredukował stratę 2008 roku z -35,60% do 0,00%), **ostateczny werdykt formalny to NO-GO**:
+- Kryterium 4 (stress test `CONSERVATIVE_US`) przyniosło wynik **-1,739%** (wobec wymaganego ≥ 0,0%).
+- Hipoteza potwierdza, że strategia rewersji wymaga bezwzględnie rachunku z **zerową stawką prowizji (`XTB_USD`)** i nie jest odporna na klasyczne prowizje biletowe przy małym nominale transzy (\$168).
+- Zgodnie z założeniami metodologicznymi Fazy 2: brak zaliczenia 1 z 6 kryteriów uniemożliwia przejście do tradingu na realnym kapitale, lecz stanowi solidną bazę pod paper trading.
 
 ## Uruchomienie
 
