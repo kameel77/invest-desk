@@ -151,7 +151,7 @@ _FRAME_CACHE: dict[tuple, Any] = {}
 _FRAME_CACHE_MAX = 240
 
 
-def _cached_frame(symbol: str, limit: int = 3000) -> Optional[pd.DataFrame]:
+def _cached_frame(symbol: str, limit: int = 6000) -> Optional[pd.DataFrame]:
     """Indicator frame for ``symbol``, memoised in-process.
 
     ``compute_indicators`` is the hot path in a parameter grid: walk-forward
@@ -166,6 +166,7 @@ def _cached_frame(symbol: str, limit: int = 3000) -> Optional[pd.DataFrame]:
     df = signals.load_frame(symbol, limit=limit)
     if df is None:
         return None
+    df = signals.ensure_daily_bars(df)
     df = signals.compute_indicators(df)
     if len(_FRAME_CACHE) >= _FRAME_CACHE_MAX:
         _FRAME_CACHE.clear()

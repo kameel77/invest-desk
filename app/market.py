@@ -230,7 +230,11 @@ async def fetch_candles(symbol: str, rng: str = "2y", interval: str = "1d",
     if not force and cached and (time.time() - cached[0]) < config.CANDLE_TTL:
         return 0
 
-    result = await _yahoo_chart(symbol, rng, interval)
+    # Yahoo Finance v8 chart API: zapytanie z range="max" dla interval="1d" powoduje, że Yahoo
+    # agreguje świece do interwału miesięcznego (1mo) lub obcina historię dzienną.
+    # Wymuszenie range="20y" zachowuje pełne, gęste dzienne świece OHLCV z ostatnich 20 lat.
+    rng_query = "20y" if (rng == "max" and interval == "1d") else rng
+    result = await _yahoo_chart(symbol, rng_query, interval)
     if not result:
         return 0
     bars, _info = _parse_yahoo(result)

@@ -23,43 +23,127 @@ def _synthetic_symbol_frame(symbol: str, closes: list[float], spread: float = 0.
     })
 
 
-def test_portfolio_sim_reconciliation_with_reversion_simulate(monkeypatch):
-    """Reconciliation test: with infinite slots and cash, PortfolioSimulator
+def _synthetic_student_t_frame(symbol: str, n_bars: int = 1500, seed: int = 42, df_t: float = 4.0) -> pd.DataFrame:
+    """Generate synthetic OHLCV random walk with Student-t fat tails."""
+    rng = np.random.default_rng(seed)
+    # Scaled to ~1.5% daily volatility
+    t_innovations = rng.standard_t(df=df_t, size=n_bars) * 0.015 / math.sqrt(df_t / (df_t - 2.0))
+    closes = 100.0 * np.exp(np.cumsum(t_innovations))
+    highs = closes * (1.0 + rng.uniform(0.005, 0.02, size=n_bars))
+    lows = closes * (1.0 - rng.uniform(0.005, 0.02, size=n_bars))
+    opens = np.empty(n_bars)
+    opens[0] = closes[0]
+    for i in range(1, n_bars):
+        opens[i] = np.clip(closes[i - 1] * (1.0 + rng.normal(0, 0.003)), lows[i] * 1.001, highs[i] * 0.999)
+    highs = np.maximum(highs, np.maximum(opens, closes) * 1.001)
+    lows = np.minimum(lows, np.minimum(opens, closes) * 0.999)
 
-    produces identical trade outcomes as reversion.simulate().
+    timestamps = [1_700_000_000 + i * 86_400 for i in range(n_bars)]
+    return pd.DataFrame({
+        "ts": timestamps,
+        "symbol": symbol,
+        "open": opens,
+        "high": highs,
+        "low": lows,
+        "close": closes,
+        "volume": [1_000_000.0] * n_bars,
+    })
+
+
+@pytest.mark.parametrize("seed", [42, 123, 999])
+def test_portfolio_sim_reconciliation_with_reversion_simulate(monkeypatch, seed):
+    """Reconciliation test on 1500 bars synthetic Student-t series (seed parameterised):
+
+    With infinite slots and cash, PortfolioSimulator produces 1:1 identical trades
+    and net returns (tol 1e-3 pp) to reversion.simulate().
     """
-    # 30 bars of warm wave, then sharp dip to trigger entry
-    wave = [100.0 + math.sin(i * 0.5) * 2.0 for i in range(30)] + [92.0]
-    # Then recovery above mean (e.g. 102.0)
-    wave += [95.0, 98.0, 102.0]
-    df = _synthetic_symbol_frame("TEST_SYM", wave)
+    df = _synthetic_student_t_frame("SYNTH_TEST", n_bars=1500, seed=seed)
+    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: df if sym == "SYNTH_TEST" else None)
 
-    # Monkeypatch bt._cached_frame to return df
-    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: df if sym == "TEST_SYM" else None)
+    # 1. Single asset simulate() with target budget notional ($1e7 = $1e9 / 100)
+    target_notional = 1e7
+    single_trades = reversion.simulate(
+        df,
+        as_trades=True,
+        broker_profile="IBKR_TIERED_USD",
+        notional=target_notional,
+    )
+    assert len(single_trades) >= 10, f"Seed {seed} generated too few trades: {len(single_trades)}"
 
-    # 1. Single asset simulate()
-    single_trades = reversion.simulate(df, as_trades=True, broker_profile="IBKR_TIERED_USD")
-    assert len(single_trades) >= 1
-
-    # 2. PortfolioSimulator with infinite slots and large cash
+    # 2. PortfolioSimulator with 100 slots and 1e9 cash
     sim = PortfolioSimulator(
-        symbols=["TEST_SYM"],
-        initial_cash=1_000_000.0,
+        symbols=["SYNTH_TEST"],
+        initial_cash=1e9,
         max_slots=100,
         broker_profile="IBKR_TIERED_USD",
     )
     res = sim.run()
     assert "error" not in res
-    closed = res["closed_trades"]
-    assert len(closed) == len(single_trades)
+    port_trades = res["closed_trades"]
 
-    # Compare trade 0
-    t_single = single_trades[0]
-    t_port = closed[0]
-    assert t_port["symbol"] == "TEST_SYM"
-    assert t_port["reason"] == t_single.reason
-    assert pytest.approx(t_port["entry_px"], abs=1e-4) == t_single.entry_px
-    assert pytest.approx(t_port["exit_px"], abs=1e-4) == t_single.exit_px
+    assert len(port_trades) == len(single_trades), (
+        f"Trade count mismatch for seed {seed}: port={len(port_trades)} vs single={len(single_trades)}"
+    )
+
+    # 3. Assert 1:1 identical trades and net_ret within 1e-3 pp
+    for i, (t_single, t_port) in enumerate(zip(single_trades, port_trades)):
+        assert t_port["symbol"] == "SYNTH_TEST"
+        assert t_port["entry_ts"] == t_single.entry_ts, f"Trade {i} entry_ts mismatch"
+        assert t_port["exit_ts"] == t_single.exit_ts, f"Trade {i} exit_ts mismatch"
+        assert t_port["reason"] == t_single.reason, f"Trade {i} reason mismatch"
+        assert pytest.approx(t_port["exit_px"], abs=1e-4) == t_single.exit_px, f"Trade {i} exit_px mismatch"
+        assert abs(t_port["net_ret"] - t_single.ret_pct) < 1e-3, (
+            f"Trade {i} net_ret mismatch: port={t_port['net_ret']} vs single={t_single.ret_pct}"
+        )
+
+
+@pytest.mark.parametrize("seed", [7, 21, 314])
+def test_portfolio_sim_reconciliation_two_calendars(monkeypatch, seed):
+    """Reconciliation on two symbols with different calendars.
+
+    Symbol B starts 40 bars later than A and has ~5% of its days removed (gaps).
+    With infinite slots and cash, the portfolio must reproduce reversion.simulate()
+    1:1 on each symbol separately: a missing bar neither advances the hold counter
+    nor triggers an exit or any other state change.
+    """
+    df_a = _synthetic_student_t_frame("SYM_A", n_bars=1500, seed=seed)
+    df_b = _synthetic_student_t_frame("SYM_B", n_bars=1460, seed=seed + 1000)
+    df_b["ts"] = df_b["ts"] + 40 * 86_400
+    rng = np.random.default_rng(seed)
+    gap_mask = rng.random(len(df_b)) < 0.05
+    gap_mask[:25] = False  # keep the warmup intact
+    df_b = df_b[~gap_mask].reset_index(drop=True)
+    assert len(df_b) < 1460 - 20
+
+    frames = {"SYM_A": df_a, "SYM_B": df_b}
+    monkeypatch.setattr("app.backtest._cached_frame", lambda sym: frames.get(sym))
+
+    target_notional = 1e7
+    sim = PortfolioSimulator(
+        symbols=["SYM_A", "SYM_B"],
+        initial_cash=1e9,
+        max_slots=100,
+        broker_profile="IBKR_TIERED_USD",
+    )
+    res = sim.run()
+    assert "error" not in res
+
+    for sym, df in frames.items():
+        single = reversion.simulate(
+            df, as_trades=True, broker_profile="IBKR_TIERED_USD", notional=target_notional,
+        )
+        # simulate() force-closes a position still open on the last bar ("eod"); the
+        # portfolio keeps it open (marked to market), so that trailing trade is not comparable.
+        single = [t for t in single if t.reason != "eod"]
+        port = [t for t in res["closed_trades"] if t["symbol"] == sym]
+        assert len(single) >= 10, f"{sym}: too few trades ({len(single)})"
+        assert len(port) == len(single), f"{sym}: port={len(port)} vs single={len(single)}"
+        for i, (ts_, tp) in enumerate(zip(single, port)):
+            assert tp["entry_ts"] == ts_.entry_ts, f"{sym} trade {i} entry_ts"
+            assert tp["exit_ts"] == ts_.exit_ts, f"{sym} trade {i} exit_ts"
+            assert tp["reason"] == ts_.reason, f"{sym} trade {i} reason"
+            assert pytest.approx(tp["exit_px"], abs=1e-4) == ts_.exit_px, f"{sym} trade {i} exit_px"
+            assert abs(tp["net_ret"] - ts_.ret_pct) < 1e-3, f"{sym} trade {i} net_ret"
 
 
 def test_deterministic_priority_and_slot_limit(monkeypatch):
