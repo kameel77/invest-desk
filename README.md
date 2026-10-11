@@ -29,18 +29,18 @@ skalowanym pod małe tickety.
 
 ## Wynik testów strategii (stan na 2026-09-29)
 
-Backtest na 52 instrumentach, 10 lat świec dziennych (141 468 świec).
+Backtest na 52 instrumentach, 5 lat świec dziennych dla 52 instrumentów (ok. 65 tys. świec; dla 22 instrumentów US dodatkowo 20 lat na potrzeby bramki v2).
 
 | Metryka | Obecna strategia | Najlepsza z 19 wariantów |
 |---|---|---|
-| Konfiguracja | wej≥35, SL2.0, TP3.0, H20 | wej≥35, **SL3.0, TP4.5**, H20 |
+| Konfiguracja | wej≥35, SL2.0, TP4.0, H20 | wej≥35, **SL3.0, TP4.5**, H20 |
 | Zwrot (in-sample) | **-11,65%** | **+13,97%** |
 | Sharpe | -0,14 | 0,44 |
 | Profit factor | 0,97 | 1,06 |
 | Transakcje | 1 005 | 844 |
 
 **Wniosek:** za ciasne stopy zabijają tę strategię. Przy SL1,5/TP2,0 zwrot
-spada do -81,65%. Wyższy próg wejścia (≥55) również pogarsza wynik. Wagi
+spada do -118,61% (1 505 transakcji) wg `reports/latest.json`. Wyższy próg wejścia (≥55) również pogarsza wynik. Wagi
 komponentów mają znaczenie drugorzędne.
 
 > **Te liczby są z tych samych danych, na których konfiguracja była wybierana.**
@@ -99,16 +99,23 @@ hipotezy, nie optymalizacji.
 
 ### Test innych hipotez (`python -m tools.run_hypotheses`)
 
-Przetestowane cztery rodziny, każda przez ten sam walk-forward. Miarą
-porównawczą jest **expectancy na transakcję** (zwrot skumulowany zależy od
-liczby transakcji i myli).
+Miarą porównawczą jest **expectancy na transakcję** (zwrot skumulowany zależy
+od liczby transakcji i myli).
 
-| Rodzina | OOS transakcje | Expectancy | Zyskowna fałdy | Sharpe |
+| Rodzina | OOS transakcje | Expectancy | Zyskowne fałdy | Sharpe |
 |---|---|---|---|---|
-| **Rewersja do średniej** | 590 | **+0,467%** | **3/4** | **1,13** |
-| Surowce/FX (driver) | 1 776 | +0,116% | 1/4 | 0,23 |
-| Średnie kroczące (per-symbol) | 265 | -0,01% | 1/2 | -0,22 |
-| Momentum krótkie | 3 900 | -0,426% | 0/4 | -1,77 |
+| **Rewersja do średniej** (po parytecie 2026-10-08) | 449 | **-0,308%** | **2/8** | — |
+| Surowce/FX (driver) | kod badawczy, nietestowany poprawnie | | | |
+| Średnie kroczące (per-symbol) | kod badawczy, nietestowany poprawnie | | | |
+| Momentum krótkie | kod badawczy, nietestowany poprawnie | | | |
+
+Wiersz rewersji pochodzi z `reports/hypotheses_20261009_0617.json` (po parytecie
+2026-10-08; wcześniejszy wynik +0,467% pochodził z kodu sprzed poprawki).
+Pozostałych trzech rodzin nie należy cytować, bo implementacja ma błędy:
+
+- `ma` (`app/hypotheses.py`) nie ma wyjścia na przecięcie w dół, mimo że docstring je opisuje.
+- `driver` nie sprawdza znaku korelacji ani kierunku sterownika, a w bazie brak świec dla GC=F/CL=F/HG=F/NG=F i par PLN.
+- `momentum_short` wchodzi na |ROC| bez kierunku (kupuje też krachy).
 
 ### Weryfikacja hipotezy rewersji po parytecie z produkcją (stan na 2026-10-09)
 
@@ -140,6 +147,8 @@ przeprowadzono rzetelny walk-forward (8 fałdów, 2 lata treningu + 5 mies. test
      automatyczne zlecenia paper tradingu są dopuszczone wyłącznie dla rynku US.
 
 ### Wyniki Bramki Walidacyjnej Fazy 0 dla US Reversion (2026-10-09)
+
+*Werdykt GO z 2026-10-09 był przedwczesny: okno 8×5 mies. obejmuje 2023-06..2026-10 i pomija 2022, a w okresie 2021-10..2023-06 expectancy wynosi -0,001%. Zastąpiła go bramka v2 na 20 latach (NO-GO), patrz sekcja „Bramka v2".*
 
 Zgodnie z wymogami ilościowymi (konsultacja Claude Opus 5.5), przed wdrożeniem silnika portfelowego
 przeprowadzono badanie wrażliwości strategii na profile kosztowe brokerów oraz test istotności statystycznej

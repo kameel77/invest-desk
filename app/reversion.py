@@ -1,11 +1,15 @@
 """Mean-reversion hypothesis.
 
 The trend+momentum system lost money out-of-sample (-2.02% walk-forward).
-Mean reversion is the mirror image and the only family that cleared the bar:
-+0.67% expectancy per trade over 8 folds, positive in 5 of 8.
+Mean reversion is the mirror image of it.
 
-Parameters are the ones walk-forward kept choosing (7 of 8 folds):
+Parameters 20/2.0/10/2.5/3.0 are the fixed base from the 2026-09 study:
     lookback=20, z_entry=2.0, hold=10, stop=2.5xATR, target=3.0xATR
+After the backtest/live parity fix (2026-10-08) the grid-selected walk-forward
+gives -0.31%/trade, 2/8 folds positive. On the 20-year US gate v2 (2026-10-10)
+it gives +0.43%/trade but the verdict is NO-GO (3/6 criteria); ETF-only is
+-0.14%. See README sections "Weryfikacja hipotezy rewersji po parytecie" and
+"Bramka v2". GPW entries are disabled (`config.REVERSION_GPW_ENABLED`).
 
 It lives beside the trend engine, not instead of it. Both feed the same signal
 table and the same paper account, each tagged with its hypothesis, so the live
