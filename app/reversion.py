@@ -21,7 +21,7 @@ import pandas as pd
 
 from dataclasses import dataclass
 
-from . import config, db, signals
+from . import config, costs, db, signals
 from .costs import net_return_pct
 
 # --- walk-forward-selected parameters ------------------------------------
@@ -78,14 +78,12 @@ def check_bar_exit(
     target_px: float,
     bars_held: int,
     max_hold: int,
-    exit_on_open_z: bool = False,
-    next_open: float | None = None,
 ) -> tuple[float | None, str | None]:
     """Check exits for a single bar in strict priority order.
 
     Priority 1 (Stop-loss): if low_k <= stop_px -> exit at min(stop_px, open_k)
     Priority 2 (Take-profit): if high_k >= target_px -> exit at max(target_px, open_k)
-    Priority 3 (Mean reversion): if zk >= 0 -> exit at close_k (or next_open if exit_on_open_z)
+    Priority 3 (Mean reversion): if zk >= 0 -> exit at close_k
     Priority 4 (Time stop): if bars_held >= max_hold -> exit at close_k
     """
     if low_k <= stop_px:
@@ -93,8 +91,6 @@ def check_bar_exit(
     if high_k >= target_px:
         return max(target_px, open_k), "take-profit"
     if not pd.isna(zk) and zk >= 0:
-        if exit_on_open_z and next_open is not None and not pd.isna(next_open):
-            return float(next_open), "mean-reversion-open"
         return close_k, "mean-reversion"
     if bars_held >= max_hold:
         return close_k, "time-stop"
@@ -108,6 +104,8 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
              commission_pct: float | None = None,
              slippage_pct: float | None = None,
              broker_profile: Any = None,
+             shares: float | None = None,
+             notional: float | None = None,
              symbol: str = "") -> list[Any]:
     """Pure simulation of the reversion strategy on historical bars.
 
@@ -116,7 +114,7 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
       - indicators computed if missing (True Range ATR, z-score, ATR stretch)
       - entry signal at bar i via evaluate_entry_signal()
       - warmup guard: no entry if ATR is NaN or non-positive
-      - entry fill at open[i+1] * (1 + SLIPPAGE_PCT)
+      - entry fill at open[i+1] * (1 + slip_rate)
       - risk levels anchored to entry fill:
           stop = max(entry - stop_atr * atr_i, entry * 0.90)
           target = entry + target_atr * atr_i
@@ -140,7 +138,15 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
     trades: list[Trade] = []
     n = len(df)
     i = lookback
-    slip_rate = slippage_pct if slippage_pct is not None else config.SLIPPAGE_PCT
+
+    # Wspólny poślizg: jawne slippage_pct ma pierwszeństwo, potem profil, na końcu config
+    if slippage_pct is not None:
+        slip_rate = slippage_pct
+    elif broker_profile is not None:
+        prof = broker_profile if isinstance(broker_profile, costs.BrokerProfile) else costs.get_profile(broker_profile)
+        slip_rate = prof.slippage_pct
+    else:
+        slip_rate = config.SLIPPAGE_PCT
 
     while i < n - 1:
         if not evaluate_entry_signal(z.iloc[i], stretch.iloc[i], atr.iloc[i], z_entry, min_stretch_atr):
@@ -192,8 +198,10 @@ def simulate(df: pd.DataFrame, lookback: int = LOOKBACK, z_entry: float = Z_ENTR
         ret = net_return_pct(
             entry_open, exit_raw,
             commission_pct=commission_pct,
-            slippage_pct=slippage_pct,
+            slippage_pct=slip_rate,
             profile=broker_profile,
+            shares=shares,
+            notional=notional,
             symbol=symbol,
         )
         trades.append(Trade(

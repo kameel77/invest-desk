@@ -52,7 +52,9 @@ def _calc_spy_benchmark(start_ts: int, end_ts: int) -> dict[str, float]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Multi-asset Portfolio Simulation for US Reversion.")
     parser.add_argument("--slots", type=int, default=5, help="Number of portfolio slots (default: 5)")
-    parser.add_argument("--cash", type=float, default=10000.0, help="Initial capital in USD (default: 10000)")
+    parser.add_argument("--cash", type=float, default=1350.0, help="Initial capital in USD (default: 1350)")
+    parser.add_argument("--fractional", action=argparse.BooleanOptionalAction, default=True,
+                        help="Allow fractional shares (default: True)")
     parser.add_argument("--profile", default=config.DEFAULT_BROKER_PROFILE_US,
                         help=f"Broker profile (default: {config.DEFAULT_BROKER_PROFILE_US})")
     parser.add_argument("--start", help="Start date (YYYY-MM-DD)")
@@ -80,6 +82,7 @@ def main() -> None:
     print(f"Kapitał początkowy: ${args.cash:,.2f} USD")
     print(f"Liczba slotów: {args.slots} (alokacja {100.0 / args.slots:.1f}% kapitału na pozycję)")
     print(f"Profil brokera: {args.profile}")
+    print(f"Ułamkowe akcje: {'TAK' if args.fractional else 'NIE'}")
     print("-" * 80)
 
     sim = PortfolioSimulator(
@@ -87,6 +90,7 @@ def main() -> None:
         initial_cash=args.cash,
         max_slots=args.slots,
         broker_profile=args.profile,
+        fractional=args.fractional,
     )
 
     t0 = time.time()
@@ -126,8 +130,10 @@ def main() -> None:
     print("-" * 80)
     print(f"Średnie użycie slotów:  {res['avg_slots_used']:.2f} / {args.slots} ({res['avg_slots_used']/args.slots*100:.1f}%)")
     print(f"Dni z obciążeniem ≥80%: {res['pct_days_slots_above_80']:.1f}% dni")
-    print(f"Odrzucone sygnały:      łącznie {res['rejected_signals']['total']} "
-          f"(brak slotu: {res['rejected_signals']['slot_full']}, brak gotówki: {res['rejected_signals']['cash_exhausted']})")
+    rej = res["rejected_signals"]
+    print(f"Odrzucone sygnały:      łącznie {rej['total']} "
+          f"(brak slotu: {rej['slot_full']}, brak gotówki: {rej['cash_exhausted']}, "
+          f"prowizja: {rej['cash_exhausted_comm']}, rozmiar < min: {rej['size_below_min']}, brak open: {rej['no_open_price']})")
     print("=" * 80)
 
     # Save report
@@ -135,6 +141,7 @@ def main() -> None:
     res["config"] = {
         "slots": args.slots,
         "cash": args.cash,
+        "fractional": args.fractional,
         "profile": args.profile,
         "universe_size": len(universe),
         "start": start_dt,
@@ -143,7 +150,7 @@ def main() -> None:
 
     reports_dir = config.DATA_DIR.parent / "reports" if hasattr(config, "DATA_DIR") else Path("reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
-    report_file = reports_dir / f"portfolio_us_sim_{time.strftime('%Y%m%d_%H%M')}.json"
+    report_file = reports_dir / f"portfolio_us_sim_{time.strftime('%Y%m%d_%H%M%S')}_{args.profile}_{args.slots}slots.json"
     with open(report_file, "w") as f:
         json.dump(res, f, default=str, indent=2)
     print(f"Zapisano pełny raport portfelowy: {report_file} (czas obliczeń: {elapsed:.2f}s)\n")
